@@ -1,0 +1,80 @@
+#ifndef TICK_WIFI_H
+#define TICK_WIFI_H
+
+// #ifdef USE_WIFI
+#include <WiFi.h>
+#include "tick_utils.h"
+
+void wifi_init(void){
+  output_debug_string("WIFI INIT STARTED");
+  WiFi.hostname(dhcp_hostname);
+
+  // Check WiFi connection
+  // ... check mode
+  if (WiFi.getMode() != WIFI_STA) {
+    WiFi.mode(WIFI_STA);
+    delay(10);
+  }
+
+  // ... Compare file config with sdk config.
+  if (WiFi.SSID() != station_ssid || WiFi.psk() != station_psk) {
+    output_debug_string(F("WiFi config changed."));
+
+    // ... Try to connect as WiFi station.
+    WiFi.begin(station_ssid, station_psk);
+
+    output_debug_string("new SSID: " + String(WiFi.SSID()));
+
+    // ... Uncomment this for debugging output.
+    WiFi.printDiag(Serial);
+  } else {
+    // ... Begin with sdk config.
+    WiFi.begin();
+  }
+  output_debug_string(F("Wait for WiFi connection."));
+
+  if(strlen(station_ssid) > 0){
+
+    // ... Give ESP 10 seconds to connect to station.
+    unsigned long startTime = millis();
+    while (WiFi.status() != WL_CONNECTED && millis() - startTime < 60000) {
+      DBG_OUTPUT_PORT.write('.');
+      DBG_OUTPUT_PORT.print(WiFi.status());
+      delay(500);
+    }
+    DBG_OUTPUT_PORT.println();
+  }
+
+  // Check connection
+  if (WiFi.status() == WL_CONNECTED) {
+    // ... print IP Address
+    DBG_OUTPUT_PORT.print("IP address: ");
+    output_debug_string(WiFi.localIP().toString());
+  } else {
+    if (ap_enable) {
+      output_debug_string(F("Going into AP mode."));
+
+      // Go into software AP mode.
+      WiFi.mode(WIFI_AP);
+      WiFi.softAPConfig(ap_ip, ap_ip, IPAddress(255, 255, 255, 0));
+      WiFi.softAP(ap_ssid, ap_psk, 0, ap_hidden);
+
+      output_debug_string(
+        "SSID: " + String(ap_ssid) + "\n" +
+        "PSK: " + String(ap_psk) + "\n" +
+        "IP: " + WiFi.softAPIP().toString()
+      );
+    } else {
+      output_debug_string("Can not connect to WiFi station. Bummer.");
+      WiFi.mode(WIFI_OFF);
+    }
+  }
+
+}
+
+// #else
+
+// void wifi_init(void){}
+
+// #endif
+#endif
