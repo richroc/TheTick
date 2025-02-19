@@ -3,7 +3,26 @@
 
 #include "tick_utils.h"
 
-void reader1_append(int value)
+#ifdef USE_WIEGAND
+
+byte reader1_byte = 0;
+String reader1_string = "";
+int reader1_count = 0;
+unsigned long reader1_millis = 0;
+
+void wiegand_drainD0(void) {
+  detachInterrupts();
+  pinMode(wiegand_pin_d0, OUTPUT);
+  digitalWrite(wiegand_pin_d0, LOW);
+}
+
+void wiegand_restoreD0(void) {
+  digitalWrite(wiegand_pin_d0, HIGH);
+  pinMode(wiegand_pin_d0, INPUT);
+  attachInterrupts();
+}
+
+static void wiegand_reader_append(int value)
 {
   reader1_count++;
   reader1_millis = millis();
@@ -18,14 +37,14 @@ void reader1_append(int value)
 
 void reader1_wiegand_trigger(void)
 {
-  if(digitalRead(PIN_D0) == LOW)
-    reader1_append(0);
+  if(digitalRead(wiegand_pin_d0) == LOW)
+    wiegand_reader_append(0);
   
-  if(digitalRead(PIN_D1) == LOW)
-    reader1_append(1);
+  if(digitalRead(wiegand_pin_d1) == LOW)
+    wiegand_reader_append(1);
 }
 
-void fix_reader1_string(void)
+static void wiegand_fix_reader1_string(void)
 {
   byte loose_bits = reader1_count % 4;
   if (loose_bits > 0)
@@ -46,25 +65,24 @@ void fix_reader1_string(void)
   reader1_string += ":" + String(reader1_count);
 }
 
-void reader1_reset()
+static void wiegand_reader1_reset()
 {
   reader1_byte = 0;
   reader1_count = 0;
   reader1_string = "";
 }
 
-
-void transmit_assert(byte bit) {
-  byte pin = bit ? PIN_D1 : PIN_D0;
+static void wiegand_transmit_assert(byte bit) {
+  byte pin = bit ? wiegand_pin_d1 : wiegand_pin_d0;
   digitalWrite(pin, LOW);
   pinMode(pin, OUTPUT);
-  delayMicroseconds(PULSE_WIDTH);
+  delayMicroseconds(wiegand_pulse_width);
   pinMode(pin, INPUT);
   digitalWrite(pin, HIGH);
-  delayMicroseconds(PULSE_GAP);
+  delayMicroseconds(wiegand_pulse_gap);
 }
 
-void transmit_id(String sendValue, unsigned long bitcount)
+void wiegand_transmit_id(String sendValue, unsigned long bitcount)
 {
   detachInterrupts();
   output_debug_string("Sending data: " + sendValue + ":" + String(bitcount));
@@ -81,7 +99,7 @@ void transmit_id(String sendValue, unsigned long bitcount)
   {
     for (unsigned long i = bitcount - bits_available; i > 0; i--)
     {
-      transmit_assert(0);
+      wiegand_transmit_assert(0);
     }
   }
   for (unsigned long i = 0; i < sendValue.length(); i++)
@@ -92,7 +110,7 @@ void transmit_id(String sendValue, unsigned long bitcount)
     {
       byte b = bitRead(c, x);
       // DBG_OUTPUT_PORT.println("x:" + String(x) + " b:" + b);
-      transmit_assert(b);
+      wiegand_transmit_assert(b);
     }
     excess_bits = 0;
   }
@@ -100,4 +118,17 @@ void transmit_id(String sendValue, unsigned long bitcount)
   attachInterrupts();
 }
 
+void wiegand_loop(void (*read_handler)(const char *)){
+  if (reader1_count >= CARD_LEN && (reader1_millis + 5 <= millis() || millis() < 10)) {
+    wiegand_fix_reader1_string();
+    read_handler(reader1_string.c_str());
+    wiegand_reader1_reset();
+  }
+}
+
+#else
+
+#error "Wiegand support is currently required"
+
+#endif
 #endif

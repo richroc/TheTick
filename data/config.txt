@@ -13,6 +13,10 @@ host=TheTick
 
 [wiegand]
 dos_id=7fffffff:31
+pin_d0=0
+pin_d1=1
+pulse_width=34
+pulse_gap=1966
 
 [ota]
 password=ExtraSpecialPassKey

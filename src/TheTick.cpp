@@ -19,11 +19,6 @@
 unsigned long config_reset_millis = 30000;
 byte reset_pin_state = 1;
 
-byte reader1_byte = 0;
-String reader1_string = "";
-int reader1_count = 0;
-unsigned long reader1_millis = 0;
-
 unsigned long last_aux_change = 0;
 byte last_aux = 1;
 byte expect_aux = 2;
@@ -32,15 +27,27 @@ byte expect_aux = 2;
 
 void detachInterrupts(void) {
   noInterrupts();
-  detachInterrupt(digitalPinToInterrupt(PIN_D0));
-  detachInterrupt(digitalPinToInterrupt(PIN_D1));
+  switch(current_tick_mode){
+    #ifdef USE_WIEGAND
+    case tick_mode_wiegand:
+      detachInterrupt(digitalPinToInterrupt(wiegand_pin_d1));
+      detachInterrupt(digitalPinToInterrupt(wiegand_pin_d0));
+      break;
+    #endif
+  }
   interrupts();
 }
 
 void attachInterrupts(void) {
   noInterrupts();
-  attachInterrupt(digitalPinToInterrupt(PIN_D0), reader1_wiegand_trigger, FALLING);
-  attachInterrupt(digitalPinToInterrupt(PIN_D1), reader1_wiegand_trigger, FALLING);
+  switch(current_tick_mode){
+    #ifdef USE_WIEGAND
+    case tick_mode_wiegand:
+      attachInterrupt(digitalPinToInterrupt(wiegand_pin_d0), reader1_wiegand_trigger, FALLING);
+      attachInterrupt(digitalPinToInterrupt(wiegand_pin_d1), reader1_wiegand_trigger, FALLING);
+      break;
+    #endif
+  }
   interrupts();
 }
 
@@ -65,16 +72,25 @@ void output_debug_string(String s){
   display_string(s);
 }
 
-void drainD0(void) {
-  detachInterrupts();
-  pinMode(PIN_D0, OUTPUT);
-  digitalWrite(PIN_D0, LOW);
+
+void jamming_enable(void){
+  switch(current_tick_mode){
+    #ifdef USE_WIEGAND
+    case tick_mode_wiegand:
+      wiegand_drainD0();
+      break;
+    #endif
+  }
 }
 
-void restoreD0(void) {
-  digitalWrite(PIN_D0, HIGH);
-  pinMode(PIN_D0, INPUT);
-  attachInterrupts();
+void jamming_disable(void){
+  switch(current_tick_mode){
+    #ifdef USE_WIEGAND
+    case tick_mode_wiegand:
+      wiegand_restoreD0();
+      break;
+    #endif
+  }
 }
 
 #include "tick_config_handling.h"
@@ -157,6 +173,15 @@ void setup() {
     output_debug_string(F("No configuration. Defaults."));
   }
 
+  switch(current_tick_mode){
+    case tick_mode_wiegand:
+      pinMode(wiegand_pin_d0, INPUT);
+      digitalWrite(wiegand_pin_d0, HIGH);
+      pinMode(wiegand_pin_d1, INPUT);
+      digitalWrite(wiegand_pin_d1, HIGH);
+      break;
+  }
+
   wifi_init();
   syslog_init();
   ota_init();
@@ -186,22 +211,33 @@ void card_read_handler(const char * card_id){
     ble_card_read(card_id);
 
     if(strcmp(card_id, DoS_id) == 0) {
-      drainD0();
+      jamming_enable();
       append_log("DoS mode enabled by control card");
     } else {
-      append_log(reader1_string);
+      append_log(String(card_id));
     }
 }
 
+void transmit_id(String sendValue, unsigned long bitcount){
+  switch(current_tick_mode){
+    #ifdef USE_WIEGAND
+    case tick_mode_wiegand:
+      wiegand_transmit_id(sendValue, bitcount);
+      break;
+    #endif
+  }
+}
 
 void loop()
 {
   heartbeat();
 
-  if (reader1_count >= CARD_LEN && (reader1_millis + 5 <= millis() || millis() < 10)) {
-    fix_reader1_string();
-    card_read_handler(reader1_string.c_str());
-    reader1_reset();
+  switch(current_tick_mode){
+    #ifdef USE_WIEGAND
+    case tick_mode_wiegand:
+      wiegand_loop(card_read_handler);
+      break;
+    #endif
   }
 
   http_loop();

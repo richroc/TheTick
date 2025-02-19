@@ -23,9 +23,13 @@ bool loadConfig() {
     return false;
   }
   
-
-
+  #ifdef USE_WIEGAND
   ini.getValue("wiegand", "dos_id", buffer, bufferLen, DoS_id, CONFIG_PASSWORD_LENGTH);
+  ini.getValue("wiegand", "pin_d0", buffer, bufferLen, wiegand_pin_d0);
+  ini.getValue("wiegand", "pin_d1", buffer, bufferLen, wiegand_pin_d1);
+  ini.getValue("wiegand", "pulse_width", buffer, bufferLen, wiegand_pulse_width);
+  ini.getValue("wiegand", "pulse_gap", buffer, bufferLen, wiegand_pulse_gap);
+  #endif
 
   #ifdef USE_WIFI
   ini.getValue("wifi_hotspot", "enable", buffer, bufferLen, ap_enable);

@@ -38,8 +38,8 @@ uint32_t readVDCVoltage(void){
 }
 
 void transmit_id(String sendValue, unsigned long bitcount);
-void drainD0(void);
-void restoreD0(void);
+void jamming_enable(void);
+void jamming_disable(void);
 void append_log(String text);
 void output_debug_string(String s);
 String dhcp_hostname;

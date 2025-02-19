@@ -11,9 +11,10 @@
 #define CONFIG_FILE "/config.txt"
 #define DBG_OUTPUT_PORT Serial       // This could be a file with some hacking
 #define CARD_LEN 4                   // minimum card length in bits
-#define PULSE_WIDTH 34               // length of asserted pulse in microSeconds
-#define PULSE_GAP 2000 - PULSE_WIDTH // delay between pulses in microSeconds
+#define WIEGAND_PULSE_WIDTH 34               // length of asserted pulse in microSeconds
+#define WIEGAND_PULSE_GAP 2000 - WIEGAND_PULSE_WIDTH // delay between pulses in microSeconds
 
+#define TICK_MODE 0
 
 // Features
 // #define USE_WIFI
@@ -25,11 +26,12 @@
 // #define USE_MDNS_RESPONDER
 // #define USE_OSDP
 // #define USE_BLE
+// #define USE_WIEGAND
 
 // Pin number assignments
 #define PIN_D0 0
-#define PIN_D1 3
-#define PIN_AUX 1 //swapped on this one!
+#define PIN_D1 1
+#define PIN_AUX 3
 #define PIN_VSENSE 4
 #define CONF_RESET 9
 
@@ -81,6 +83,20 @@
 #define CONFIG_UUID_LENGTH 37
 
 char log_name[CONFIG_VAR_LENGTH] = LOG_NAME;
+
+
+enum tick_mode {
+    tick_mode_wiegand
+};
+
+enum tick_mode current_tick_mode = tick_mode_wiegand;
+
+#ifdef USE_WIEGAND
+int wiegand_pin_d0 = PIN_D0;
+int wiegand_pin_d1 = PIN_D1;
+int wiegand_pulse_width = WIEGAND_PULSE_WIDTH;
+int wiegand_pulse_gap = WIEGAND_PULSE_GAP;
+#endif
 
 #ifdef USE_BLE
 char ble_uuid_wiegand_service[CONFIG_UUID_LENGTH] = BLE_UUID_WIEGAND_SERVICE;

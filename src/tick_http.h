@@ -48,7 +48,7 @@ bool basicAuthFailed() {
 void handleDoS() {
   if (basicAuthFailed())
     return;
-  drainD0();
+  jamming_enable();
   server.send(200, F("text/plain"), "");
   output_debug_string(F("DoS MODE"));
   append_log(F("DoS mode set by API request."));
