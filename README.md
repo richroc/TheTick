@@ -182,3 +182,9 @@ Due to unexplored reasons, all three are labeled "JP2" on the silkscreen.
 ### Connectors
 
 The current PCB revision uses KYOCERA AVX insulation displacement connectors of 9175-000 series, designed for 26 AWG stranded or solid wires. It is planned to switch to 9176-000 series, to support wires up to 20 AWG. If connecting the device to thick wires is needed, it is currently recommended to use supplementary automotive IDC T2 tap connectors.
+
+## Contributing
+
+If you want to contribute to a project and make it better, your help is very welcome. Contributing is also a great way to learn more about social coding on Github, new technologies and and their ecosystems and how to make constructive, helpful bug reports, feature requests and the noblest of all contributions: a good, clean pull request.
+
+I recognize that contributing to hardware projects can be more challenging than software, especially without access to the necessary components. If you're interested in helping out but lack the hardware, drop me an email — I may be able to send you a PCB to get started.
