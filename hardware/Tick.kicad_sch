@@ -8,6 +8,8 @@
 		(title "The Tick")
 		(date "2024-12-11")
 		(rev "v0.1")
+		(company "Copyright (C) 2024, 2025 Jakub \"lenwe\" Kramarz")
+		(comment 1 "CERN Open Hardware Licence Version 2 - Strongly Reciprocal")
 	)
 	(lib_symbols
 		(symbol "Connector:Conn_01x03_Pin"

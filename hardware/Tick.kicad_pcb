@@ -7,6 +7,13 @@
 		(legacy_teardrops no)
 	)
 	(paper "A4")
+	(title_block
+		(title "The Tick")
+		(date "2024-12-11")
+		(rev "v0.1")
+		(company "Copyright (C) 2024, 2025 Jakub \"lenwe\" Kramarz")
+		(comment 1 "CERN Open Hardware Licence Version 2 - Strongly Reciprocal")
+	)
 	(layers
 		(0 "F.Cu" signal)
 		(31 "B.Cu" signal)
@@ -76,7 +83,7 @@
 			(mirror no)
 			(drillshape 0)
 			(scaleselection 1)
-			(outputdirectory "")
+			(outputdirectory "production/")
 		)
 	)
 	(net 0 "")
@@ -6769,7 +6776,7 @@
 		(descr "SMD Solder Jumper, 1x1.5mm Triangular Pads, 0.3mm gap, open")
 		(tags "solder jumper open")
 		(property "Reference" "JP3"
-			(at -0.5218 3.0226 -0)
+			(at -0.5218 3.0226 0)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "5bead509-0b32-41c4-8624-59318c4ed683")
