@@ -13,20 +13,10 @@ function decodeWiegand(rawData, bitLength) {
           facilityCode = parseInt(binaryData.substring(1, 17), 2);
           cardNumber = parseInt(binaryData.substring(17, 36), 2);
           break;
-      case 34:
-          format = "HID34";
-          facilityCode = parseInt(binaryData.substring(2, 14), 2);
-          cardNumber = parseInt(binaryData.substring(14, 32), 2);
-          break;
-      case 35:
-          format = "HID35";
-          facilityCode = parseInt(binaryData.substring(1, 21), 2);
-          cardNumber = parseInt(binaryData.substring(21, 34), 2);
-          break;
-      case 50:
-          format = "PACS50";
-          facilityCode = parseInt(binaryData.substring(8, 24), 2);
-          cardNumber = parseInt(binaryData.substring(24, 48), 2);
+      case 46:
+          format = "H800002";
+          facilityCode = parseInt(binaryData.substring(1, 15), 2);
+          cardNumber = parseInt(binaryData.substring(15, 45), 2);
           break;
       default:
           format = "Unknown";
@@ -50,17 +40,9 @@ function calculateWiegandParity(rawData, bitLength) {
         evenParity = binaryData.substring(0, 18).split('').filter(bit => bit === '1').length % 2 === 0 ? 0 : 1;
         oddParity = binaryData.substring(18).split('').filter(bit => bit === '1').length % 2 === 1 ? 0 : 1;
         break;
-      case 34:
-        evenParity = binaryData.substring(0, 16).split('').filter(bit => bit === '1').length % 2 === 0 ? 0 : 1;
-        oddParity = binaryData.substring(16).split('').filter(bit => bit === '1').length % 2 === 1 ? 0 : 1;
-        break;
-      case 35:
-        evenParity = binaryData.substring(0, 17).split('').filter(bit => bit === '1').length % 2 === 0 ? 0 : 1;
-        oddParity = binaryData.substring(17).split('').filter(bit => bit === '1').length % 2 === 1 ? 0 : 1;
-        break;
-      case 50:
-        evenParity = binaryData.substring(0, 24).split('').filter(bit => bit === '1').length % 2 === 0 ? 0 : 1;
-        oddParity = binaryData.substring(24).split('').filter(bit => bit === '1').length % 2 === 1 ? 0 : 1;
+      case 46:
+        evenParity = binaryData.split('').filter(bit => bit === '1').length % 2 === 0 ? 0 : 1;
+        oddParity = binaryData.split('').filter(bit => bit === '1').length % 2 === 1 ? 0 : 1;
         break;
       default:
         return { error: "Unsupported bit length" };
@@ -82,17 +64,9 @@ function encodeWiegand(format, facilityCode, cardNumber) {
         bitLength = 37;
         binaryData = facilityCode.toString(2).padStart(16, '0') + cardNumber.toString(2).padStart(19, '0');
         break;
-        case "HID34":
-        bitLength = 34;
-        binaryData = facilityCode.toString(2).padStart(12, '0') + cardNumber.toString(2).padStart(18, '0');
-        break;
-        case "HID35":
-        bitLength = 35;
-        binaryData = facilityCode.toString(2).padStart(20, '0') + cardNumber.toString(2).padStart(13, '0');
-        break;
-        case "PACS50":
-        bitLength = 50;
-        binaryData = facilityCode.toString(2).padStart(16, '0') + cardNumber.toString(2).padStart(24, '0');
+        case "H800002":
+        bitLength = 46;
+        binaryData = facilityCode.toString(2).padStart(14, '0') + cardNumber.toString(2).padStart(30, '0');
         break;
         default:
         return { error: "Unsupported format" };
