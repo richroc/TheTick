@@ -16,7 +16,7 @@
 #ifndef TICK_WIFI_H
 #define TICK_WIFI_H
 
-// #ifdef USE_WIFI
+#ifdef USE_WIFI
 #include <WiFi.h>
 #include "tick_utils.h"
 
@@ -87,9 +87,9 @@ void wifi_init(void){
 
 }
 
-// #else
+#else
 
-// void wifi_init(void){}
+void wifi_init(void){}
 
-// #endif
+#endif
 #endif

@@ -201,7 +201,9 @@ void setup() {
   // If a log.txt exists, use ap_ssid=TheTick-<chipid> instead of the default TheTick-config
   // A config file will take precedence over this
   if (SPIFFS.exists("/log.txt")) {
+    #ifdef USE_WIFI
     dhcp_hostname.toCharArray(ap_ssid, sizeof(ap_ssid));
+    #endif
   }
   append_log(F("Starting up!"));
 
