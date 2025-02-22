@@ -47,7 +47,7 @@ There's a USB connector on-board, that even features embedded JTAG interface, bu
 
 | build flag         | description                                                                   |
 |--------------------|-------------------------------------------------------------------------------|
-| USE_MDNS_RESPONDER | broadcasts MDNS, so hostname instead of IP address can be used for connection |
+| USE_MDNS_RESPONDER | broadcasts MDNS, so hostname instead of IP address can be used for a connection |
 | USE_SYSLOG         | reports interactions to syslog server                                         |
 | USE_LCD            | reports interactions to a handy I2C OLED display                              |
 
@@ -59,13 +59,13 @@ There's a USB connector on-board, that even features embedded JTAG interface, bu
 | USE_CLOCKANDDATA   | provides support for clock&data interface sniffing and transmitting           |
 | USE_OSDP           | breaks the build, as it is not implemented yet                                |
 
-**In Wiegand mode**, device can receive (sniff) and transmit messages of any length.  
-Assignment of D0 and D1 lines can be corrected in configuration file after device installation, if needed.  
-Device was sucessfuly tested with 5V and 12V PACS systems, that uses different card number lengths.
+**In Wiegand mode**, the device can receive (sniff) and transmit messages of any length.  
+Assignment of D0 and D1 lines can be corrected in the configuration file after the device installation, if needed.  
+The device was sucessfuly tested with 5V and 12V PACS systems, that uses different card number lengths.
 
-**In Clock&Data mode**, device can receive and transmit messages of any reasonable length.  
-Assignment of DATA and CLOCK lines can be corrected in configuration file after device installation, if needed.  
-Device was sucessfuly tested with 12V Clock&Data system, running in Magstripe and UNITEK-emulation modes.  
+**In Clock&Data mode**, the device can receive and transmit messages of any reasonable length.  
+Assignment of DATA and CLOCK lines can be corrected in configuration file after the device installation, if needed.  
+The device was sucessfuly tested with 12V Clock&Data system, running in Magstripe and UNITEK-emulation modes.  
 Support for Paxton decoding is based on samples provided by [en4rab](https://github.com/en4rab/sigrok-paxton-pd).
 
 ### Build instructions
@@ -100,11 +100,11 @@ Currently, it offers following features:
 * sending arbitrary card number.
 
 The device currently does not support pairing nor bonding.
-Feature-wise it is simillar to [BLEKey](https://github.com/linklayer/BLEKey) by Mark Baseggio and Eric Evenchick, but running on a decade-younger hardware.
+Feature-wise is simillar to [BLEKey](https://github.com/linklayer/BLEKey) by Mark Baseggio and Eric Evenchick, but running on a decade-younger hardware.
 
 By default, functions are exposed in service *f498124f-2137-4615-9859-30eb4cecffb5* as characteristic *beb5483e-36e1-4688-b7f5-ea07361baaaa*. These UUIDs can be modified in the device configuration.
 
-There is a planned Flipper Zero client, that will be publicly released shortly after BLE Central role will be incorporated in its firmware.
+There is planned a Flipper Zero client, that will be publicly released shortly after BLE Central role will be incorporated in its firmware (probably never).
 
 ### OTA upgrade
 
