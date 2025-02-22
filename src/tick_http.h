@@ -111,7 +111,69 @@ void http_init(void){
   server.on("/version", HTTP_GET, []() {
     if (basicAuthFailed())
       return false;
-    String json = "{\"version\":\"" + String(VERSION) + "\",\"log_name\":\"" + String(log_name) + "\",\"ChipID\":\"" + String(getChipID(), HEX) + "\"}\n";
+
+    String current_mode = "invalid";
+    switch(current_tick_mode){
+      #ifdef USE_WIEGAND
+      case tick_mode_wiegand:
+        current_mode = "wiegand";
+        break;
+      #endif
+      #ifdef USE_CLOCKANDDATA
+      case tick_mode_clockanddata:
+        current_mode = "clockanddata";
+        break;
+      #endif
+      #ifdef USE_OSDP
+      case tick_mode_osdp:
+        current_mode = "osdp";
+        break;
+      #endif
+    }
+
+    String json = "{\"version\":\"" + String(VERSION) + "\",\"log_name\":\"" + String(log_name) + "\",\"ChipID\":\"" + String(getChipID(), HEX) + ", features: [" + 
+
+    #ifdef USE_WIEGAND
+    "\"wiegand\"," +
+    #endif
+
+    #ifdef USE_CLOCKANDDATA
+    "\"clockanddata\", " +
+    #endif
+
+    #ifdef USE_OSDP
+    "\"osdp\", " +
+    #endif
+
+    #ifdef USE_BLE
+    "\"ble\", " +
+    #endif
+
+    #ifdef USE_WIFI
+    "\"wifi\", " +
+    #endif
+
+    #ifdef USE_MDNS_RESPONDER
+    "\"mdns\", " +
+    #endif
+
+    #ifdef USE_OTA
+    "\"ota\", " +
+    #endif
+  
+    #ifdef USE_OTA_HTTP
+    "\"ota_http\", " +
+    #endif
+
+    #ifdef USE_SYSLOG
+    "\"syslog\", " +
+    #endif
+
+    #ifdef USE_LCD
+    "\"lcd\", " +
+    #endif
+
+    "\"http\"], \"mode\": \"" + current_mode + "\"}\n";
     server.send(200, "text/json", json);
     return true;
   });
