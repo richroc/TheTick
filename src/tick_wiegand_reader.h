@@ -145,9 +145,5 @@ void wiegand_loop(void){
   }
 }
 
-#else
-
-#error "Wiegand support is currently required"
-
 #endif
 #endif
