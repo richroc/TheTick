@@ -61,7 +61,7 @@ void clockanddata_transmit_id(String sendValue, unsigned long bitcount)
 
   const char * bitstream = sendValue.c_str();
   for(unsigned long i = 0; i < bitcount; i++){
-    if(bitstream[i] == '0'){
+    if(bitstream[i] == '1'){
       digitalWrite(clockanddata_pin_data, LOW);
       pinMode(clockanddata_pin_data, OUTPUT);
     }
