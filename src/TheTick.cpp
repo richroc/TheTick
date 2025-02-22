@@ -77,7 +77,7 @@ void attachInterrupts(void) {
   interrupts();
 }
 
-void auxChange(void) {
+void IRAM_ATTR auxChange(void) {
   volatile byte new_value = digitalRead(PIN_AUX);
   if (new_value == expect_aux) {
     last_aux = new_value;
@@ -142,7 +142,7 @@ void append_log(String text) {
   }
 }
 
-void resetConfig(void) {
+void IRAM_ATTR resetConfig(void) {
   if (millis() > 30000){
     return;
   }

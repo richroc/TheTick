@@ -41,7 +41,7 @@ void wiegand_restoreD0(void) {
   attachInterrupts();
 }
 
-static void wiegand_reader_append(int value)
+static void IRAM_ATTR wiegand_reader_append(int value)
 {
   reader1_count++;
   reader1_millis = millis();
@@ -54,7 +54,7 @@ static void wiegand_reader_append(int value)
   }
 }
 
-void reader1_wiegand_trigger(void)
+void IRAM_ATTR reader1_wiegand_trigger(void)
 {
   if(digitalRead(wiegand_pin_d0) == LOW)
     wiegand_reader_append(0);

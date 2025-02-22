@@ -35,7 +35,7 @@ void clockanddata_restore_clock(void) {
   attachInterrupts();
 }
 
-void clockanddata_trigger(void) {
+void IRAM_ATTR clockanddata_trigger(void) {
   unsigned long now = micros();
 
   if(now - clockanddata_last_received >= 500){
