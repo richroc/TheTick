@@ -24,7 +24,7 @@ pulse_gap=1966
 [clockanddata]
 pin_clock=0
 pin_data=1
-pulse_width=30
+pulse_width=300
 
 [ota]
 password=ExtraSpecialPassKey

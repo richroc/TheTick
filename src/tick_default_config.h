@@ -28,6 +28,7 @@
 #define CARD_LEN 4                   // minimum card length in bits
 #define WIEGAND_PULSE_WIDTH 34               // length of asserted pulse in microSeconds
 #define WIEGAND_PULSE_GAP 2000 - WIEGAND_PULSE_WIDTH // delay between pulses in microSeconds
+#define CLOCKANDDATA_PULSE_WIDTH 300 // length of half of clock signal
 
 #define TICK_MODE 0
 
@@ -118,7 +119,7 @@ int wiegand_pulse_gap = WIEGAND_PULSE_GAP;
 #ifdef USE_CLOCKANDDATA
 int clockanddata_pin_clock = PIN_D0;
 int clockanddata_pin_data = PIN_D1;
-int clockanddata_pulse_width = WIEGAND_PULSE_WIDTH;
+int clockanddata_pulse_width = CLOCKANDDATA_PULSE_WIDTH;
 #endif
 
 #ifdef USE_BLE
