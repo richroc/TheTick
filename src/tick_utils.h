@@ -42,6 +42,7 @@ void jamming_enable(void);
 void jamming_disable(void);
 void append_log(String text);
 void output_debug_string(String s);
+void card_read_handler(String s);
 String dhcp_hostname;
 
 #endif

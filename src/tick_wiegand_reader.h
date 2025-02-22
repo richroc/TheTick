@@ -118,10 +118,10 @@ void wiegand_transmit_id(String sendValue, unsigned long bitcount)
   attachInterrupts();
 }
 
-void wiegand_loop(void (*read_handler)(const char *)){
+void wiegand_loop(void){
   if (reader1_count >= CARD_LEN && (reader1_millis + 5 <= millis() || millis() < 10)) {
     wiegand_fix_reader1_string();
-    read_handler(reader1_string.c_str());
+    card_read_handler(reader1_string);
     wiegand_reader1_reset();
   }
 }

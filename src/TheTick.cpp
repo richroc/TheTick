@@ -24,6 +24,7 @@ byte last_aux = 1;
 byte expect_aux = 2;
 
 #include "tick_wiegand_reader.h"
+#include "tick_clockanddata_reader.h"
 
 void detachInterrupts(void) {
   noInterrupts();
@@ -32,6 +33,11 @@ void detachInterrupts(void) {
     case tick_mode_wiegand:
       detachInterrupt(digitalPinToInterrupt(wiegand_pin_d1));
       detachInterrupt(digitalPinToInterrupt(wiegand_pin_d0));
+      break;
+    #endif
+    #ifdef USE_CLOCKANDDATA
+    case tick_mode_clockanddata:
+      detachInterrupt(digitalPinToInterrupt(clockanddata_pin_clock));
       break;
     #endif
   }
@@ -45,6 +51,11 @@ void attachInterrupts(void) {
     case tick_mode_wiegand:
       attachInterrupt(digitalPinToInterrupt(wiegand_pin_d0), reader1_wiegand_trigger, FALLING);
       attachInterrupt(digitalPinToInterrupt(wiegand_pin_d1), reader1_wiegand_trigger, FALLING);
+      break;
+    #endif
+    #ifdef USE_CLOCKANDDATA
+    case tick_mode_clockanddata:
+      attachInterrupt(digitalPinToInterrupt(clockanddata_pin_clock), clockanddata_trigger, FALLING);
       break;
     #endif
   }
@@ -80,6 +91,11 @@ void jamming_enable(void){
       wiegand_drainD0();
       break;
     #endif
+    #ifdef USE_CLOCKANDDATA
+    case tick_mode_clockanddata:
+      clockanddata_drain_clock();
+      break;
+    #endif
   }
 }
 
@@ -88,6 +104,11 @@ void jamming_disable(void){
     #ifdef USE_WIEGAND
     case tick_mode_wiegand:
       wiegand_restoreD0();
+      break;
+    #endif
+    #ifdef USE_CLOCKANDDATA
+    case tick_mode_clockanddata:
+      clockanddata_restore_clock();
       break;
     #endif
   }
@@ -174,12 +195,22 @@ void setup() {
   }
 
   switch(current_tick_mode){
+    #ifdef USE_WIEGAND
     case tick_mode_wiegand:
       pinMode(wiegand_pin_d0, INPUT);
       digitalWrite(wiegand_pin_d0, HIGH);
       pinMode(wiegand_pin_d1, INPUT);
       digitalWrite(wiegand_pin_d1, HIGH);
       break;
+    #endif
+    #ifdef USE_CLOCKANDDATA
+    case tick_mode_clockanddata:
+      pinMode(clockanddata_pin_clock, INPUT);
+      digitalWrite(clockanddata_pin_clock, HIGH);
+      pinMode(clockanddata_pin_data, INPUT);
+      digitalWrite(clockanddata_pin_data, HIGH);
+      break;
+    #endif
   }
 
   wifi_init();
@@ -205,17 +236,21 @@ void heartbeat(){
 }
 
 
-void card_read_handler(const char * card_id){
-    output_debug_string(card_id);
+void card_read_handler(String s){
+  // for some reason, this function is very fragile.
+  // if everything blows up, it is because I made some changes here
+  String card_id = s;
 
-    ble_card_read(card_id);
+  output_debug_string(card_id);
 
-    if(strcmp(card_id, DoS_id) == 0) {
-      jamming_enable();
-      append_log("DoS mode enabled by control card");
-    } else {
-      append_log(String(card_id));
-    }
+  ble_card_read(card_id.c_str());
+
+  if(strcasecmp(card_id.c_str(), DoS_id) == 0) {
+    jamming_enable();
+    append_log("DoS mode enabled by control card " + card_id);
+  } else {
+    append_log(card_id);
+  }
 }
 
 void transmit_id(String sendValue, unsigned long bitcount){
@@ -223,6 +258,11 @@ void transmit_id(String sendValue, unsigned long bitcount){
     #ifdef USE_WIEGAND
     case tick_mode_wiegand:
       wiegand_transmit_id(sendValue, bitcount);
+      break;
+    #endif
+    #ifdef USE_CLOCKANDDATA
+    case tick_mode_clockanddata:
+      clockanddata_transmit_id(sendValue, bitcount);
       break;
     #endif
   }
@@ -235,7 +275,12 @@ void loop()
   switch(current_tick_mode){
     #ifdef USE_WIEGAND
     case tick_mode_wiegand:
-      wiegand_loop(card_read_handler);
+      wiegand_loop();
+      break;
+    #endif
+    #ifdef USE_CLOCKANDDATA
+    case tick_mode_clockanddata:
+      clockanddata_loop();
       break;
     #endif
   }

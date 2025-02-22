@@ -149,9 +149,11 @@ $(document).ready(function () {
               if (dataParts.length === 2) {
                   let rawData = dataParts[0];
                   let bitLength = parseInt(dataParts[1], 10);
-                  let { format, facilityCode, cardNumber } = decodeWiegand(rawData, bitLength);
-                  
-                  tableBody += `<tr><td>${parts[0]}</td><td>${wiegand}</td><td>${format}</td><td>${facilityCode}</td><td>${cardNumber}</td><td><i class="fas fa-reply" onclick="send_wiegand('${wiegand}');"></i></td></tr>`;
+
+                  if(rawData.length != bitLength){
+                    let { format, facilityCode, cardNumber } = decodeWiegand(rawData, bitLength);
+                    tableBody += `<tr><td>${parts[0]}</td><td>${wiegand}</td><td>${format}</td><td>${facilityCode}</td><td>${cardNumber}</td><td><i class="fas fa-reply" onclick="send_wiegand('${wiegand}');"></i></td></tr>`;
+                  }
               }
           }
       });

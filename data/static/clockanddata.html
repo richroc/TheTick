@@ -91,12 +91,12 @@
             </li>
 
             <!-- Nav Item - Logs -->
-            <li class="nav-item">
+            <li class="nav-item active">
                 <a class="nav-link" href="/static/clockanddata.html">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Clock &amp; Data</span></a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="/static/wiegand.html">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Wiegand</span></a>
@@ -148,7 +148,7 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Wiegand interface</h1>
+                    <h1 class="h3 mb-2 text-gray-800">Clock&amp;data interface</h1>
                     <!-- <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
                         For more information about DataTables, please visit the <a target="_blank"
                             href="https://datatables.net">official DataTables documentation</a>.</p> -->
@@ -172,14 +172,9 @@
                         <div class="card-body">
                             <form onsubmit="return send_wiegand_formatted(event)">
                                 <select id="wiegand_format">
-                                    <option value="H10301">H10301</option>
-                                    <option value="H10304">H10304</option>
-                                    <option value="HID34">HID34</option>
-                                    <option value="HID35">HID35</option>
-                                    <option value="PACS50">PACS50</option>
+                                    <option value="Magstripe ABA track II">Magstripe ABA track II</option>
                                 </select>
-                                <input id="wiegand_fc" placeholder="Facility code">
-                                <input id="wiegand_cn" placeholder="Card number">
+                                <input id="wiegand_cn" placeholder="Card data">
                                 <input type="submit" value="Transmit">
                             </form>
                         </div>
@@ -196,20 +191,18 @@
                                     <thead>
                                         <tr>
                                             <th>Timestamp</th>
-                                            <th>Wiegand data</th>
+                                            <th>Clock&data</th>
                                             <th>Format</th>
-                                            <th>Facility</th>
-                                            <th>Card</th>
+                                            <th>Data</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                             <th>Timestamp</th>
-                                            <th>Wiegand data</th>
+                                            <th>Clock&data</th>
                                             <th>Format</th>
-                                            <th>Facility</th>
-                                            <th>Card</th>
+                                            <th>Data</th>
                                             <th>Actions</th>
                                         </tr>
                                     </tfoot>
@@ -285,7 +278,7 @@
 
     <!-- Page level custom scripts -->
     <script src="/static/common.js"></script>
-    <script src="/static/page-wiegand.js"></script>
+    <script src="/static/page-clockanddata.js"></script>
 
 </body>
 

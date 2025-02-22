@@ -86,16 +86,24 @@ char log_name[CONFIG_VAR_LENGTH] = LOG_NAME;
 
 
 enum tick_mode {
-    tick_mode_wiegand
+    tick_mode_disabled,
+    tick_mode_wiegand,
+    tick_mode_clockanddata
 };
 
-enum tick_mode current_tick_mode = tick_mode_wiegand;
+enum tick_mode current_tick_mode = tick_mode_disabled;
 
 #ifdef USE_WIEGAND
 int wiegand_pin_d0 = PIN_D0;
 int wiegand_pin_d1 = PIN_D1;
 int wiegand_pulse_width = WIEGAND_PULSE_WIDTH;
 int wiegand_pulse_gap = WIEGAND_PULSE_GAP;
+#endif
+
+#ifdef USE_CLOCKANDDATA
+int clockanddata_pin_clock = PIN_D0;
+int clockanddata_pin_data = PIN_D1;
+int clockanddata_pulse_width = WIEGAND_PULSE_WIDTH;
 #endif
 
 #ifdef USE_BLE

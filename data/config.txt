@@ -1,3 +1,6 @@
+[tick]
+mode=WIEGAND
+
 [wifi_hotspot]
 enable=true
 hidden=false
@@ -17,6 +20,11 @@ pin_d0=0
 pin_d1=1
 pulse_width=34
 pulse_gap=1966
+
+[clockanddata]
+pin_clock=0
+pin_data=1
+pulse_width=30
 
 [ota]
 password=ExtraSpecialPassKey

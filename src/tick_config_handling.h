@@ -22,13 +22,29 @@ bool loadConfig() {
     output_debug_string("Config file invalid");
     return false;
   }
+
   
+  char t_tick_mode[CONFIG_VAR_LENGTH];
+  ini.getValue("tick", "mode", buffer, bufferLen, t_tick_mode, CONFIG_VAR_LENGTH);
+
   #ifdef USE_WIEGAND
+  if(strcasecmp(t_tick_mode, "WIEGAND") == 0){
+    current_tick_mode = tick_mode_wiegand;
+  }
   ini.getValue("wiegand", "dos_id", buffer, bufferLen, DoS_id, CONFIG_PASSWORD_LENGTH);
   ini.getValue("wiegand", "pin_d0", buffer, bufferLen, wiegand_pin_d0);
   ini.getValue("wiegand", "pin_d1", buffer, bufferLen, wiegand_pin_d1);
   ini.getValue("wiegand", "pulse_width", buffer, bufferLen, wiegand_pulse_width);
   ini.getValue("wiegand", "pulse_gap", buffer, bufferLen, wiegand_pulse_gap);
+  #endif
+
+  #ifdef USE_CLOCKANDDATA
+  if(strcasecmp(t_tick_mode, "CLOCKANDDATA") == 0){
+    current_tick_mode = tick_mode_clockanddata;
+  }
+  ini.getValue("clockanddata", "pin_clock", buffer, bufferLen, clockanddata_pin_clock);
+  ini.getValue("clockanddata", "pin_data", buffer, bufferLen, clockanddata_pin_data);
+  ini.getValue("clockanddata", "pulse_width", buffer, bufferLen, clockanddata_pulse_width);
   #endif
 
   #ifdef USE_WIFI
