@@ -3,7 +3,20 @@
 
 ![the device placed on the back side of a small RFID reader](docs/img/the_tick.png)
 
-**The Tick** is the next evolution in covert access control system implants. Designed for seamless integration behind card readers, The Tick silently intercepts, logs, and replays access credentials with greater efficiency and stealth than ever before. Compatible with a wide range of RFID systems, provides invaluable (to red teamers) insights into facility (in)security, while enabling advanced credential injection. Whether for security auditing, red teaming, or mobile access control testing, The Tick delivers a compact, powerful, and flexible solution in an ever-connected world.
+**The Tick** is the next evolution in covert access control system implants. Designed for a seamless integration behind card readers, The Tick silently intercepts, logs, and replays access credentials with greater efficiency and stealth than ever before. Compatible with a wide range of RFID systems, provides invaluable (to red teamers) insights into facility (in)security, while enabling advanced credential injection. Whether for security auditing, red teaming, or mobile access control testing, The Tick delivers a compact, powerful, and flexible solution in an ever-connected world.
+
+## Comparison to other projects
+
+|  | BLEKey | ESP-RFID-Tool | ESPKey | The Tick |
+| -- | -- | -- | -- | -- |
+| supported protocols | Wiegand | Wiegand | Wiegand | Wiegand **+ Clock&Data** |
+| wireless interfaces | BLE | WiFi | WiFi | **BLE +** WiFi |
+| configurable D0/D1 lines  | ❌ | ❌ | ❌ | ✅ |
+| max power supply voltage | battery powered | 🔥 | 18V DC | **25V** DC |
+| max data line voltage | 5V | 5V | 5V | **>12V** |
+| SoC | nRF51822 | ESP8266 | ESP8266 | **ESP32C3** |
+| firmware | properly structured code | time-efficient code soup | time-efficient code soup | **slightly-organized** code soup |
+| arachnophobia-safe | ✅ | ✅ | ✅ | ❓ (partially, hidden mugga-mode) |
 
 ## Software
 
