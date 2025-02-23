@@ -1,7 +1,7 @@
 
 # The Tick
 
-![the device placed on the back side of a small RFID reader](docs/img/the_tick.png)
+![the device](https://i.imgur.com/Ir9Yq5Q.png)
 
 **The Tick** is the next evolution in covert access control system implants. Designed for a seamless integration behind card readers, The Tick silently intercepts, logs, and replays access credentials with greater efficiency and stealth than ever before. Compatible with a wide range of RFID systems, provides invaluable (to red teamers) insights into facility (in)security, while enabling advanced credential injection. Whether for security auditing, red teaming, or mobile access control testing, The Tick delivers a compact, powerful, and flexible solution in an ever-connected world.
 
@@ -17,6 +17,10 @@
 | SoC | nRF51822 | ESP8266 | ESP8266 | **ESP32C3** |
 | firmware | properly structured code | time-efficient code soup | time-efficient code soup | **slightly-organized** code soup |
 | arachnophobia-safe | ✅ | ✅ | ✅ | ❓ (partially, hidden mugga-mode) |
+
+While expanding the feature range, the device still preserves the convenient, small footprint:
+
+![the device placed on the back side of a small RFID reader](docs/img/the_tick.png)
 
 ## Software
 
@@ -41,7 +45,7 @@ Currently, the firmware can be built with following features:
 | USE_OTA            | Arduino-style over-the-air upgrade                                            |
 | USE_OTA_HTTP       | HTTP endpoint for upgrading firmware                                          |
 
-There's a USB connector on-board, that even features embedded JTAG interface, but why not...
+There's an USB connector on-board, that even features embedded JTAG interface, but why not...
 
 #### External reporting
 
@@ -188,3 +192,24 @@ The current PCB revision uses KYOCERA AVX insulation displacement connectors of 
 If you want to contribute to a project and make it better, your help is very welcome. Contributing is also a great way to learn more about social coding on Github, new technologies and and their ecosystems and how to make constructive, helpful bug reports, feature requests and the noblest of all contributions: a good, clean pull request.
 
 I recognize that contributing to hardware projects can be more challenging than software, especially without access to the necessary components. If you're interested in helping out but lack the hardware, drop me an email — I may be able to send you a PCB to get started.
+
+## License
+
+### Software License
+
+The software for "The Tick" is licensed under the GNU General Public License (GPL) v3.0. This license allows you to freely use, modify, and distribute the software, provided that any distribution or derivative works are also licensed under the GPL.
+
+For more details on the GNU GPL v3.0, please refer to the [GNU General Public License v3.0](LICENSE.md).
+
+### UI Libraries And Template License
+
+The user interface of "The Tick" utilizes jQuery and Bootstrap, both of which are licensed under the MIT License. This permissive license allows you to freely use, modify, and distribute the code, with minimal restrictions.
+
+For more details on the MIT License, please refer to the [MIT License](LICENSE.template.md).
+
+### Hardware License
+
+The hardware design for "The Tick" is licensed under the CERN Open Hardware Licence Version 2 - Strongly Reciprocal (CERN-OHL-S v2). This license permits the use, distribution, and modification of the hardware design, with the condition that any derived works must also be licensed under the same terms.
+
+For more details on the CERN-OHL-S v2, please refer to the [CERN Open Hardware Licence Version 2 - Strongly Reciprocal](LICENSE.hardware.txt).
+
