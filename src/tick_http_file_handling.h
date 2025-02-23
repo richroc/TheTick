@@ -22,6 +22,8 @@
 #ifndef TICK_HTTP_FILE_HANDLING_H
 #define TICK_HTTP_FILE_HANDLING_H
 
+#include "tick_utils.h"
+
 String getContentType(String filename) {
   if (server.hasArg("download"))
     return F("application/octet-stream");
@@ -36,7 +38,22 @@ String getContentType(String filename) {
 
 bool handleFileRead(String path) {
   DBG_OUTPUT_PORT.println("handleFileRead: " + path);
-  if (path.equals(F("/"))) path = F("/static/wiegand.html");
+  if (path.equals(F("/"))) {
+    switch (current_tick_mode) {
+#ifdef USE_WIEGAND
+      case tick_mode_wiegand:
+        path = F("/static/wiegand.html");
+        break;
+#endif
+#ifdef USE_CLOCKANDDATA
+      case tick_mode_clockanddata:
+        path = F("/static/clockanddata.html");
+        break;
+#endif
+      default:
+        path = F("/static/dashboard.html");
+    }
+  }
   if (path.endsWith(F("/"))) path += F("index.html");
   String contentType = getContentType(path);
   String pathWithGz = path + F(".gz");
