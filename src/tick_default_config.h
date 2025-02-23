@@ -20,7 +20,7 @@
 #include <cstddef>
 
 
-#define VERSION "231"
+#define VERSION "2317"
 
 #define HOSTNAME "TheTick-" // Hostname prefix for DHCP/OTA
 #define CONFIG_FILE "/config.txt"
