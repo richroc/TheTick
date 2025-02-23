@@ -146,10 +146,10 @@ void http_init(void){
       #endif
     }
 
-    String json = "{\"version\":\"" + String(VERSION) + "\",\"log_name\":\"" + String(log_name) + "\",\"ChipID\":\"" + String(getChipID(), HEX) + ", features: [" + 
+    String json = "{\"version\":\"" + String(VERSION) + "\",\"log_name\":\"" + String(log_name) + "\",\"ChipID\":\"" + String(getChipID(), HEX) + "\", \"features\": [" + 
 
     #ifdef USE_WIEGAND
-    "\"wiegand\"," +
+    "\"wiegand\", " +
     #endif
 
     #ifdef USE_CLOCKANDDATA
