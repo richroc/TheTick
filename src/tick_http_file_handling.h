@@ -20,34 +20,12 @@ String getContentType(String filename)
 {
   if (server.hasArg("download"))
     return F("application/octet-stream");
-  else if (filename.endsWith(".htm"))
-    return F("text/html");
-  else if (filename.endsWith(".html"))
+  else if (filename.endsWith(".htm") || filename.endsWith(".html"))
     return F("text/html");
   else if (filename.endsWith(".css"))
     return F("text/css");
   else if (filename.endsWith(".js"))
     return F("application/javascript");
-  else if (filename.endsWith(".json"))
-    return F("text/json");
-  else if (filename.endsWith(".png"))
-    return F("image/png");
-  else if (filename.endsWith(".gif"))
-    return F("image/gif");
-  else if (filename.endsWith(".jpg"))
-    return F("image/jpeg");
-  else if (filename.endsWith(".ico"))
-    return F("image/x-icon");
-  else if (filename.endsWith(".svg"))
-    return F("image/svg+xml");
-  else if (filename.endsWith(".xml"))
-    return F("text/xml");
-  else if (filename.endsWith(".pdf"))
-    return F("application/x-pdf");
-  else if (filename.endsWith(".zip"))
-    return F("application/x-zip");
-  else if (filename.endsWith(".gz"))
-    return F("application/x-gzip");
   return "text/plain";
 }
 
@@ -101,44 +79,6 @@ void handleFileUpload()
       fsUploadFile.close();
     DBG_OUTPUT_PORT.println("handleFileUpload Size: " + upload.totalSize);
   }
-}
-
-void handleFileDelete()
-{
-  if (basicAuthFailed())
-    return;
-  if (server.args() == 0)
-    return server.send(500, F("text/plain"), F("BAD ARGS"));
-  String path = server.arg(0);
-  DBG_OUTPUT_PORT.println("handleFileDelete: " + path);
-  if (path == "/")
-    return server.send(500, F("text/plain"), F("BAD PATH"));
-  if (!SPIFFS.exists(path))
-    return server.send(404, F("text/plain"), F("FileNotFound"));
-  SPIFFS.remove(path);
-  server.send(200, F("text/plain"), "");
-  path = String();
-}
-
-void handleFileCreate()
-{
-  if (basicAuthFailed())
-    return;
-  if (server.args() == 0)
-    return server.send(500, "text/plain", "BAD ARGS");
-  String path = server.arg(0);
-  DBG_OUTPUT_PORT.println("handleFileCreate: " + path);
-  if (path == "/")
-    return server.send(500, "text/plain", "BAD PATH");
-  if (SPIFFS.exists(path))
-    return server.send(500, "text/plain", "FILE EXISTS");
-  File file = SPIFFS.open(path, "w");
-  if (file)
-    file.close();
-  else
-    return server.send(500, "text/plain", "CREATE FAILED");
-  server.send(200, "text/plain", "");
-  path = String();
 }
 
 void handleFileList()
