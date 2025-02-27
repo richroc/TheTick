@@ -170,8 +170,10 @@ void setup() {
   pinMode(PIN_AUX, INPUT);
   digitalWrite(PIN_AUX, LOW);
 
-  pinMode(PIN_PCB_LED, OUTPUT);
-  digitalWrite(PIN_PCB_LED, HIGH);
+  if (led_pin != -1) {
+    pinMode(led_pin, OUTPUT);
+    digitalWrite(led_pin, HIGH);
+  }
 
   pinMode(CONF_RESET, INPUT);
 
@@ -244,11 +246,13 @@ void setup() {
 }
 
 int counter = 0;
-void heartbeat(){
-  if(counter++ % 2){
-      digitalWrite(PIN_PCB_LED, HIGH);
-  } else {
-      digitalWrite(PIN_PCB_LED, LOW);
+void heartbeat() {
+  if (led_pin != -1) {
+    if (counter++ % 2) {
+      digitalWrite(led_pin, HIGH);
+    } else {
+      digitalWrite(led_pin, LOW);
+    }
   }
 }
 

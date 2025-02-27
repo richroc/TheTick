@@ -161,4 +161,10 @@ char syslog_host[CONFIG_VAR_LENGTH] = SYSLOG_HOSTNAME;
 byte syslog_priority = SYSLOG_PRIORITY;
 #endif
 
+#ifdef USE_LCD
+int led_pin = -1;
+#else
+int led_pin = LED_BUILTIN;
+#endif
+
 #endif
