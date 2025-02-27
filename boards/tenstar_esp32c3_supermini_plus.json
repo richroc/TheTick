@@ -5,7 +5,7 @@
     },
     "core": "esp32",
     "extra_flags": [
-      "-DARDUINO_C3_SUPERMINI",
+      "-DARDUINO_C3_SUPERMINI_PLUS",
       "-DARDUINO_USB_MODE=1",
       "-DARDUINO_USB_CDC_ON_BOOT=1"
     ],
@@ -19,7 +19,7 @@
       ]
     ],
     "mcu": "esp32c3",
-    "variant": "tenstar_esp32c3_supermini"
+    "variant": "tenstar_esp32c3_supermini_plus"
   },
   "connectivity": [
     "wifi"
@@ -31,7 +31,7 @@
     "arduino",
     "espidf"
   ],
-  "name": "TENSTAR ESP32C3 SuperMini",
+  "name": "TENSTAR ESP32C3 SuperMini Plus",
   "upload": {
     "flash_size": "4MB",
     "maximum_ram_size": 327680,
@@ -39,6 +39,6 @@
     "require_upload_port": true,
     "speed": 460800
   },
-  "url": "https://aliexpress.com/item/1005006406538478.html",
+  "url": "https://aliexpress.com/item/1005007685790119.html",
   "vendor": "TENSTAR"
 }

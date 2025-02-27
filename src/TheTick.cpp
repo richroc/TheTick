@@ -29,6 +29,7 @@
 #include "tick_ble.h"
 #include "tick_http.h"
 #include "tick_mdns_responder.h"
+#include "tick_heartbeat.h"
 
 // byte incoming_byte = 0;
 unsigned long config_reset_millis = 30000;
@@ -170,10 +171,7 @@ void setup() {
   pinMode(PIN_AUX, INPUT);
   digitalWrite(PIN_AUX, LOW);
 
-  if (led_pin != -1) {
-    pinMode(led_pin, OUTPUT);
-    digitalWrite(led_pin, HIGH);
-  }
+  heartbeat_init();
 
   pinMode(CONF_RESET, INPUT);
 
@@ -245,18 +243,6 @@ void setup() {
   //attachInterrupt(digitalPinToInterrupt(PIN_AUX), auxChange, CHANGE);
 }
 
-int counter = 0;
-void heartbeat() {
-  if (led_pin != -1) {
-    if (counter++ % 2) {
-      digitalWrite(led_pin, HIGH);
-    } else {
-      digitalWrite(led_pin, LOW);
-    }
-  }
-}
-
-
 void card_read_handler(String s){
   // for some reason, this function is very fragile.
   // if everything blows up, it is because I made some changes here
@@ -291,7 +277,7 @@ void transmit_id(String sendValue, unsigned long bitcount){
 
 void loop()
 {
-  heartbeat();
+  heartbeat_loop();
 
   switch(current_tick_mode){
     #ifdef USE_WIEGAND

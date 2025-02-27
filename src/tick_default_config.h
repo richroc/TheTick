@@ -51,8 +51,6 @@
 #define PIN_VSENSE 4
 #define CONF_RESET 9
 
-#define PIN_PCB_LED 7
-
 #define PIN_OSDP_TERM 5
 #define PIN_OSDP_DE 7
 #define PIN_OSDP_RE 10
@@ -159,12 +157,6 @@ unsigned int syslog_port = SYSLOG_PORT;
 char syslog_service_name[CONFIG_VAR_LENGTH] = SYSLOG_SERVICE;
 char syslog_host[CONFIG_VAR_LENGTH] = SYSLOG_HOSTNAME;
 byte syslog_priority = SYSLOG_PRIORITY;
-#endif
-
-#ifdef USE_LCD
-int led_pin = -1;
-#else
-int led_pin = LED_BUILTIN;
 #endif
 
 #endif
