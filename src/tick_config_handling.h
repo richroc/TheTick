@@ -112,6 +112,7 @@ bool loadConfig() {
                CONFIG_UUID_LENGTH);
   ini.getValue("ble", "characteristic", buffer, bufferLen,
                ble_uuid_wiegand_characteristic, CONFIG_UUID_LENGTH);
+  ini.getValue("ble", "passkey", buffer, bufferLen, ble_passkey);
 #endif
 
   ini.close();

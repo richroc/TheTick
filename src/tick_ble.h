@@ -56,7 +56,8 @@ class CharacteristicCallbacks : public NimBLECharacteristicCallbacks {
 void ble_init(void){
   // Create the BLE Device
   NimBLEDevice::init(dhcp_hostname.c_str());
-  NimBLEDevice::setSecurityIOCap(BLE_HS_IO_NO_INPUT_OUTPUT);
+  NimBLEDevice::setSecurityPasskey(ble_passkey);
+  NimBLEDevice::setSecurityIOCap(BLE_HS_IO_DISPLAY_ONLY);
 
   // Create the BLE Server
   pServer = NimBLEDevice::createServer();
@@ -68,7 +69,9 @@ void ble_init(void){
   // Create a BLE Characteristic
   cardCharacteristic = pService->createCharacteristic(
     ble_uuid_wiegand_characteristic,
-    NIMBLE_PROPERTY::READ | NIMBLE_PROPERTY::WRITE | NIMBLE_PROPERTY::NOTIFY | NIMBLE_PROPERTY::INDICATE,
+    NIMBLE_PROPERTY::READ | NIMBLE_PROPERTY::READ_ENC | NIMBLE_PROPERTY::READ_AUTHEN |
+    NIMBLE_PROPERTY::WRITE | NIMBLE_PROPERTY::WRITE_ENC | NIMBLE_PROPERTY::WRITE_AUTHEN |
+    NIMBLE_PROPERTY::NOTIFY | NIMBLE_PROPERTY::INDICATE,
     300
   );
   

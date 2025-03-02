@@ -84,6 +84,7 @@
 
 #define BLE_UUID_WIEGAND_SERVICE        "f498124f-2137-4615-9859-30eb4cecffb5"
 #define BLE_UUID_WIEGAND_CHARACTERISTIC "beb5483e-36e1-4688-b7f5-ea07361baaaa"
+#define BLE_PASSKEY 123456
 
 #define SCREEN_WIDTH 128 // OLED display width, in pixels
 #define SCREEN_HEIGHT 32 // OLED display height, in pixels
@@ -123,6 +124,7 @@ int clockanddata_pulse_width = CLOCKANDDATA_PULSE_WIDTH;
 #ifdef USE_BLE
 char ble_uuid_wiegand_service[CONFIG_UUID_LENGTH] = BLE_UUID_WIEGAND_SERVICE;
 char ble_uuid_wiegand_characteristic[CONFIG_UUID_LENGTH] = BLE_UUID_WIEGAND_CHARACTERISTIC;
+uint32_t ble_passkey = BLE_PASSKEY;
 #endif
 
 #ifdef USE_WIFI
