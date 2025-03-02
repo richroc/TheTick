@@ -295,6 +295,4 @@ void loop()
   http_loop();
   ble_loop();
   ota_loop();
-  
-  delay(100);
 }
