@@ -56,9 +56,12 @@ class CharacteristicCallbacks : public NimBLECharacteristicCallbacks {
 void ble_init(void){
   // Create the BLE Device
   NimBLEDevice::init(dhcp_hostname.c_str());
-  NimBLEDevice::setSecurityPasskey(ble_passkey);
-  NimBLEDevice::setSecurityAuth(true, true, true);
-  NimBLEDevice::setSecurityIOCap(BLE_HS_IO_DISPLAY_ONLY);
+
+  if(ble_passkey != 0){
+    NimBLEDevice::setSecurityPasskey(ble_passkey);
+    NimBLEDevice::setSecurityAuth(true, true, true);
+    NimBLEDevice::setSecurityIOCap(BLE_HS_IO_DISPLAY_ONLY);
+  }
 
   // Create the BLE Server
   pServer = NimBLEDevice::createServer();
@@ -67,15 +70,20 @@ void ble_init(void){
   // Create the BLE Service
   NimBLEService *pService = pServer->createService(ble_uuid_wiegand_service);
   
+  uint32_t service_connection_properties = NIMBLE_PROPERTY::READ | NIMBLE_PROPERTY::WRITE | NIMBLE_PROPERTY::NOTIFY | NIMBLE_PROPERTY::INDICATE;
+  // Protect characteristic access only if passkey is set
+  if(ble_passkey != 0){
+    service_connection_properties |= NIMBLE_PROPERTY::READ_ENC | NIMBLE_PROPERTY::READ_AUTHEN;
+    service_connection_properties |= NIMBLE_PROPERTY::WRITE_ENC | NIMBLE_PROPERTY::WRITE_AUTHEN;
+  }
+
   // Create a BLE Characteristic
   cardCharacteristic = pService->createCharacteristic(
     ble_uuid_wiegand_characteristic,
-    NIMBLE_PROPERTY::READ | NIMBLE_PROPERTY::READ_ENC | NIMBLE_PROPERTY::READ_AUTHEN |
-    NIMBLE_PROPERTY::WRITE | NIMBLE_PROPERTY::WRITE_ENC | NIMBLE_PROPERTY::WRITE_AUTHEN |
-    NIMBLE_PROPERTY::NOTIFY | NIMBLE_PROPERTY::INDICATE,
+    service_connection_properties,
     300
   );
-  
+ 
   // Creates BLE Descriptor 0x2904: Characteristic Presentation Format
   NimBLE2904* p2904Descriptor = cardCharacteristic->create2904();
   p2904Descriptor->setFormat(NimBLE2904::FORMAT_UTF8);
