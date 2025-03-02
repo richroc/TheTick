@@ -23,11 +23,7 @@
 
 volatile unsigned int reset_button_counter = 0;
 
-
-void reset_loop(){
-  if (reset_button_counter > 3) {
-    output_debug_string(F("CONFIG RESET"));
-
+void clear_config(void){
     File f;
     f = SPIFFS.open(CONFIG_FILE, "w");
     f.close();
@@ -39,6 +35,13 @@ void reset_loop(){
 
     nvs_flash_erase();
     nvs_flash_init();
+}
+
+void reset_loop(void){
+  if (reset_button_counter > 3) {
+    output_debug_string(F("CONFIG RESET"));
+
+    clear_config();
 
     delay(5000);
 

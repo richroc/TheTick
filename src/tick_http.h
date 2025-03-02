@@ -78,17 +78,21 @@ void handleRestart() {
   ESP.restart();
 }
 
+void clearConfig(){
+  if (basicAuthFailed())
+    return;
+  clear_config();
+  server.send(200, "text/plain", "OK");
+  ESP.restart();
+}
+
 
 void http_init(void){
 
   // SERVER INIT
   server.on("/dos", HTTP_GET, handleDoS);
   server.on("/txid", HTTP_GET, handleTxId);
-  server.on("/format", HTTP_DELETE, []() {
-    if (basicAuthFailed()) return false;
-    if (SPIFFS.format()) server.send(200, "text/plain", "Format success!");
-    return true;
-  });
+  server.on("/clear", HTTP_GET, handleTxId);
 
   // list directory
   server.on("/list", HTTP_GET, handleFileList);
