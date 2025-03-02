@@ -167,7 +167,7 @@ The code present currently in the device firmware configures the transceiver int
 ### LCD support
 
 The device supports connecting SSD1306-based 128X32 OLED to visualize reader interactions.
-Two Wire Interface Bus is available on pin 6 (SDA) and 9 (SCL) of Supermini.
+Two Wire Interface Bus is available on pin 6 (SDA) and 2 (SCL) of Supermini.
 
 ![connected OLED screen](docs/img/lcd.jpg)
 
