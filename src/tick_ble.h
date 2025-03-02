@@ -57,6 +57,7 @@ void ble_init(void){
   // Create the BLE Device
   NimBLEDevice::init(dhcp_hostname.c_str());
   NimBLEDevice::setSecurityPasskey(ble_passkey);
+  NimBLEDevice::setSecurityAuth(true, true, true);
   NimBLEDevice::setSecurityIOCap(BLE_HS_IO_DISPLAY_ONLY);
 
   // Create the BLE Server
