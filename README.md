@@ -103,8 +103,9 @@ Currently, it offers following features:
 * notifying about new interactions,
 * sending arbitrary card number.
 
-The device currently does not support pairing nor bonding.
-Feature-wise is simillar to [BLEKey](https://github.com/linklayer/BLEKey) by Mark Baseggio and Eric Evenchick, but running on a decade-younger hardware.
+Currently, by default, device requires bonding with pre-configured passkey and use of secure connections.
+
+Feature-wise it is simillar to [BLEKey](https://github.com/linklayer/BLEKey) by Mark Baseggio and Eric Evenchick, but running on a decade-younger hardware.
 
 By default, functions are exposed in service *f498124f-2137-4615-9859-30eb4cecffb5* as characteristic *beb5483e-36e1-4688-b7f5-ea07361baaaa*. These UUIDs can be modified in the device configuration.
 
@@ -118,11 +119,11 @@ It is possible to use Arduino-style OTA (but I never did) or upload firmware ima
 
 ## Configuration reset
 
-1. You need to get the timing Just Right™.
-2. Start watching [new emergency number spot from IT Crowd](https://youtu.be/HWc3WY3fuZU)
-3. When ambulance appears on the screen, connect The Tick to power source (e.g. USB) or press RST button.
-4. When each of digits "881 999" appears on the screen, briefly press "BOOT" button.
-5. Wait few seconds - the device will start with empty configuration and expose WiFI hotspot.
+1. You need to get the timing Just Right™,
+2. Start watching [new emergency number spot from IT Crowd](https://youtu.be/HWc3WY3fuZU),
+3. When ambulance appears on the screen, connect The Tick to power source (e.g. USB) or press RST button,
+4. When each of digits "881 999" appears on the screen, briefly press "BOOT" button,
+5. Wait few seconds - the device will start with empty configuration and log files and expose WiFI hotspot.
 
 ## Hardware
 
