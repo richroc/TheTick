@@ -43,8 +43,12 @@ uint32_t getChipID() {
 }
 
 uint32_t readVDCVoltage(void) {
-  const uint32_t ratio = (1 + (12700 / 1000));
-  return analogReadMilliVolts(PIN_VSENSE) * ratio;
+  const float R1 = 12700.0;
+  const float R2 = 1000.0; 
+  const float CALIBRATION_FACTOR = 1.00;
+  int raw_mv = analogReadMilliVolts(PIN_VSENSE);
+  float vdc = ((float) raw_mv) * ((R1 + R2) / R2) * CALIBRATION_FACTOR;
+  return (uint32_t) vdc;
 }
 
 void transmit_id(String sendValue, unsigned long bitcount);
