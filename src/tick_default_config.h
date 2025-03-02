@@ -94,8 +94,9 @@
 
 // // Default settings used when no configuration file exists
 #define CONFIG_VAR_LENGTH 20
-#define CONFIG_PASSWORD_LENGTH 24
+#define CONFIG_PASSWORD_LENGTH 64
 #define CONFIG_UUID_LENGTH 37
+#define CONFIG_SSID_LENGTH 33
 
 char log_name[CONFIG_VAR_LENGTH] = LOG_NAME;
 
@@ -130,10 +131,10 @@ uint32_t ble_passkey = BLE_PASSKEY;
 #ifdef USE_WIFI
 bool ap_enable = AP_ENABLE;
 bool ap_hidden = AP_HIDDEN;
-char ap_ssid[CONFIG_VAR_LENGTH] = AP_SSID; // Default SSID.
+char ap_ssid[CONFIG_SSID_LENGTH] = AP_SSID;  // Default SSID.
 IPAddress ap_ip(192, 168, 4, 1);
-char ap_psk[CONFIG_VAR_LENGTH] = AP_PSK; // Default PSK.
-char station_ssid[CONFIG_VAR_LENGTH] = STATION_SSID;
+char ap_psk[CONFIG_PASSWORD_LENGTH] = AP_PSK;  // Default PSK.
+char station_ssid[CONFIG_SSID_LENGTH] = STATION_SSID;
 char station_psk[CONFIG_PASSWORD_LENGTH] = STATION_PSK;
 #endif
 

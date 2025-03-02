@@ -71,12 +71,12 @@ bool loadConfig() {
   ini.getValue("wifi_hotspot", "enable", buffer, bufferLen, ap_enable);
   ini.getValue("wifi_hotspot", "hidden", buffer, bufferLen, ap_hidden);
   ini.getValue("wifi_hotspot", "ssid", buffer, bufferLen, ap_ssid,
-               CONFIG_VAR_LENGTH);
+               CONFIG_SSID_LENGTH);
   ini.getValue("wifi_hotspot", "psk", buffer, bufferLen, ap_psk,
                CONFIG_PASSWORD_LENGTH);
 
   ini.getValue("wifi_client", "ssid", buffer, bufferLen, station_ssid,
-               CONFIG_VAR_LENGTH);
+               CONFIG_SSID_LENGTH);
   ini.getValue("wifi_client", "psk", buffer, bufferLen, station_psk,
                CONFIG_PASSWORD_LENGTH);
 #endif
