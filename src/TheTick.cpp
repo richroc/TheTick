@@ -30,6 +30,7 @@
 #include "tick_http.h"
 #include "tick_mdns_responder.h"
 #include "tick_heartbeat.h"
+#include "tick_reset.h"
 
 // byte incoming_byte = 0;
 unsigned long config_reset_millis = 30000;
@@ -133,7 +134,7 @@ void jamming_disable(void){
 #include "tick_config_handling.h"
 
 void append_log(String text) {
-  File file = SPIFFS.open("/log.txt", "a");
+  File file = SPIFFS.open(LOG_FILE, "a");
   if (file) {
     file.println(String(millis()) + " " + text);
     DBG_OUTPUT_PORT.println("Appending to log: " + String(millis()) + " " + text);
@@ -144,22 +145,19 @@ void append_log(String text) {
 }
 
 void IRAM_ATTR resetConfig(void) {
-  if (millis() > 30000){
+  static unsigned long last_event = 0;
+  unsigned long now = millis();
+
+  if (now < 15000 || now > 60000) {
     return;
   }
-  if (digitalRead(CONF_RESET) == LOW && reset_pin_state == 1) {
-    reset_pin_state = 0;
-    config_reset_millis = millis();
+
+  if (now - last_event > 50 && now - last_event < 500) {
+    reset_button_counter++;
   } else {
-    reset_pin_state = 1;
-    if (millis() > (config_reset_millis + 2000)) {
-      output_debug_string(F("CONFIG RESET"));
-      append_log(F("Config reset by pin."));
-      SPIFFS.remove(CONFIG_FILE);
-      delay(5000);
-      ESP.restart();
-    }
+    reset_button_counter=0;
   }
+  last_event = millis();
 }
 
 void setup() {
@@ -174,6 +172,7 @@ void setup() {
   heartbeat_init();
 
   pinMode(CONF_RESET, INPUT);
+  digitalWrite(CONF_RESET, HIGH);
 
   DBG_OUTPUT_PORT.begin(115200);
   DBG_OUTPUT_PORT.print("\n");
@@ -200,7 +199,7 @@ void setup() {
 
   // If a log.txt exists, use ap_ssid=TheTick-<chipid> instead of the default TheTick-config
   // A config file will take precedence over this
-  if (SPIFFS.exists("/log.txt")) {
+  if (SPIFFS.exists(LOG_FILE)) {
     #ifdef USE_WIFI
     dhcp_hostname.toCharArray(ap_ssid, sizeof(ap_ssid));
     #endif
@@ -278,6 +277,7 @@ void transmit_id(String sendValue, unsigned long bitcount){
 void loop()
 {
   heartbeat_loop();
+  reset_loop();
 
   switch(current_tick_mode){
     #ifdef USE_WIEGAND

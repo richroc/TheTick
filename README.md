@@ -116,6 +116,14 @@ By properly configuring the build flags, the firmware can feature OTA-upgrade. B
 
 It is possible to use Arduino-style OTA (but I never did) or upload firmware images over HTTP endpoint, depending on the build configuration.
 
+## Configuration reset
+
+1. You need to get the timing Just Right™.
+2. Start watching [new emergency number spot from IT Crowd](https://youtu.be/HWc3WY3fuZU)
+3. When ambulance appears on the screen, connect The Tick to power source (e.g. USB) or press RST button.
+4. When each of digits "881 999" appears on the screen, briefly press "BOOT" button.
+5. Wait few seconds - the device will start with empty configuration and expose WiFI hotspot.
+
 ## Hardware
 
 The device not only fits behind readers, but also fits the cheapest G3061 hot-plate you can get.

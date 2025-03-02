@@ -24,6 +24,7 @@
 
 #define HOSTNAME "TheTick-" // Hostname prefix for DHCP/OTA
 #define CONFIG_FILE "/config.txt"
+#define LOG_FILE "/log.txt"
 #define DBG_OUTPUT_PORT Serial       // This could be a file with some hacking
 #define CARD_LEN 4                   // minimum card length in bits
 #define WIEGAND_PULSE_WIDTH 34               // length of asserted pulse in microSeconds
@@ -60,7 +61,7 @@
 #define LOG_NAME "TheTick"
 #define MDNSHOST "TheTick"
 
-#define AP_ENABLE false
+#define AP_ENABLE true
 #define AP_HIDDEN false
 #define AP_SSID "TheTick-config"
 #define AP_PSK "accessgranted"
