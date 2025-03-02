@@ -18,34 +18,29 @@
 
 #ifdef USE_BLE
 
-#include <BLEDevice.h>
-#include <BLEServer.h>
-#include <BLEUtils.h>
+#include <NimBLEDevice.h>
 #include <string>
-#include <BLE2904.h>
-#include <BLE2902.h>
-// #include <BLE2901.h>
 #include "WString.h"
 #include "tick_utils.h"
 
-BLEServer *pServer = NULL;
-BLECharacteristic *cardCharacteristic = NULL;
+static NimBLEServer *pServer;
+static NimBLECharacteristic *cardCharacteristic;
 
-bool deviceConnected = false;
-bool oldDeviceConnected = false;
+static bool deviceConnected = false;
+static bool oldDeviceConnected = false;
 
-class MyServerCallbacks : public BLEServerCallbacks {
-  void onConnect(BLEServer *pServer) {
+class ServerCallbacks : public NimBLEServerCallbacks {
+  void onConnect(NimBLEServer* pServer, NimBLEConnInfo& connInfo) override {
     deviceConnected = true;
   };
 
-  void onDisconnect(BLEServer *pServer) {
+  void onDisconnect(NimBLEServer* pServer, NimBLEConnInfo& connInfo, int reason) override {
     deviceConnected = false;
   }
-};
+} serverCallbacks;
 
-class MyCallbacks : public BLECharacteristicCallbacks {
-  void onWrite(BLECharacteristic *cardCharacteristic) {
+class CharacteristicCallbacks : public NimBLECharacteristicCallbacks {
+  void onWrite(NimBLECharacteristic *cardCharacteristic, NimBLEConnInfo& connInfo) override {
     String value = String(cardCharacteristic->getValue().c_str());
     DBG_OUTPUT_PORT.print(F("BLE WRITE: "));
     DBG_OUTPUT_PORT.println(value);
@@ -56,54 +51,47 @@ class MyCallbacks : public BLECharacteristicCallbacks {
         transmit_id(sendValue, bitcount);
     }
   }
-};
+} chrCallbacks;
 
 void ble_init(void){
   // Create the BLE Device
-  BLEDevice::init(dhcp_hostname.c_str());
+  NimBLEDevice::init(dhcp_hostname.c_str());
+  NimBLEDevice::setSecurityIOCap(BLE_HS_IO_NO_INPUT_OUTPUT);
 
   // Create the BLE Server
-  pServer = BLEDevice::createServer();
-  pServer->setCallbacks(new MyServerCallbacks());
+  pServer = NimBLEDevice::createServer();
+  pServer->setCallbacks(&serverCallbacks);
 
   // Create the BLE Service
-  BLEService *pService = pServer->createService(ble_uuid_wiegand_service);
+  NimBLEService *pService = pServer->createService(ble_uuid_wiegand_service);
   
   // Create a BLE Characteristic
   cardCharacteristic = pService->createCharacteristic(
     ble_uuid_wiegand_characteristic,
-    BLECharacteristic::PROPERTY_READ | BLECharacteristic::PROPERTY_WRITE | BLECharacteristic::PROPERTY_NOTIFY | BLECharacteristic::PROPERTY_INDICATE
+    NIMBLE_PROPERTY::READ | NIMBLE_PROPERTY::WRITE | NIMBLE_PROPERTY::NOTIFY | NIMBLE_PROPERTY::INDICATE,
+    300
   );
-
-  // Creates BLE Descriptor 0x2902: Client Characteristic Configuration Descriptor (CCCD)
-  BLE2902* p2902Descriptor = new BLE2902();
-  cardCharacteristic->addDescriptor(p2902Descriptor);
-
+  
   // Creates BLE Descriptor 0x2904: Characteristic Presentation Format
-  BLE2904* p2904Descriptor = new BLE2904();
-  p2904Descriptor->setFormat(BLE2904::FORMAT_UTF8);
-  cardCharacteristic->addDescriptor(p2904Descriptor);
+  NimBLE2904* p2904Descriptor = cardCharacteristic->create2904();
+  p2904Descriptor->setFormat(NimBLE2904::FORMAT_UTF8);
 
-  // Creates BLE Descriptor 0x2901: 0x2901 descriptor: Characteristic User Description
-  // BLE2901* p2901Descriptor = new BLE2901();
-  // p2901Descriptor->setDescription("Wiegand data");
-  // p2901Descriptor->setAccessPermissions(ESP_GATT_PERM_READ);  // enforce read only - default is Read|Write
-  // cardCharacteristic->addDescriptor(p2901Descriptor);
-
-
-  cardCharacteristic->setCallbacks(new MyCallbacks());
+  cardCharacteristic->setCallbacks(&chrCallbacks);
   cardCharacteristic->setValue("0000:0");
 
   // Start the service
   pService->start();
 
   // Start advertising
-  BLEAdvertising *pAdvertising = BLEDevice::getAdvertising();
-  pAdvertising->addServiceUUID(BLE_UUID_WIEGAND_SERVICE);
-  pAdvertising->setScanResponse(false);
-  pAdvertising->setMinPreferred(0x0);  // set value to 0x00 to not advertise this parameter
-  BLEDevice::startAdvertising();
-  // Serial.println("Waiting a client connection to notify...");
+  NimBLEAdvertising *pAdvertising = NimBLEDevice::getAdvertising();
+  pAdvertising->setName(dhcp_hostname.c_str());
+  pAdvertising->addServiceUUID(
+    pService->getUUID()
+  );
+
+  pAdvertising->enableScanResponse(true);
+  pAdvertising->start();
+  Serial.println("Waiting a client connection to notify...");
 }
 
 void ble_loop(void){
