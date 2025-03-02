@@ -125,7 +125,7 @@ It solders nicely with carelessly and generously hand applied solder paste:
 
 ### ESP32-C3
 
-The device utilizes ESP32C3FN4 on a ready-made ESP32-C3 SuperMini module.
+The device utilizes ESP32-C3FH4 on a ready-made ESP32-C3 SuperMini module.
 Personally, I recommend ordering insignificantly more expensive "Plus" version made by TENSTAR, with an external antenna connector, as some of the regular modules comes with incorrect antenna design, resulting in [impresively poor WiFi range](https://www.reddit.com/r/esp32/comments/1dsh3b5/warning_some_c3_super_mini_boards_have_a_design/).
 
 ![Supermini plus](docs/img/esp32c3_supermini_plus.png)
