@@ -1,0 +1,111 @@
+(footprint "KYOCERA 009176002022006 PTH"
+	(version 20241229)
+	(generator "pcbnew")
+	(generator_version "9.0")
+	(layer "F.Cu")
+	(property "Reference" "REF**"
+		(at -7.35 -14.45 0)
+		(unlocked yes)
+		(layer "F.SilkS")
+		(uuid "71b1fba4-ce75-426b-b23a-176e7e123153")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.1)
+			)
+		)
+	)
+	(property "Value" "KYOCERA 009176002022006 PTH"
+		(at -7.35 -12.95 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(uuid "52cb4844-f3a8-4896-b53a-06be36f9980c")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at -7.35 -13.95 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "471fc4dc-5089-49a8-8116-2932c5f8c2c3")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" ""
+		(at -7.35 -13.95 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "b6c918df-599b-4ad9-b07a-55ee7bebafcb")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr smd)
+	(fp_rect
+		(start -2 -2.475)
+		(end 6 2.525)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(fill no)
+		(layer "F.CrtYd")
+		(uuid "d5f6b017-594f-46b2-a69b-07f219f6158b")
+	)
+	(fp_text user "${REFERENCE}"
+		(at -7.35 -11.45 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(uuid "78f44e2c-6991-4a01-8d8a-afd27b703bc0")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(pad "1" thru_hole circle
+		(at 0 0)
+		(size 2 2)
+		(drill 1)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "a5457d71-4408-437b-b5aa-1986306cb4f7")
+	)
+	(pad "1" smd rect
+		(at 0 0)
+		(size 3 5.4)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(thermal_bridge_angle 45)
+		(uuid "a6656408-2eb5-43dc-a615-95b55c11328e")
+	)
+	(pad "2" thru_hole circle
+		(at 4 0)
+		(size 2 2)
+		(drill 1)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "d11db2d5-ff0a-41a3-846a-a6dd244487d2")
+	)
+	(pad "2" smd rect
+		(at 4 0)
+		(size 3 5.4)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(thermal_bridge_angle 45)
+		(uuid "76b02824-0022-4dad-8775-9c587be80a5a")
+	)
+	(embedded_fonts no)
+)
