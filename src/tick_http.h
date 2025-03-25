@@ -69,6 +69,15 @@ void handleDoS() {
   append_log(F("DoS mode set by API request."));
 }
 
+void handleDisableDoS() {
+  if (basicAuthFailed())
+    return;
+  jamming_disable();
+  server.send(200, F("text/plain"), "");
+  output_debug_string(F("DoS MODE deactivated"));
+  append_log(F("DoS mode deactivated by API request."));
+}
+
 void handleRestart() {
   if (basicAuthFailed())
     return;
@@ -91,6 +100,7 @@ void http_init(void){
 
   // SERVER INIT
   server.on("/dos", HTTP_GET, handleDoS);
+  server.on("/disabledos", HTTP_GET, handleDisableDoS);
   server.on("/txid", HTTP_GET, handleTxId);
   server.on("/clear", HTTP_GET, clearConfig);
 
