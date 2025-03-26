@@ -6,7 +6,7 @@
 	(paper "A4")
 	(title_block
 		(title "The Tick")
-		(date "2025-03-03")
+		(date "2025-03-26")
 		(rev "v0.2")
 		(company "Copyright (C) 2024, 2025 Jakub \"lenwe\" Kramarz")
 		(comment 1 "CERN Open Hardware Licence Version 2 - Strongly Reciprocal")
@@ -1714,7 +1714,7 @@
 					(hide yes)
 				)
 			)
-			(property "Description_1" "\n                        \n                            Super tiny ESP32-C3 board\n                        \n"
+			(property "Description_1" "Super tiny ESP32-C3 board"
 				(at 0 0 0)
 				(effects
 					(font
@@ -4326,8 +4326,20 @@
 		(uuid "167f5eff-e067-4643-8a01-85a0cf0b982a")
 	)
 	(no_connect
+		(at 49.53 46.99)
+		(uuid "1c226e6f-d30d-4698-b4b1-2d070ee477f6")
+	)
+	(no_connect
 		(at 149.86 106.68)
 		(uuid "2d7f8b96-3a15-4acf-83ef-0371df8512a6")
+	)
+	(no_connect
+		(at 67.31 171.45)
+		(uuid "3eb8a1ab-727d-4814-9721-3df558f4608e")
+	)
+	(no_connect
+		(at 67.31 168.91)
+		(uuid "61e5c171-7831-4177-96ab-41059282b1c0")
 	)
 	(no_connect
 		(at 149.86 104.14)
@@ -4342,6 +4354,16 @@
 			(type default)
 		)
 		(uuid "01692b1f-4460-4459-a6ee-0155d7a67389")
+	)
+	(wire
+		(pts
+			(xy 49.53 44.45) (xy 66.04 44.45)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "03c28fec-7daa-48d1-9bc0-ea648a27c373")
 	)
 	(wire
 		(pts
@@ -4875,6 +4897,16 @@
 	)
 	(wire
 		(pts
+			(xy 66.04 49.53) (xy 66.04 53.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6fbf34c2-80d7-4645-9b22-007e34096deb")
+	)
+	(wire
+		(pts
 			(xy 167.64 63.5) (xy 172.72 63.5)
 		)
 		(stroke
@@ -5155,6 +5187,16 @@
 	)
 	(wire
 		(pts
+			(xy 49.53 49.53) (xy 66.04 49.53)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ca546bef-5ecf-402c-8475-ae4cb80408c9")
+	)
+	(wire
+		(pts
 			(xy 105.41 31.75) (xy 106.68 31.75)
 		)
 		(stroke
@@ -5419,7 +5461,7 @@
 			)
 		)
 	)
-	(global_label "LED_G"
+	(global_label "AUX"
 		(shape bidirectional)
 		(at 49.53 102.87 0)
 		(fields_autoplaced yes)
@@ -5431,7 +5473,7 @@
 		)
 		(uuid "0bc6a3cf-8ef1-43ec-92a0-9e4c0eb27957")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 59.3112 102.87 0)
+			(at 57.2551 102.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5529,7 +5571,7 @@
 			)
 		)
 	)
-	(global_label "LED_G"
+	(global_label "AUX"
 		(shape bidirectional)
 		(at 255.27 138.43 270)
 		(fields_autoplaced yes)
@@ -5541,7 +5583,7 @@
 		)
 		(uuid "54af6c69-577a-4c2d-a704-2ddb208deeae")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 255.27 148.2112 90)
+			(at 255.27 146.1551 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5617,7 +5659,7 @@
 			)
 		)
 	)
-	(global_label "LED_G SENSE"
+	(global_label "AUX SENSE"
 		(shape bidirectional)
 		(at 264.16 116.84 90)
 		(fields_autoplaced yes)
@@ -5629,7 +5671,7 @@
 		)
 		(uuid "7d9ec39a-d68e-4b9c-9c11-3000e41d730f")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 264.16 100.0437 90)
+			(at 264.16 102.0998 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5727,7 +5769,7 @@
 			)
 		)
 	)
-	(global_label "LED_G SENSE"
+	(global_label "AUX SENSE"
 		(shape bidirectional)
 		(at 114.3 109.22 180)
 		(fields_autoplaced yes)
@@ -5739,7 +5781,7 @@
 		)
 		(uuid "9eec2609-a414-4f38-978f-2b90521a121e")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 97.5037 109.22 0)
+			(at 99.5598 109.22 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6340,7 +6382,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description_1" "\n                        \n                            Super tiny ESP32-C3 board\n                        \n"
+		(property "Description_1" "Super tiny ESP32-C3 board"
 			(at 132.08 106.68 0)
 			(effects
 				(font
@@ -6976,6 +7018,72 @@
 		)
 	)
 	(symbol
+		(lib_id "power:GNDPWR")
+		(at 66.04 53.34 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "3bfc44d7-47eb-4650-8554-463aa7a27ef3")
+		(property "Reference" "#PWR031"
+			(at 66.04 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GNDPWR"
+			(at 65.913 57.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 66.04 54.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 66.04 54.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GNDPWR\" , global ground"
+			(at 66.04 53.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "d75cfef6-daae-4c68-82db-1d2afc7be4a9")
+		)
+		(instances
+			(project "Tick"
+				(path "/caa31ebd-ff46-4f22-afb9-d3b99880ef98"
+					(reference "#PWR031")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Transistor_FET:2N7002")
 		(at 227.33 132.08 0)
 		(mirror x)
@@ -7552,7 +7660,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "0.1u"
+		(property "Value" "100n"
 			(at 218.44 33.782 0)
 			(effects
 				(font
@@ -8010,6 +8118,77 @@
 			(project "Tick"
 				(path "/caa31ebd-ff46-4f22-afb9-d3b99880ef98"
 					(reference "#PWR026")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector_Generic:Conn_01x03")
+		(at 44.45 46.99 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp yes)
+		(fields_autoplaced yes)
+		(uuid "777f641b-0472-46ff-9985-a663342ede23")
+		(property "Reference" "J4"
+			(at 44.45 38.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Conn_01x03"
+			(at 44.45 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Connector_PinSocket_2.54mm:PinSocket_1x03_P2.54mm_Vertical"
+			(at 44.45 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 44.45 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 44.45 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "3"
+			(uuid "e923d1b1-fc05-4469-bc7b-95d56cdc7f64")
+		)
+		(pin "2"
+			(uuid "3bd75e26-cc81-4c71-8fb9-23ec57ce70a6")
+		)
+		(pin "1"
+			(uuid "d06d51a0-87cf-48c2-9556-9175fdd57ed7")
+		)
+		(instances
+			(project "Tick"
+				(path "/caa31ebd-ff46-4f22-afb9-d3b99880ef98"
+					(reference "J4")
 					(unit 1)
 				)
 			)
@@ -8836,6 +9015,72 @@
 		)
 	)
 	(symbol
+		(lib_id "power:VDC")
+		(at 66.04 44.45 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a9f1575d-3b85-4064-8789-4d1c675d4e19")
+		(property "Reference" "#PWR033"
+			(at 66.04 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "VDC"
+			(at 66.04 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 66.04 44.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 66.04 44.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"VDC\""
+			(at 66.04 44.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "38b42414-1116-477b-9baa-0b149f753ce2")
+		)
+		(instances
+			(project "Tick"
+				(path "/caa31ebd-ff46-4f22-afb9-d3b99880ef98"
+					(reference "#PWR033")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R")
 		(at 255.27 121.92 0)
 		(unit 1)
@@ -9607,7 +9852,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "0.1u"
+		(property "Value" "100n"
 			(at 168.402 54.102 0)
 			(effects
 				(font
@@ -9616,7 +9861,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric_Pad1.08x0.95mm_HandSolder"
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
 			(at 168.6052 63.5 0)
 			(effects
 				(font
