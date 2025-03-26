@@ -85,13 +85,33 @@ function decode_magstripe_paxton_aba_track_ii(data){
   data_block_2 = card_data.substr(25*5, 12*5); // 000010000100001000010000100001000010000100001000010000100001
 
   let end_sentinel = data.substr(l - 20, 5); // 11111
-  let lrc = data.substr(l - 15, 5); // Longitudinal Redundancy Check
+  let lrc = data.substr(l - 15, 5); // 10111 - Longitudinal Redundancy Check
   let trailing_zeros = data.substr(l - 10, 10); // 00000 00000
 
   if(leading_zeros != "0000000000" || start_sentinel != "11010" || sentinel_d_1 != "10110" || sentinel_d_2 != "10110" || trailing_zeros != "0000000000")
     return false;
 
-  return '["' + decode_aba_track_ii(data_block_0) + '", "' +  decode_aba_track_ii(data_block_1) + '", "' +  decode_aba_track_ii(data_block_2) + '"]';
+  let decoded_block_0 = parseInt(decode_aba_track_ii(data_block_0), 16).toString(10);
+  let decoded_block_1 = parseInt(decode_aba_track_ii(data_block_1), 16).toString(10);
+  let decoded_block_2 = parseInt(decode_aba_track_ii(data_block_2), 16).toString(10);
+
+  var card_type = "unknown";
+  switch (decoded_block_1[decoded_block_1.length - 2]) {
+    case "1": card_type =  "Switch2 Fob";
+  }
+
+  var card_color = decoded_block_1[decoded_block_1.length - 1];
+  switch (decoded_block_1[decoded_block_1.length - 1]) {
+    case "1": card_color =  "green";
+    case "2": card_color =  "yellow";
+    case "4": card_color =  "red";
+  }
+
+  return "Card number: " + decoded_block_0 + "<br>" +
+         "Card type: " + card_type + "<br>" +
+         "Card colour: " + card_color + "<br>" +
+         "Card data 1: " + decoded_block_1 + "<br>" +
+         "Card data 2: " + decoded_block_2; 
 }
 
 function decodeClockAndData(rawData, bitLength) {
