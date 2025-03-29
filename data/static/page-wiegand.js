@@ -15,31 +15,37 @@
 
 function decodeWiegand(rawData, bitLength) {
   let binaryData = parseInt(rawData, 16).toString(2).padStart(bitLength, '0');
-  let format, facilityCode, cardNumber;
+  let format, facilityCode, cardNumber, preamble, paddedData;
   
   switch (bitLength) {
       case 26:
           format = "H10301";
           facilityCode = parseInt(binaryData.substring(1, 9), 2);
           cardNumber = parseInt(binaryData.substring(9, 25), 2);
+          preamble = '000000100000000001';
+          paddedData = parseInt((preamble + binaryData), 2).toString(16);
           break;
       case 37:
           format = "H10304";
           facilityCode = parseInt(binaryData.substring(1, 17), 2);
           cardNumber = parseInt(binaryData.substring(17, 36), 2);
+          preamble = '0000000';
+          paddedData = parseInt((preamble + binaryData), 2).toString(16);
           break;
       case 46:
           format = "H800002";
           facilityCode = parseInt(binaryData.substring(1, 15), 2);
           cardNumber = parseInt(binaryData.substring(15, 45), 2);
+          paddedData = 'N/A';
           break;
       default:
           format = "Unknown";
           facilityCode = "N/A";
           cardNumber = "N/A";
+          paddedData = 'N/A';
   }
   
-  return { format, facilityCode, cardNumber };
+  return { format, facilityCode, cardNumber, paddedData };
 }
 
 function calculateWiegandParity(rawData, bitLength) {
@@ -99,6 +105,7 @@ function send_wiegand(data) {
 }
 
 
+
 function send_wiegand_raw(event){
     event.preventDefault();
     let wiegand_raw = $("#wiegand_raw")[0].value;
@@ -140,8 +147,8 @@ $(document).ready(function () {
                   let bitLength = parseInt(dataParts[1], 10);
 
                   if(rawData.length != bitLength){
-                    let { format, facilityCode, cardNumber } = decodeWiegand(rawData, bitLength);
-                    tableBody += `<tr><td>${parts[0]}</td><td>${wiegand}</td><td>${format}</td><td>${facilityCode}</td><td>${cardNumber}</td><td><i class="fas fa-reply" onclick="send_wiegand('${wiegand}');"></i></td></tr>`;
+                    let { format, facilityCode, cardNumber, paddedData } = decodeWiegand(rawData, bitLength);
+                    tableBody += `<tr><td>${parts[0]}</td><td>${wiegand}</td><td>${format}</td><td>${facilityCode}</td><td>${cardNumber}</td><td>${paddedData}</td><td><i class="fas fa-reply" onclick="send_wiegand('${wiegand}');"></i></td></tr>`;
                   }
               }
           }
