@@ -22,6 +22,11 @@ While expanding the feature range, the device still preserves the convenient, sm
 
 ![the device placed on the back side of a small RFID reader](docs/img/the_tick.png)
 
+
+## Usage
+
+Detailed usage documentation is available in form of [field guide for red team operators](https://www.securing.pl/en/the-tick/).
+
 ## Software
 
 Firmware of this device started as a simple port of [ESPKey](https://github.com/octosavvi/ESPKey) for ESP32C3, that gradually grew into extensible and multi-protocol software project, with own improved hardware.
