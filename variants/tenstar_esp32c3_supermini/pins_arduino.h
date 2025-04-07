@@ -10,8 +10,13 @@ static const uint8_t LED_BUILTIN = 8;
 static const uint8_t TX = 21;
 static const uint8_t RX = 20;
 
+#ifdef TICK_HW_REV_0_2
+static const uint8_t SDA = 3;
+static const uint8_t SCL = 2;
+#else
 static const uint8_t SDA = 6;
 static const uint8_t SCL = 2;
+#endif
 
 static const uint8_t SS = 7;
 static const uint8_t MOSI = 6;

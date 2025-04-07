@@ -48,11 +48,18 @@
 // Pin number assignments
 #define PIN_D0 0
 #define PIN_D1 1
+
+#ifdef TICK_HW_REV_0_2
+#define PIN_AUX 5
+#define PIN_OSDP_TERM -1
+#else
 #define PIN_AUX 3
+#define PIN_OSDP_TERM 5
+#endif
+
 #define PIN_VSENSE 4
 #define CONF_RESET 9
 
-#define PIN_OSDP_TERM 5
 #define PIN_OSDP_DE 7
 #define PIN_OSDP_RE 10
 #define PIN_OSDP_RX 20

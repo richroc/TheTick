@@ -58,32 +58,7 @@
           "width": 0.0
         }
       ],
-      "drc_exclusions": [
-        [
-          "silk_edge_clearance|141430000|114000000|3b0f6010-f140-4c01-9af0-e13e7b848849|40f516be-2401-4033-bab6-97d0324c7d1f",
-          ""
-        ],
-        [
-          "silk_edge_clearance|159430000|114000000|3b0f6010-f140-4c01-9af0-e13e7b848849|6284c875-e246-497f-84a8-1307a7038479",
-          ""
-        ],
-        [
-          "silk_over_copper|141430000|111468100|40f516be-2401-4033-bab6-97d0324c7d1f|00000000-0000-0000-0000-000000000000",
-          ""
-        ],
-        [
-          "silk_over_copper|159430000|113373100|6284c875-e246-497f-84a8-1307a7038479|00000000-0000-0000-0000-000000000000",
-          ""
-        ],
-        [
-          "text_height|139800000|112800000|c29b4dfe-687c-4cf5-8518-ccccabe5510b|00000000-0000-0000-0000-000000000000",
-          ""
-        ],
-        [
-          "text_height|139800000|99740600|03861acc-4a50-4438-8270-7ad31dab030f|00000000-0000-0000-0000-000000000000",
-          ""
-        ]
-      ],
+      "drc_exclusions": [],
       "meta": {
         "version": 2
       },
@@ -708,14 +683,6 @@
       "version": 1
     },
     "net_format_name": "",
-    "ngspice": {
-      "fix_include_paths": true,
-      "meta": {
-        "version": 0
-      },
-      "model_mode": 4,
-      "workbook_filename": ""
-    },
     "page_layout_descr_file": "",
     "plot_directory": "production/",
     "space_save_all_events": true,

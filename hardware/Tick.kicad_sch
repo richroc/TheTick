@@ -6,7 +6,7 @@
 	(paper "A4")
 	(title_block
 		(title "The Tick")
-		(date "2025-04-04")
+		(date "2025-04-07")
 		(rev "v0.2")
 		(company "Copyright (C) 2024, 2025 Jakub \"lenwe\" Kramarz")
 		(comment 1 "CERN Open Hardware Licence Version 2 - Strongly Reciprocal")
@@ -4651,7 +4651,7 @@
 		(uuid "7dc03416-716b-4e48-acd7-71361617f1b5")
 	)
 	(no_connect
-		(at 114.3 114.3)
+		(at 113.03 116.84)
 		(uuid "c9ac6c9c-2e38-455d-8dae-97a5bae09a7a")
 	)
 	(wire
@@ -4743,6 +4743,16 @@
 			(type default)
 		)
 		(uuid "101f1ed0-a39b-41f9-b2d2-15bc1cebf4cb")
+	)
+	(wire
+		(pts
+			(xy 113.03 111.76) (xy 114.3 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "106b8abc-f8af-4cf7-9857-7321d426f44f")
 	)
 	(wire
 		(pts
@@ -5296,6 +5306,16 @@
 	)
 	(wire
 		(pts
+			(xy 113.03 114.3) (xy 114.3 114.3)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8499f0c4-cbe0-4b3c-839c-a4c0c084f96c")
+	)
+	(wire
+		(pts
 			(xy 77.47 147.32) (xy 83.82 147.32)
 		)
 		(stroke
@@ -5493,6 +5513,16 @@
 			(type default)
 		)
 		(uuid "c6b314b3-5220-42f3-a306-164afbb1b7ca")
+	)
+	(wire
+		(pts
+			(xy 113.03 109.22) (xy 114.3 109.22)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c7d20443-2e33-48bb-b155-052c097ba2a7")
 	)
 	(wire
 		(pts
@@ -5848,7 +5878,7 @@
 	)
 	(global_label "LCD SCL"
 		(shape bidirectional)
-		(at 113.03 116.84 180)
+		(at 113.03 109.22 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -5858,7 +5888,7 @@
 		)
 		(uuid "3f1dc2fa-6a4c-44a8-b6ca-7ccd6328e791")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 100.8902 116.84 0)
+			(at 100.8902 109.22 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6002,7 +6032,7 @@
 	)
 	(global_label "V_SENSE"
 		(shape input)
-		(at 114.3 111.76 180)
+		(at 113.03 111.76 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -6012,7 +6042,7 @@
 		)
 		(uuid "7f24838f-c3f4-4885-9515-f1ce23b3aec3")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 103.2111 111.76 0)
+			(at 101.9411 111.76 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6090,7 +6120,7 @@
 	)
 	(global_label "AUX SENSE"
 		(shape bidirectional)
-		(at 114.3 109.22 180)
+		(at 113.03 114.3 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -6100,7 +6130,7 @@
 		)
 		(uuid "9eec2609-a414-4f38-978f-2b90521a121e")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 99.5598 109.22 0)
+			(at 98.2898 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
