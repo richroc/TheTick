@@ -177,8 +177,10 @@ void setup() {
   DBG_OUTPUT_PORT.begin(115200);
   DBG_OUTPUT_PORT.print("\n");
 
-
+  #ifndef USE_OSDP
   osdp_init();
+  #endif
+
   display_init();
 
   output_debug_string("Chip ID: 0x" + String(getChipID(), HEX));
@@ -227,6 +229,12 @@ void setup() {
       digitalWrite(clockanddata_pin_data, HIGH);
       break;
     #endif
+    #ifdef USE_OSDP
+    case tick_mode_osdp_cp:
+    case tick_mode_osdp_pd:
+      osdp_init();
+      break;
+    #endif
   }
 
   wifi_init();
@@ -271,6 +279,11 @@ void transmit_id(String sendValue, unsigned long bitcount){
       clockanddata_transmit_id(sendValue, bitcount);
       break;
     #endif
+    #ifdef USE_OSDP
+    case tick_mode_osdp_pd:
+      osdp_transmit_id(sendValue, bitcount);
+      break;
+    #endif
   }
 }
 
@@ -288,6 +301,12 @@ void loop()
     #ifdef USE_CLOCKANDDATA
     case tick_mode_clockanddata:
       clockanddata_loop();
+      break;
+    #endif
+    #ifdef USE_OSDP
+    case tick_mode_osdp_cp:
+    case tick_mode_osdp_pd:
+      osdp_loop();
       break;
     #endif
   }
