@@ -13,14 +13,10 @@
 // 
 // You should have received a copy of the GNU General Public License
 
-#ifndef TICK_BLE_H
-#define TICK_BLE_H
-
 #ifdef USE_BLE
 
 #include <NimBLEDevice.h>
-#include <string>
-#include "WString.h"
+#include "Arduino.h"
 #include "tick_utils.h"
 
 static NimBLEServer *pServer;
@@ -133,5 +129,4 @@ void ble_init(void){}
 void ble_loop(void){}
 void ble_card_read(const char * card_id){}
 
-#endif
 #endif

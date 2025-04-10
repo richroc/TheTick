@@ -13,8 +13,7 @@
 //
 // You should have received a copy of the GNU General Public License
 
-#ifndef TICK_OTA_H
-#define TICK_OTA_H
+#include "tick_ota.h"
 
 #ifdef USE_OTA
 
@@ -81,5 +80,4 @@ void ota_loop(void) { ArduinoOTA.handle(); }
 void ota_init(void) {}
 void ota_loop(void) {}
 
-#endif
 #endif

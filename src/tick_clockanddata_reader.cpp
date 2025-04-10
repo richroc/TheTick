@@ -13,9 +13,7 @@
 // 
 // You should have received a copy of the GNU General Public License
 
-#ifndef TICK_CLOCKANDDATA_READER_H
-#define TICK_CLOCKANDDATA_READER_H
-
+#include "tick_clockanddata_reader.h"
 #include "tick_utils.h"
 
 #ifdef USE_CLOCKANDDATA
@@ -91,5 +89,4 @@ void clockanddata_loop(void){
   }
 }
 
-#endif
 #endif

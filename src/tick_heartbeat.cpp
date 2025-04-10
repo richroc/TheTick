@@ -15,8 +15,7 @@
 
 #include <esp32-hal-gpio.h>
 #include <esp32-hal-rgb-led.h>
-#ifndef TICK_HEARTBEAT_H
-#define TICK_HEARTBEAT_H
+#include "tick_heartbeat.h"
 
 #ifdef RGB_BUILTIN
 
@@ -80,5 +79,4 @@ void heartbeat_loop(void) {
   }
 }
 
-#endif
 #endif

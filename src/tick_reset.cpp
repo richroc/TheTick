@@ -17,9 +17,8 @@
 #include <SPIFFS.h>
 #include <nvs_flash.h>
 #include "tick_utils.h"
+#include "tick_reset.h"
 
-#ifndef TICK_RESET_H
-#define TICK_RESET_H
 
 volatile unsigned int reset_button_counter = 0;
 
@@ -48,5 +47,3 @@ void reset_loop(void){
     ESP.restart();
   }
 }
-
-#endif

@@ -13,13 +13,13 @@
 //
 // You should have received a copy of the GNU General Public License
 
-#ifndef TICK_LCD_H
-#define TICK_LCD_H
+#include "tick_lcd.h"
 
 #ifdef USE_LCD
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 #include <Wire.h>
+#include <tick_default_config.h>
 
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
 
@@ -64,5 +64,4 @@ void display_string(String data) {}
 void display_receivedData(uint8_t* data, uint8_t bits, const char* message) {}
 void display_init() {}
 
-#endif
 #endif

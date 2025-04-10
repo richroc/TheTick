@@ -13,12 +13,13 @@
 //
 // You should have received a copy of the GNU General Public License
 
-#ifndef TICK_OSDP_H
-#define TICK_OSDP_H
-
 #ifdef USE_OSDP
 
+#include <Arduino.h>
 #include <osdp.hpp>
+#include "tick_osdp.h"
+#include "tick_utils.h"
+
 OSDP::PeripheralDevice pd;
 OSDP::ControlPanel cp;
 
@@ -57,6 +58,16 @@ osdp_pd_info_t pd_info[] = {{
                 .flush = nullptr},
     .scbk = nullptr,
 }};
+
+void osdp_drain(){
+  digitalWrite(0, LOW);
+  digitalWrite(1, LOW);
+}
+
+void osdp_restore(){
+  digitalWrite(0, HIGH);
+  digitalWrite(1, HIGH);
+}
 
 int osdp_serial_send_func(void *data, uint8_t *buf, int len) {
   (void)(data);
@@ -172,6 +183,11 @@ void osdp_init(void) {
       pd_info[0].scbk = nullptr;
     }
 
+    if(current_tick_mode == tick_mode_osdp_cp) {
+      pd_info[0].cap = nullptr;
+      pd_info[0].id = {};
+    }
+
     switch (current_tick_mode) {
       case tick_mode_osdp_pd:
         pd.logger_init("osdp::pd", OSDP_LOG_DEBUG, NULL);
@@ -200,6 +216,7 @@ void osdp_loop(void) {
       pd.refresh();
     } else if (current_tick_mode == tick_mode_osdp_cp) {
       cp.refresh();
+      cp.submit_command(0, nullptr);
     }
   }
 }
@@ -209,5 +226,4 @@ void osdp_loop(void) {
 void osdp_init(void) { osdp_disable_transceiver(); }
 void osdp_loop(void) {}
 
-#endif
 #endif

@@ -13,12 +13,10 @@
 // 
 // You should have received a copy of the GNU General Public License
 
-#ifndef TICK_WIFI_H
-#define TICK_WIFI_H
-
 #ifdef USE_WIFI
-#include <WiFi.h>
+#include "tick_wifi.h"
 #include "tick_utils.h"
+#include <WiFi.h>
 
 void wifi_init(void){
   output_debug_string("WIFI INIT STARTED");
@@ -91,5 +89,4 @@ void wifi_init(void){
 
 void wifi_init(void){}
 
-#endif
 #endif

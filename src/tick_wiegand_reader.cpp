@@ -17,12 +17,9 @@
 // https://github.com/octosavvi/ESPKey/blob/master/ESPKey.ino
 // released under GNU General Public License version 2.
 
-#ifndef TICK_WIEGAND_READER_H
-#define TICK_WIEGAND_READER_H
-
-#include "tick_utils.h"
-
 #ifdef USE_WIEGAND
+#include "tick_wiegand_reader.h"
+#include "tick_utils.h"
 
 byte reader1_byte = 0;
 String reader1_string = "";
@@ -147,5 +144,4 @@ void wiegand_loop(void){
   }
 }
 
-#endif
 #endif

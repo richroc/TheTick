@@ -113,6 +113,12 @@ void jamming_enable(void){
       clockanddata_drain_clock();
       break;
     #endif
+    #ifdef USE_OSDP
+    case tick_mode_osdp_cp:
+    case tick_mode_osdp_pd:
+      osdp_drain();
+      break;
+    #endif
   }
 }
 
@@ -128,10 +134,14 @@ void jamming_disable(void){
       clockanddata_restore_clock();
       break;
     #endif
+    #ifdef USE_OSDP
+    case tick_mode_osdp_cp:
+    case tick_mode_osdp_pd:
+      osdp_restore();
+      break;
+    #endif
   }
 }
-
-#include "tick_config_handling.h"
 
 void append_log(String text) {
   File file = SPIFFS.open(LOG_FILE, "a");

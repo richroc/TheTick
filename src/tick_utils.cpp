@@ -13,13 +13,8 @@
 //
 // You should have received a copy of the GNU General Public License
 
-#ifndef TICK_UTILS_H
-#define TICK_UTILS_H
-#include "tick_default_config.h"
 
-void detachInterrupts(void);
-void attachInterrupts(void);
-void output_debug_string(String s);
+#include "tick_utils.h"
 
 byte hex_to_byte(char in) {
   if (in >= '0' && in <= '9')
@@ -51,13 +46,4 @@ uint32_t readVDCVoltage(void) {
   return (uint32_t) vdc;
 }
 
-void transmit_id(String sendValue, unsigned long bitcount);
-void jamming_enable(void);
-void jamming_disable(void);
-void append_log(String text);
-void output_debug_string(String s);
-void card_read_handler(String s);
-void clear_config(void);
 String dhcp_hostname;
-
-#endif
