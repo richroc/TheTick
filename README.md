@@ -9,7 +9,7 @@
 
 |  | BLEKey | ESP-RFID-Tool | ESPKey | The Tick |
 | -- | -- | -- | -- | -- |
-| supported protocols | Wiegand | Wiegand | Wiegand | Wiegand **+ Clock&Data** |
+| supported protocols | Wiegand | Wiegand | Wiegand | Wiegand **+ Clock&Data + OSDP** |
 | wireless interfaces | BLE | WiFi | WiFi | **BLE +** WiFi |
 | configurable D0/D1 lines  | ❌ | ❌ | ❌ | ✅ |
 | max power supply voltage | battery powered | 🔥 | 18V DC | **25V** DC |
@@ -61,7 +61,9 @@ There's an USB connector on-board, that even features embedded JTAG interface, b
 |--------------------|-------------------------------------------------------------------------------|
 | USE_WIEGAND        | provides support for Wiegand interface sniffing and transmitting              |
 | USE_CLOCKANDDATA   | provides support for clock&data interface sniffing and transmitting           |
-| USE_OSDP           | breaks the build, as it is not implemented yet                                |
+| USE_OSDP           | enables building with libosdp                                                 |
+| USE_OSDP_PD        | provides support for OSDP Peripheral Device mode                              |
+| USE_OSDP_CP        | provides support for OSDP Control Panel mode                                  |
 
 **In Wiegand mode**, the device can receive (sniff) and transmit messages of any length.  
 Assignment of D0 and D1 lines can be corrected in the configuration file after the device installation, if needed.  
