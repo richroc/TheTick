@@ -67,7 +67,7 @@ int osdp_serial_send_func(void *data, uint8_t *buf, int len) {
 int osdp_serial_recv_func(void *data, uint8_t *buf, int len) {
   (void)(data);
 
-  return osdp_serial->readBytes(buf, (size_t)len);
+  return osdp_serial->read(buf, (size_t)len);
 }
 
 void osdp_transmit_id(String sendValue, unsigned long bitcount) {
