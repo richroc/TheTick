@@ -150,8 +150,11 @@ void http_init(void){
         break;
       #endif
       #ifdef USE_OSDP
-      case tick_mode_osdp:
-        current_mode = "osdp";
+      case tick_mode_osdp_cp:
+        current_mode = "osdp_cp";
+        break;
+      case tick_mode_osdp_pd:
+        current_mode = "osdp_pd";
         break;
       #endif
     }

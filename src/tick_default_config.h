@@ -55,8 +55,8 @@
 #define PIN_OSDP_TERM 5
 #define PIN_OSDP_DE 7
 #define PIN_OSDP_RE 10
-#define PIN_OSDP_RX 20
-#define PIN_OSDP_TX 21
+#define PIN_OSDP_RX SOC_RX0
+#define PIN_OSDP_TX SOC_TX0
 
 #define LOG_NAME "TheTick"
 #define MDNSHOST "TheTick"
@@ -103,9 +103,11 @@ char log_name[CONFIG_VAR_LENGTH] = LOG_NAME;
 
 
 enum tick_mode {
-    tick_mode_disabled,
-    tick_mode_wiegand,
-    tick_mode_clockanddata
+  tick_mode_disabled,
+  tick_mode_wiegand,
+  tick_mode_clockanddata,
+  tick_mode_osdp_pd,
+  tick_mode_osdp_cp,
 };
 
 enum tick_mode current_tick_mode = tick_mode_disabled;
@@ -121,6 +123,25 @@ int wiegand_pulse_gap = WIEGAND_PULSE_GAP;
 int clockanddata_pin_clock = PIN_D0;
 int clockanddata_pin_data = PIN_D1;
 int clockanddata_pulse_width = CLOCKANDDATA_PULSE_WIDTH;
+#endif
+
+#ifdef USE_OSDP
+int osdp_pin_term = PIN_OSDP_TERM;
+int osdp_pin_de = PIN_OSDP_DE;
+int osdp_pin_re = PIN_OSDP_RE;
+int osdp_pin_rx = PIN_OSDP_RX;
+int osdp_pin_tx = PIN_OSDP_TX;
+bool osdp_terminator = false;
+HardwareSerial *osdp_serial = &Serial1;
+
+#define OSDP_BAUDATE 115200
+int osdp_baudrate = OSDP_BAUDATE;
+int osdp_address = 101;
+
+char osdp_scbk[CONFIG_PASSWORD_LENGTH] = "";
+char osdp_mk[CONFIG_PASSWORD_LENGTH] = "";
+
+
 #endif
 
 #ifdef USE_BLE

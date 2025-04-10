@@ -66,6 +66,32 @@ bool loadConfig() {
   ini.getValue("clockanddata", "pulse_width", buffer, bufferLen,
                clockanddata_pulse_width);
 #endif
+#ifdef USE_OSDP
+if (strcasecmp(t_tick_mode, "OSDP_PD") == 0) {
+  current_tick_mode = tick_mode_osdp_pd;
+
+}
+if (strcasecmp(t_tick_mode, "OSDP_CP") == 0) {
+  current_tick_mode = tick_mode_osdp_cp;
+}
+
+ini.getValue("osdp", "baudrate", buffer, bufferLen, osdp_baudrate);
+
+if (osdp_baudrate != 9600 && osdp_baudrate != 19200 && osdp_baudrate != 38400 &&
+    osdp_baudrate != 115200 && osdp_baudrate != 230400) {
+  output_debug_string("Invalid OSDP baudrate, using default");
+  osdp_baudrate = OSDP_BAUDATE;
+}
+
+ini.getValue("osdp", "terminator", buffer, bufferLen, osdp_terminator);
+ini.getValue("osdp", "address", buffer, bufferLen, osdp_address);
+
+ini.getValue("osdp", "scbk", buffer, bufferLen, osdp_pin_term);
+ini.getValue("osdp", "mk", buffer, bufferLen, osdp_pin_term);
+
+
+
+#endif
 
 #ifdef USE_WIFI
   ini.getValue("wifi_hotspot", "enable", buffer, bufferLen, ap_enable);
