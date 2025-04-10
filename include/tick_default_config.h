@@ -28,71 +28,15 @@
 #define LOG_FILE "/log.txt"
 #define DBG_OUTPUT_PORT Serial       // This could be a file with some hacking
 #define CARD_LEN 4                   // minimum card length in bits
-#define WIEGAND_PULSE_WIDTH 34       // length of asserted pulse in microSeconds
-#define WIEGAND_PULSE_GAP \
-  2000 - WIEGAND_PULSE_WIDTH          // delay between pulses in microSeconds
-#define CLOCKANDDATA_PULSE_WIDTH 300  // length of half of clock signal
 
-#define TICK_MODE 0
-
-// Features
-// #define USE_WIFI
-// #define USE_HTTP
-// #define USE_SYSLOG
-// #define USE_OTA
-// #define USE_OTA_HTTP
-// #define USE_LCD
-// #define USE_MDNS_RESPONDER
-// #define USE_OSDP
-// #define USE_BLE
-// #define USE_WIEGAND
-
-// Pin number assignments
-#define PIN_D0 0
-#define PIN_D1 1
-#define PIN_AUX 3
-#define PIN_VSENSE 4
-#define CONF_RESET 9
-
-#define PIN_OSDP_TERM 5
-#define PIN_OSDP_DE 7
-#define PIN_OSDP_RE 10
-#define PIN_OSDP_RX SOC_RX0
-#define PIN_OSDP_TX SOC_TX0
 
 #define LOG_NAME "TheTick"
 #define MDNSHOST "TheTick"
 
-#define AP_ENABLE true
-#define AP_HIDDEN false
-#define AP_SSID "TheTick-config"
-#define AP_PSK "accessgranted"
-#define AP_IP "192.168.4.1"
-
-#define STATION_SSID ""
-#define STATION_PSK ""
-
-#define SYSLOG_HOSTNAME "TheTick"
-#define SYSLOG_SERVICE "accesscontrol"
-#define SYSLOG_PORT 514
-#define SYSLOG_SERVER "0.0.0.0"
-#define SYSLOG_PRIORITY 36
-
-#define OTA_PASSWORD "ExtraSpecialPassKey"
-
-#define WWW_USERNAME ""
-#define WWW_PASSWORD ""
-
-#define DOS_CARD_ID "7fffffff:31"
-
-#define BLE_UUID_WIEGAND_SERVICE "f498124f-2137-4615-9859-30eb4cecffb5"
-#define BLE_UUID_WIEGAND_CHARACTERISTIC "beb5483e-36e1-4688-b7f5-ea07361baaaa"
-#define BLE_PASSKEY 123456
-
 #define SCREEN_WIDTH 128  // OLED display width, in pixels
 #define SCREEN_HEIGHT 32  // OLED display height, in pixels
-#define SCREEN_ADDRESS \
-  0x3C  ///< See datasheet for Address; 0x3D for 128x64, 0x3C for 128x32
+///< See datasheet for address; 0x3D for 128x64, 0x3C for 128x32
+#define SCREEN_ADDRESS  0x3C  
 
 // ---------------------------------------------------------------
 
@@ -101,6 +45,9 @@
 #define CONFIG_PASSWORD_LENGTH 64
 #define CONFIG_UUID_LENGTH 37
 #define CONFIG_SSID_LENGTH 33
+
+
+extern int pin_aux, pin_vsense, pin_reset;
 
 extern char log_name[CONFIG_VAR_LENGTH];
 
@@ -184,7 +131,6 @@ extern char syslog_host[CONFIG_VAR_LENGTH];
 extern byte syslog_priority;
 #endif
 
-void set_default_config(void);
-bool loadConfig();
+bool loadConfig(const char *filename);
 
 #endif

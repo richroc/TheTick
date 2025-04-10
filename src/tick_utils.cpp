@@ -41,7 +41,7 @@ uint32_t readVDCVoltage(void) {
   const float R1 = 12700.0;
   const float R2 = 1000.0; 
   const float CALIBRATION_FACTOR = 1.00;
-  int raw_mv = analogReadMilliVolts(PIN_VSENSE);
+  int raw_mv = analogReadMilliVolts(pin_vsense);
   float vdc = ((float) raw_mv) * ((R1 + R2) / R2) * CALIBRATION_FACTOR;
   return (uint32_t) vdc;
 }

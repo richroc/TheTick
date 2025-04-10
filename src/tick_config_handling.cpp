@@ -16,166 +16,61 @@
 #include <Arduino.h>
 #include <IPAddress.h>
 #include <SPIFFSIniFile.h>
+
 #include <cstddef>
+
 #include "HardwareSerial.h"
 #include "tick_default_config.h"
 #include "tick_utils.h"
 
 char log_name[CONFIG_VAR_LENGTH];
 
-enum tick_mode current_tick_mode;
+enum tick_mode current_tick_mode = tick_mode_disabled;
 
-#ifdef USE_WIEGAND
-int wiegand_pin_d0 = PIN_D0;
-int wiegand_pin_d1 = PIN_D1;
-int wiegand_pulse_width = WIEGAND_PULSE_WIDTH;
-int wiegand_pulse_gap = WIEGAND_PULSE_GAP;
-#endif
+int pin_aux, pin_vsense, pin_reset;
 
-#ifdef USE_CLOCKANDDATA
-int clockanddata_pin_clock = PIN_D0;
-int clockanddata_pin_data = PIN_D1;
-int clockanddata_pulse_width = CLOCKANDDATA_PULSE_WIDTH;
-#endif
+int wiegand_pin_d0, wiegand_pin_d1;
+int wiegand_pulse_width, wiegand_pulse_gap;
 
-#ifdef USE_OSDP
-int osdp_pin_term;
-int osdp_pin_de;
-int osdp_pin_re;
-int osdp_pin_rx;
-int osdp_pin_tx;
+int clockanddata_pin_clock, clockanddata_pin_data;
+int clockanddata_pulse_width;
+
+int osdp_pin_term, osdp_pin_de, osdp_pin_re, osdp_pin_rx, osdp_pin_tx;
+int osdp_baudrate, osdp_address;
 bool osdp_terminator;
-HardwareSerial *osdp_serial;
+HardwareSerial* osdp_serial = &Serial1;
+char osdp_scbk[CONFIG_PASSWORD_LENGTH], osdp_mk[CONFIG_PASSWORD_LENGTH];
 
-int osdp_baudrate;
-int osdp_address;
-
-char osdp_scbk[CONFIG_PASSWORD_LENGTH];
-char osdp_mk[CONFIG_PASSWORD_LENGTH];
-#endif
-
-#ifdef USE_BLE
-char ble_uuid_wiegand_service[CONFIG_UUID_LENGTH];
-char ble_uuid_wiegand_characteristic[CONFIG_UUID_LENGTH];
+char ble_uuid_wiegand_service[CONFIG_UUID_LENGTH],
+    ble_uuid_wiegand_characteristic[CONFIG_UUID_LENGTH];
 uint32_t ble_passkey;
-#endif
 
-#ifdef USE_WIFI
-bool ap_enable;
-bool ap_hidden;
-char ap_ssid[CONFIG_SSID_LENGTH];
-IPAddress ap_ip(192, 168, 4, 1);
-char ap_psk[CONFIG_PASSWORD_LENGTH];
-char station_ssid[CONFIG_SSID_LENGTH];
-char station_psk[CONFIG_PASSWORD_LENGTH];
-#endif
+bool ap_enable, ap_hidden;
+char ap_ssid[CONFIG_SSID_LENGTH], ap_psk[CONFIG_PASSWORD_LENGTH];
+IPAddress ap_ip;
+char station_ssid[CONFIG_SSID_LENGTH], station_psk[CONFIG_PASSWORD_LENGTH];
 
-#ifdef USE_MDNS_RESPONDER
 char mDNShost[CONFIG_VAR_LENGTH];
-#endif
 
 char DoS_id[CONFIG_PASSWORD_LENGTH];
 
-#ifdef USE_OTA
 char ota_password[CONFIG_PASSWORD_LENGTH];
-#endif
 
-#ifdef USE_HTTP
-char www_username[CONFIG_VAR_LENGTH];
-char www_password[CONFIG_PASSWORD_LENGTH];
-#endif
+char www_username[CONFIG_VAR_LENGTH], www_password[CONFIG_PASSWORD_LENGTH];
 
-#ifdef USE_SYSLOG
 IPAddress syslog_server;
 unsigned int syslog_port;
 char syslog_service_name[CONFIG_VAR_LENGTH];
 char syslog_host[CONFIG_VAR_LENGTH];
 byte syslog_priority;
-#endif
 
-void set_default_config(void) {
-  strcpy(log_name, LOG_NAME);
-
-  current_tick_mode = tick_mode_disabled;
-
-#ifdef USE_WIEGAND
-  wiegand_pin_d0 = PIN_D0;
-  wiegand_pin_d1 = PIN_D1;
-  wiegand_pulse_width = WIEGAND_PULSE_WIDTH;
-  wiegand_pulse_gap = WIEGAND_PULSE_GAP;
-#endif
-
-#ifdef USE_CLOCKANDDATA
-  clockanddata_pin_clock = PIN_D0;
-  clockanddata_pin_data = PIN_D1;
-  clockanddata_pulse_width = CLOCKANDDATA_PULSE_WIDTH;
-#endif
-
-#ifdef USE_OSDP
-  osdp_pin_term = PIN_OSDP_TERM;
-  osdp_pin_de = PIN_OSDP_DE;
-  osdp_pin_re = PIN_OSDP_RE;
-  osdp_pin_rx = PIN_OSDP_RX;
-  osdp_pin_tx = PIN_OSDP_TX;
-  osdp_terminator = false;
-  osdp_serial = &Serial1;
-
-  osdp_baudrate = OSDP_BAUDRATE;
-  osdp_address = 101;
-
-  strcpy(osdp_scbk, "");
-  strcpy(osdp_mk, "");
-#endif
-
-#ifdef USE_BLE
-  strcpy(ble_uuid_wiegand_service, BLE_UUID_WIEGAND_SERVICE);
-  strcpy(ble_uuid_wiegand_characteristic, BLE_UUID_WIEGAND_CHARACTERISTIC);
-  ble_passkey = BLE_PASSKEY;
-#endif
-
-#ifdef USE_WIFI
-  ap_enable = AP_ENABLE;
-  ap_hidden = AP_HIDDEN;
-  strcpy(ap_ssid, AP_SSID);
-  ap_ip.fromString(AP_IP);
-
-  strcpy(ap_psk, AP_PSK);  // Default PSK.
-  strcpy(station_ssid, STATION_SSID);
-  strcpy(station_psk, STATION_PSK);
-#endif
-
-#ifdef USE_MDNS_RESPONDER
-// strcpy(mDNShost, MDNSSERVICE);
-#endif
-
-  strcpy(DoS_id, DOS_CARD_ID);
-
-#ifdef USE_OTA
-  strcpy(ota_password, OTA_PASSWORD);
-#endif
-
-#ifdef USE_HTTP
-  strcpy(www_username, WWW_USERNAME);
-  strcpy(www_password, WWW_PASSWORD);
-#endif
-
-#ifdef USE_SYSLOG
-  syslog_server.fromString(SYSLOG_SERVER);
-  syslog_port = SYSLOG_PORT;
-  strcpy(syslog_service_name, SYSLOG_SERVICE);
-  strcpy(syslog_host, SYSLOG_HOSTNAME);
-  syslog_priority = SYSLOG_PRIORITY;
-#endif
-}
-
-bool loadConfig() {
-  set_default_config();
+bool loadConfig(const char* filename) {
   const size_t bufferLen = 80;
   char buffer[bufferLen];
 
-  output_debug_string("Reading config START");
+  output_debug_string(String("Reading config ") + filename + " START");
 
-  SPIFFSIniFile ini(CONFIG_FILE);
+  SPIFFSIniFile ini(filename);
   if (!ini.open()) {
     output_debug_string("Config file not present");
     return false;
@@ -191,12 +86,15 @@ bool loadConfig() {
   ini.getValue("tick", "mode", buffer, bufferLen, t_tick_mode,
                CONFIG_VAR_LENGTH);
 
+  ini.getValue("tick", "name", buffer, bufferLen, log_name, CONFIG_VAR_LENGTH);
+  strcpy(mDNShost, log_name);
+  ini.getValue("tick", "dos_id", buffer, bufferLen, DoS_id,
+               CONFIG_PASSWORD_LENGTH);
+
 #ifdef USE_WIEGAND
   if (strcasecmp(t_tick_mode, "WIEGAND") == 0) {
     current_tick_mode = tick_mode_wiegand;
   }
-  ini.getValue("wiegand", "dos_id", buffer, bufferLen, DoS_id,
-               CONFIG_PASSWORD_LENGTH);
   ini.getValue("wiegand", "pin_d0", buffer, bufferLen, wiegand_pin_d0);
   ini.getValue("wiegand", "pin_d1", buffer, bufferLen, wiegand_pin_d1);
   ini.getValue("wiegand", "pulse_width", buffer, bufferLen,
@@ -229,15 +127,23 @@ bool loadConfig() {
   if (osdp_baudrate != 9600 && osdp_baudrate != 19200 &&
       osdp_baudrate != 38400 && osdp_baudrate != 115200 &&
       osdp_baudrate != 230400) {
-    output_debug_string("Invalid OSDP baudrate, using default");
-    osdp_baudrate = OSDP_BAUDRATE;
+    output_debug_string("Invalid OSDP baudrate");
+    osdp_baudrate = 115200;
   }
 
   ini.getValue("osdp", "terminator", buffer, bufferLen, osdp_terminator);
   ini.getValue("osdp", "address", buffer, bufferLen, osdp_address);
 
-  ini.getValue("osdp", "scbk", buffer, bufferLen, osdp_pin_term);
-  ini.getValue("osdp", "mk", buffer, bufferLen, osdp_pin_term);
+  ini.getValue("osdp", "scbk", buffer, bufferLen, osdp_scbk,
+               CONFIG_PASSWORD_LENGTH);
+  ini.getValue("osdp", "mk", buffer, bufferLen, osdp_mk,
+               CONFIG_PASSWORD_LENGTH);
+
+  ini.getValue("osdp", "pin_term", buffer, bufferLen, osdp_pin_term);
+  ini.getValue("osdp", "pin_de", buffer, bufferLen, osdp_pin_de);
+  ini.getValue("osdp", "pin_re", buffer, bufferLen, osdp_pin_re);
+  ini.getValue("osdp", "pin_rx", buffer, bufferLen, osdp_pin_rx);
+  ini.getValue("osdp", "pin_tx", buffer, bufferLen, osdp_pin_tx);
 
 #endif
 
@@ -248,7 +154,7 @@ bool loadConfig() {
                CONFIG_SSID_LENGTH);
   ini.getValue("wifi_hotspot", "psk", buffer, bufferLen, ap_psk,
                CONFIG_PASSWORD_LENGTH);
-
+  ini.getIPAddress("wifi_hotspot", "ip", buffer, bufferLen, ap_ip);
   ini.getValue("wifi_client", "ssid", buffer, bufferLen, station_ssid,
                CONFIG_SSID_LENGTH);
   ini.getValue("wifi_client", "psk", buffer, bufferLen, station_psk,

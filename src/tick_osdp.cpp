@@ -27,8 +27,8 @@ uint8_t osdp_scbk_raw[16];
 uint8_t osdp_mk_raw[16];
 osdp_pd_info_t pd_info[] = {{
     .name = "pd[101]",
-    .baud_rate = (int)osdp_baudrate,
-    .address = osdp_address,
+    .baud_rate = -1,
+    .address = -1,
     .flags = 0,
     .id =
         {
@@ -60,13 +60,13 @@ osdp_pd_info_t pd_info[] = {{
 }};
 
 void osdp_drain(){
-  digitalWrite(0, LOW);
-  digitalWrite(1, LOW);
+  digitalWrite(wiegand_pin_d0, LOW);
+  digitalWrite(wiegand_pin_d1, LOW);
 }
 
 void osdp_restore(){
-  digitalWrite(0, HIGH);
-  digitalWrite(1, HIGH);
+  digitalWrite(wiegand_pin_d0, HIGH);
+  digitalWrite(wiegand_pin_d1, HIGH);
 }
 
 int osdp_serial_send_func(void *data, uint8_t *buf, int len) {
@@ -113,45 +113,50 @@ int osdp_cp_event_handler(void *data, int pd, struct osdp_event *event) {
 
 void osdp_disable_transceiver(void) {
   // Driver disabled, outputs in High-Z state
-  pinMode(PIN_OSDP_DE, OUTPUT);
-  pinMode(PIN_OSDP_TX, INPUT);
-  digitalWrite(PIN_OSDP_DE, LOW);
-  digitalWrite(PIN_OSDP_TX, LOW);
+  pinMode(osdp_pin_de, OUTPUT);
+  pinMode(osdp_pin_tx, INPUT);
+  digitalWrite(osdp_pin_de, LOW);
+  digitalWrite(osdp_pin_tx, LOW);
   // Receiver disabled
-  pinMode(PIN_OSDP_RE, OUTPUT);
-  pinMode(PIN_OSDP_RX, INPUT);
-  digitalWrite(PIN_OSDP_RE, HIGH);
-  digitalWrite(PIN_OSDP_RX, LOW);
+  pinMode(osdp_pin_re, OUTPUT);
+  pinMode(osdp_pin_rx, INPUT);
+  digitalWrite(osdp_pin_re, HIGH);
+  digitalWrite(osdp_pin_rx, LOW);
 
   // Disable terminator
-  pinMode(PIN_OSDP_TERM, OUTPUT);
-  digitalWrite(PIN_OSDP_TERM, LOW);
+  if(osdp_pin_term != -1) {
+    pinMode(osdp_pin_term, OUTPUT);
+    digitalWrite(osdp_pin_term, LOW);
+  }
+
 }
 
 void osdp_init(void) {
   if (current_tick_mode == tick_mode_osdp_pd ||
       current_tick_mode == tick_mode_osdp_cp) {
     // disable Wiegand interface
-    pinMode(0, OUTPUT);
-    pinMode(1, OUTPUT);
-    digitalWrite(0, HIGH);
-    digitalWrite(1, HIGH);
+    pinMode(wiegand_pin_d0, OUTPUT);
+    pinMode(wiegand_pin_d1, OUTPUT);
+    digitalWrite(wiegand_pin_d0, HIGH);
+    digitalWrite(wiegand_pin_d1, HIGH);
 
     // configure RS485 transceiver
-    pinMode(PIN_OSDP_DE, OUTPUT);
-    digitalWrite(PIN_OSDP_DE, LOW);
+    pinMode(osdp_pin_de, OUTPUT);
+    digitalWrite(osdp_pin_de, LOW);
 
-    pinMode(PIN_OSDP_RE, OUTPUT);
-    digitalWrite(PIN_OSDP_RE, LOW);
+    pinMode(osdp_pin_re, OUTPUT);
+    digitalWrite(osdp_pin_re, LOW);
 
-    pinMode(PIN_OSDP_TX, OUTPUT);
-    digitalWrite(PIN_OSDP_TX, LOW);
+    pinMode(osdp_pin_tx, OUTPUT);
+    digitalWrite(osdp_pin_tx, LOW);
 
-    pinMode(PIN_OSDP_RX, INPUT);
-    digitalWrite(PIN_OSDP_RX, LOW);
+    pinMode(osdp_pin_rx, INPUT);
+    digitalWrite(osdp_pin_rx, LOW);
 
-    pinMode(PIN_OSDP_TERM, OUTPUT);
-    digitalWrite(PIN_OSDP_TERM, osdp_terminator ? HIGH : LOW);
+    if(osdp_pin_term != -1) {
+      pinMode(osdp_pin_term, OUTPUT);
+      digitalWrite(osdp_pin_term, osdp_terminator ? HIGH : LOW);
+    }
 
     // This configuration at the first glance is a bit counterintuitive:
     // - receiver is permanently enabled, as:
@@ -163,14 +168,14 @@ void osdp_init(void) {
     // - CTS signal is not used
     // https://docs.espressif.com/projects/esp-idf/en/v5.0/esp32c3/api-reference/peripherals/uart.html#overview-of-rs485-specific-communication-options
 
-    osdp_serial->begin(osdp_baudrate, SERIAL_8N1, PIN_OSDP_RX, PIN_OSDP_TX);
+    osdp_serial->begin(osdp_baudrate, SERIAL_8N1, osdp_pin_rx, osdp_pin_tx);
     osdp_serial->setMode(UART_MODE_RS485_HALF_DUPLEX);
-    osdp_serial->setPins(PIN_OSDP_RX, PIN_OSDP_TX, -1, PIN_OSDP_DE);
+    osdp_serial->setPins(osdp_pin_rx, osdp_pin_tx, -1, osdp_pin_de);
     osdp_serial->setHwFlowCtrlMode(UART_HW_FLOWCTRL_DISABLE, 122);
 
     pd_info[0].channel.recv = osdp_serial_recv_func;
     pd_info[0].channel.send = osdp_serial_send_func;
-    pd_info[0].baud_rate = (int)osdp_baudrate;
+    pd_info[0].baud_rate = osdp_baudrate;
     pd_info[0].address = osdp_address;
 
     if (strlen(osdp_scbk) == 32) {

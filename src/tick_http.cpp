@@ -315,10 +315,10 @@ void http_init(void){
       return false;
 
     uint32_t data = 
-      (digitalRead(PIN_D0) == HIGH ? 1:0)   * 1 +
-      (digitalRead(PIN_D1) == HIGH ? 1:0)   * 2 +
-      (digitalRead(PIN_AUX) == HIGH ? 1:0) * 4 +
-      (digitalRead(CONF_RESET) == HIGH ? 1:0) * 8;
+      (digitalRead(wiegand_pin_d0) == HIGH ? 1:0)   * 1 +
+      (digitalRead(wiegand_pin_d1) == HIGH ? 1:0)   * 2 +
+      (digitalRead(pin_aux) == HIGH ? 1:0) * 4 +
+      (digitalRead(pin_reset) == HIGH ? 1:0) * 8;
       
       
     String json = "{";

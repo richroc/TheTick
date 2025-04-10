@@ -14,40 +14,14 @@ psk=
 [mdns]
 host=TheTick
 
-[wiegand]
-dos_id=7fffffff:31
-pin_d0=0
-pin_d1=1
-pulse_width=34
-pulse_gap=1966
-
-[clockanddata]
-pin_clock=0
-pin_data=1
-pulse_width=300
-
-[ota]
-password=ExtraSpecialPassKey
-
-[syslog]
-server=
-port=514
-service=accesscontrol
-priority=36
-host=TheTick
-
 [http]
 username=
 password=
 
 [ble]
-service=f498124f-2137-4615-9859-30eb4cecffb5
-characteristic=beb5483e-36e1-4688-b7f5-ea07361baaaa
 passkey=123456
 
 [osdp]
-baudrate=38400
-terminator=false
+baudrate=115200
 address=101
 scbk=303132333435363738393A3B3C3D3E3F
-mk=

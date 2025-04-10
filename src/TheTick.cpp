@@ -80,7 +80,7 @@ void attachInterrupts(void) {
 }
 
 void IRAM_ATTR auxChange(void) {
-  volatile byte new_value = digitalRead(PIN_AUX);
+  volatile byte new_value = digitalRead(pin_aux);
   if (new_value == expect_aux) {
     last_aux = new_value;
     expect_aux = 2;
@@ -171,25 +171,14 @@ void IRAM_ATTR resetConfig(void) {
 }
 
 void setup() {
-  // Inputs
-  pinMode(PIN_D0, INPUT);
-  digitalWrite(PIN_D0, HIGH);
-  pinMode(PIN_D1, INPUT);
-  digitalWrite(PIN_D1, HIGH);
-  pinMode(PIN_AUX, INPUT);
-  digitalWrite(PIN_AUX, LOW);
-
   heartbeat_init();
 
-  pinMode(CONF_RESET, INPUT);
-  digitalWrite(CONF_RESET, HIGH);
+
 
   DBG_OUTPUT_PORT.begin(115200);
   DBG_OUTPUT_PORT.print("\n");
 
-  #ifndef USE_OSDP
-  osdp_init();
-  #endif
+
 
   display_init();
 
@@ -218,9 +207,27 @@ void setup() {
   }
   append_log(F("Starting up!"));
 
-  if (!loadConfig()) {
-    output_debug_string(F("No configuration. Defaults."));
+  if(!loadConfig("/config.default")){
+    output_debug_string(F("No default configuration."));
+    delay(1000);
+    return;
   }
+  if(!loadConfig("/config.txt")){
+    output_debug_string(F("No configuration. Using defaults."));
+  }
+
+  #ifndef USE_OSDP
+  osdp_init();
+  #endif
+    // Inputs
+    pinMode(wiegand_pin_d0, INPUT);
+    digitalWrite(wiegand_pin_d0, HIGH);
+    pinMode(wiegand_pin_d1, INPUT);
+    digitalWrite(wiegand_pin_d1, HIGH);
+    pinMode(pin_aux, INPUT);
+    digitalWrite(pin_aux, LOW);
+    pinMode(pin_reset, INPUT);
+    digitalWrite(pin_reset, HIGH);
 
   switch(current_tick_mode){
     #ifdef USE_WIEGAND
@@ -256,8 +263,8 @@ void setup() {
 
   // Input interrupts
   attachInterrupts();
-  attachInterrupt(digitalPinToInterrupt(CONF_RESET), resetConfig, CHANGE);
-  //attachInterrupt(digitalPinToInterrupt(PIN_AUX), auxChange, CHANGE);
+  attachInterrupt(digitalPinToInterrupt(pin_reset), resetConfig, CHANGE);
+  //attachInterrupt(digitalPinToInterrupt(pin_aux), auxChange, CHANGE);
 }
 
 void card_read_handler(String s){
