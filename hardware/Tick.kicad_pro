@@ -58,7 +58,32 @@
           "width": 0.0
         }
       ],
-      "drc_exclusions": [],
+      "drc_exclusions": [
+        [
+          "silk_edge_clearance|141430000|114000000|3b0f6010-f140-4c01-9af0-e13e7b848849|40f516be-2401-4033-bab6-97d0324c7d1f",
+          ""
+        ],
+        [
+          "silk_edge_clearance|159430000|114000000|3b0f6010-f140-4c01-9af0-e13e7b848849|6284c875-e246-497f-84a8-1307a7038479",
+          ""
+        ],
+        [
+          "silk_over_copper|141430000|111468100|40f516be-2401-4033-bab6-97d0324c7d1f|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "silk_over_copper|159430000|113373100|6284c875-e246-497f-84a8-1307a7038479|00000000-0000-0000-0000-000000000000",
+          ""
+        ],
+        [
+          "silk_overlap|159204724|107572500|32bddc5b-399b-4e44-9627-cff422f2036b|dc8aa5a5-8807-42cb-a016-72f32635d89a",
+          ""
+        ],
+        [
+          "text_height|139800000|112800000|c29b4dfe-687c-4cf5-8518-ccccabe5510b|00000000-0000-0000-0000-000000000000",
+          ""
+        ]
+      ],
       "meta": {
         "version": 2
       },
@@ -512,7 +537,7 @@
   },
   "schematic": {
     "annotate_start_num": 0,
-    "bom_export_filename": "",
+    "bom_export_filename": "C:\\Users\\Jakub\\Desktop\\Tick.csv",
     "bom_fmt_presets": [],
     "bom_fmt_settings": {
       "field_delimiter": ",",
@@ -525,7 +550,7 @@
     },
     "bom_presets": [],
     "bom_settings": {
-      "exclude_dnp": false,
+      "exclude_dnp": true,
       "fields_ordered": [
         {
           "group_by": false,
@@ -543,7 +568,7 @@
           "group_by": false,
           "label": "Datasheet",
           "name": "Datasheet",
-          "show": true
+          "show": false
         },
         {
           "group_by": false,
@@ -555,13 +580,13 @@
           "group_by": false,
           "label": "Qty",
           "name": "${QUANTITY}",
-          "show": true
+          "show": false
         },
         {
           "group_by": true,
           "label": "DNP",
           "name": "${DNP}",
-          "show": true
+          "show": false
         },
         {
           "group_by": false,
@@ -646,6 +671,12 @@
           "label": "Description",
           "name": "Description",
           "show": false
+        },
+        {
+          "group_by": false,
+          "label": "LCSC",
+          "name": "LCSC",
+          "show": true
         }
       ],
       "filter_string": "",

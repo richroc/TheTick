@@ -664,156 +664,6 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "Device:D_Zener"
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 1.016)
-				(hide yes)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "D"
-				(at 0 2.54 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "D_Zener"
-				(at 0 -2.54 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "~"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "Zener diode"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "diode"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_fp_filters" "TO-???* *_Diode_* *SingleDiode* D_*"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "D_Zener_0_1"
-				(polyline
-					(pts
-						(xy -1.27 -1.27) (xy -1.27 1.27) (xy -0.762 1.27)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 1.27 0) (xy -1.27 0)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 1.27 -1.27) (xy 1.27 1.27) (xy -1.27 0) (xy 1.27 -1.27)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "D_Zener_1_1"
-				(pin passive line
-					(at -3.81 0 0)
-					(length 2.54)
-					(name "K"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 3.81 0 180)
-					(length 2.54)
-					(name "A"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
 		(symbol "Device:L"
 			(pin_numbers
 				(hide yes)
@@ -2670,192 +2520,6 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "Jumper:SolderJumper_2_Open"
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 0)
-				(hide yes)
-			)
-			(exclude_from_sim yes)
-			(in_bom no)
-			(on_board yes)
-			(property "Reference" "JP"
-				(at 0 2.032 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "SolderJumper_2_Open"
-				(at 0 -2.54 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "~"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "Solder Jumper, 2-pole, open"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "solder jumper SPST"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_fp_filters" "SolderJumper*Open*"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "SolderJumper_2_Open_0_1"
-				(polyline
-					(pts
-						(xy -0.254 1.016) (xy -0.254 -1.016)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(arc
-					(start -0.254 -1.016)
-					(mid -1.2656 0)
-					(end -0.254 1.016)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(arc
-					(start -0.254 -1.016)
-					(mid -1.2656 0)
-					(end -0.254 1.016)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(arc
-					(start 0.254 1.016)
-					(mid 1.2656 0)
-					(end 0.254 -1.016)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(arc
-					(start 0.254 1.016)
-					(mid 1.2656 0)
-					(end 0.254 -1.016)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0.254 1.016) (xy 0.254 -1.016)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "SolderJumper_2_Open_1_1"
-				(pin passive line
-					(at -3.81 0 0)
-					(length 2.54)
-					(name "A"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 3.81 0 180)
-					(length 2.54)
-					(name "B"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
 		(symbol "Power_Protection:NUP2105L"
 			(pin_names
 				(hide yes)
@@ -3120,7 +2784,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "Regulator_Switching:LMR51430"
+		(symbol "Regulator_Switching:TPS54202DDC"
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -3133,7 +2797,7 @@
 					(justify left)
 				)
 			)
-			(property "Value" "LMR51430"
+			(property "Value" "TPS54202DDC"
 				(at 0 6.35 0)
 				(effects
 					(font
@@ -3152,17 +2816,16 @@
 					(hide yes)
 				)
 			)
-			(property "Datasheet" "https://www.ti.com/lit/ds/symlink/lmr51430.pdf"
-				(at 1.27 -11.43 0)
+			(property "Datasheet" "http://www.ti.com/lit/ds/symlink/tps54202.pdf"
+				(at -7.62 8.89 0)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(justify left)
 					(hide yes)
 				)
 			)
-			(property "Description" "4.5-V to 36-V, 3-A synchronous buck converter with 40-µA IQ, SOT-23-6"
+			(property "Description" "2A, 4.5 to 28V Input, EMI Friendly integrated switch synchronous step-down regulator, pulse-skipping, SOT-23-6"
 				(at 0 0 0)
 				(effects
 					(font
@@ -3171,7 +2834,7 @@
 					(hide yes)
 				)
 			)
-			(property "ki_keywords" "switching buck converter power-supply voltage regulator"
+			(property "ki_keywords" "switching buck converter power-supply voltage regulator emi spread spectrum"
 				(at 0 0 0)
 				(effects
 					(font
@@ -3189,7 +2852,7 @@
 					(hide yes)
 				)
 			)
-			(symbol "LMR51430_0_1"
+			(symbol "TPS54202DDC_0_1"
 				(rectangle
 					(start -7.62 5.08)
 					(end 7.62 -5.08)
@@ -3202,7 +2865,7 @@
 					)
 				)
 			)
-			(symbol "LMR51430_1_1"
+			(symbol "TPS54202DDC_1_1"
 				(pin power_in line
 					(at -10.16 2.54 0)
 					(length 2.54)
@@ -3260,7 +2923,7 @@
 				(pin passive line
 					(at 10.16 2.54 180)
 					(length 2.54)
-					(name "CB"
+					(name "BOOT"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -4471,12 +4134,6 @@
 		(uuid "251e12e5-2874-4744-8fc0-65e12857203c")
 	)
 	(junction
-		(at 105.41 31.75)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "272d8e8f-be30-439a-9d42-214b52613695")
-	)
-	(junction
 		(at 77.47 154.94)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -4519,12 +4176,6 @@
 		(uuid "6b25b95c-606e-4b81-84a0-493309a480be")
 	)
 	(junction
-		(at 130.81 46.99)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "6f90f778-7753-4dd7-be4d-693bc7a1d763")
-	)
-	(junction
 		(at 160.02 55.88)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -4541,12 +4192,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "86dc1295-fdd7-40af-a210-d42903213dd3")
-	)
-	(junction
-		(at 135.89 62.23)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "8dcde0b3-94e5-49b4-9990-1cf79bfa1b55")
 	)
 	(junction
 		(at 217.17 41.91)
@@ -4567,34 +4212,16 @@
 		(uuid "94048fe9-7432-4916-9c14-034cd3c8473d")
 	)
 	(junction
-		(at 116.84 62.23)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "997a7523-c4ff-41e5-9e69-f428335f8566")
-	)
-	(junction
-		(at 105.41 39.37)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "99882282-e1aa-430f-8bf8-66b4e6cac7c2")
-	)
-	(junction
 		(at 123.19 31.75)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "9a8e0ca4-4bd4-4979-8c66-74e46f55b347")
 	)
 	(junction
-		(at 167.64 63.5)
+		(at 168.91 63.5)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "a3608ad6-8825-4ba4-80cd-26f9c30e268c")
-	)
-	(junction
-		(at 135.89 54.61)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "a644280c-8ba8-4fb8-95a3-58aa3798cfb5")
+		(uuid "ac777e1d-2d65-49d0-8fb2-9b3b2ba3c3bd")
 	)
 	(junction
 		(at 83.82 147.32)
@@ -4706,7 +4333,7 @@
 	)
 	(wire
 		(pts
-			(xy 160.02 55.88) (xy 167.64 55.88)
+			(xy 160.02 55.88) (xy 168.91 55.88)
 		)
 		(stroke
 			(width 0)
@@ -4723,16 +4350,6 @@
 			(type default)
 		)
 		(uuid "0d062871-ae82-4341-81ee-17a6c89a5f14")
-	)
-	(wire
-		(pts
-			(xy 99.06 39.37) (xy 105.41 39.37)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "0d3743c4-904a-42a1-9d3b-f25e4b912346")
 	)
 	(wire
 		(pts
@@ -4786,23 +4403,13 @@
 	)
 	(wire
 		(pts
-			(xy 99.06 31.75) (xy 105.41 31.75)
+			(xy 99.06 31.75) (xy 106.68 31.75)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "1a9545e0-d11a-43e6-8c07-69511294f1bb")
-	)
-	(wire
-		(pts
-			(xy 116.84 62.23) (xy 116.84 54.61)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "1b876dc3-9c64-41eb-9892-92767c56cd33")
 	)
 	(wire
 		(pts
@@ -4826,7 +4433,7 @@
 	)
 	(wire
 		(pts
-			(xy 130.81 54.61) (xy 135.89 54.61)
+			(xy 135.89 55.88) (xy 137.16 55.88)
 		)
 		(stroke
 			(width 0)
@@ -4836,7 +4443,7 @@
 	)
 	(wire
 		(pts
-			(xy 135.89 54.61) (xy 135.89 62.23)
+			(xy 137.16 55.88) (xy 137.16 66.04)
 		)
 		(stroke
 			(width 0)
@@ -4883,16 +4490,6 @@
 			(type default)
 		)
 		(uuid "270e2ae7-c61e-43c1-aa20-239b332b59c0")
-	)
-	(wire
-		(pts
-			(xy 116.84 62.23) (xy 121.92 62.23)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "27e1859b-95bd-4a23-814f-0c0422830ff9")
 	)
 	(wire
 		(pts
@@ -4966,7 +4563,7 @@
 	)
 	(wire
 		(pts
-			(xy 167.64 63.5) (xy 167.64 64.77)
+			(xy 168.91 63.5) (xy 168.91 64.77)
 		)
 		(stroke
 			(width 0)
@@ -5006,23 +4603,13 @@
 	)
 	(wire
 		(pts
-			(xy 116.84 66.04) (xy 116.84 62.23)
+			(xy 130.81 48.26) (xy 130.81 46.99)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "3f5da83f-e10e-41be-94d9-36786fe22b36")
-	)
-	(wire
-		(pts
-			(xy 125.73 46.99) (xy 130.81 46.99)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "411d573b-8776-4665-8ada-a71e5b2ed071")
+		(uuid "3db9404b-21ca-42dd-a05e-0b5cc345c6c4")
 	)
 	(wire
 		(pts
@@ -5236,7 +4823,7 @@
 	)
 	(wire
 		(pts
-			(xy 160.02 63.5) (xy 167.64 63.5)
+			(xy 160.02 63.5) (xy 168.91 63.5)
 		)
 		(stroke
 			(width 0)
@@ -5296,6 +4883,16 @@
 	)
 	(wire
 		(pts
+			(xy 124.46 55.88) (xy 124.46 67.31)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7e320ecc-0938-4205-bbc1-e51334dfbe75")
+	)
+	(wire
+		(pts
 			(xy 195.58 118.11) (xy 195.58 132.08)
 		)
 		(stroke
@@ -5346,16 +4943,6 @@
 	)
 	(wire
 		(pts
-			(xy 129.54 62.23) (xy 135.89 62.23)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "96a5e88d-d3f7-41ae-8bfa-138c8efaaef3")
-	)
-	(wire
-		(pts
 			(xy 227.33 45.72) (xy 227.33 41.91)
 		)
 		(stroke
@@ -5383,16 +4970,6 @@
 			(type default)
 		)
 		(uuid "994ca15c-6cb8-4cd2-a6bc-97b8133a2b3a")
-	)
-	(wire
-		(pts
-			(xy 130.81 46.99) (xy 135.89 46.99)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "99796269-f0d7-4cb9-9c5b-354d633c2320")
 	)
 	(wire
 		(pts
@@ -5456,7 +5033,7 @@
 	)
 	(wire
 		(pts
-			(xy 105.41 39.37) (xy 107.95 39.37)
+			(xy 99.06 39.37) (xy 115.57 39.37)
 		)
 		(stroke
 			(width 0)
@@ -5546,16 +5123,6 @@
 	)
 	(wire
 		(pts
-			(xy 105.41 31.75) (xy 106.68 31.75)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "cd92b77d-8a85-44f8-8633-2252cb343a9d")
-	)
-	(wire
-		(pts
 			(xy 54.61 132.08) (xy 54.61 140.97)
 		)
 		(stroke
@@ -5596,7 +5163,7 @@
 	)
 	(wire
 		(pts
-			(xy 116.84 54.61) (xy 120.65 54.61)
+			(xy 124.46 55.88) (xy 125.73 55.88)
 		)
 		(stroke
 			(width 0)
@@ -5673,16 +5240,6 @@
 			(type default)
 		)
 		(uuid "ea964fa9-743e-4d2c-9ec7-99c5bbd3011d")
-	)
-	(wire
-		(pts
-			(xy 135.89 62.23) (xy 135.89 64.77)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f058fc36-92f9-4cd4-b029-2087420186ec")
 	)
 	(wire
 		(pts
@@ -6379,7 +5936,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "THVD1400D"
+		(property "Value" "THVD1410D"
 			(at 56.7533 140.97 0)
 			(effects
 				(font
@@ -6407,6 +5964,15 @@
 			)
 		)
 		(property "Description" "Half duplex RS-485/RS-422, 500 Kbps, 3V - 5.5V supply, ±12kV electro-static discharge (ESD) protection, with receiver/driver enable, 32 receiver drive capacity, SOIC-8"
+			(at 54.61 156.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C2671345"
 			(at 54.61 156.21 0)
 			(effects
 				(font
@@ -6467,7 +6033,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "10u"
+		(property "Value" "22u"
 			(at 246.38 46.9899 0)
 			(effects
 				(font
@@ -6503,6 +6069,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C45783"
+			(at 242.57 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "1a239d82-4e47-4712-adb4-fae6e8850dee")
 		)
@@ -6525,7 +6100,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "0cbdc15e-06f4-407e-9b3c-bf5c3482e6e0")
 		(property "Reference" "U3"
@@ -6900,7 +6475,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "22.1k"
+		(property "Value" "22k"
 			(at 224.79 58.4199 0)
 			(effects
 				(font
@@ -6928,6 +6503,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 227.33 57.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C31850"
 			(at 227.33 57.15 0)
 			(effects
 				(font
@@ -7106,7 +6690,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "12k7"
+		(property "Value" "12k"
 			(at 133.35 44.4499 0)
 			(effects
 				(font
@@ -7134,6 +6718,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 130.81 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C22790"
 			(at 130.81 43.18 0)
 			(effects
 				(font
@@ -7230,7 +6823,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "27a7a6a3-f917-425f-9721-3ab8e1c089d0")
 		(property "Reference" "J2"
@@ -7349,6 +6942,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C8545"
+			(at 200.66 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "093ec4d7-cf6e-4f48-be80-75cecc997d2b")
 		)
@@ -7413,6 +7015,15 @@
 		)
 		(property "Description" "Resistor"
 			(at 72.39 147.32 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C22859"
+			(at 72.39 147.32 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7625,6 +7236,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C8545"
+			(at 227.33 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "563a0a91-1c7c-4f72-9933-70528289c612")
 		)
@@ -7777,7 +7397,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 135.89 64.77 0)
+		(at 137.16 66.04 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -7786,7 +7406,7 @@
 		(fields_autoplaced yes)
 		(uuid "5157c39c-6b18-4d55-95e0-2048a1f9cc36")
 		(property "Reference" "#PWR05"
-			(at 135.89 71.12 0)
+			(at 137.16 72.39 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7795,7 +7415,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 135.89 69.85 0)
+			(at 137.16 71.12 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7803,7 +7423,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 135.89 64.77 0)
+			(at 137.16 66.04 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7812,7 +7432,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 135.89 64.77 0)
+			(at 137.16 66.04 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7821,7 +7441,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 135.89 64.77 0)
+			(at 137.16 66.04 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7842,7 +7462,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Regulator_Switching:LMR51430")
+		(lib_id "Regulator_Switching:TPS54202DDC")
 		(at 203.2 41.91 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -7859,7 +7479,7 @@
 				)
 			)
 		)
-		(property "Value" "LMR51430YDDCR"
+		(property "Value" "TPS54202DDC"
 			(at 203.2 34.29 0)
 			(effects
 				(font
@@ -7877,17 +7497,25 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/lmr51430.pdf"
-			(at 204.47 53.34 0)
+		(property "Datasheet" "http://www.ti.com/lit/ds/symlink/tps54202.pdf"
+			(at 195.58 33.02 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 				(hide yes)
 			)
 		)
-		(property "Description" "4.5-V to 36-V, 3-A synchronous buck converter with 40-µA IQ, SOT-23-6"
+		(property "Description" "2A, 4.5 to 28V Input, EMI Friendly integrated switch synchronous step-down regulator, pulse-skipping, SOT-23-6"
+			(at 203.2 41.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C191884"
 			(at 203.2 41.91 0)
 			(effects
 				(font
@@ -7996,7 +7624,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "550ca62a-f0a7-44d2-a7be-df452fdf90b1")
 		(property "Reference" "J1"
@@ -8107,6 +7735,15 @@
 		)
 		(property "Description" "Dual Line CAN Bus Protector, 24Vrwm"
 			(at 90.17 151.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C14486"
+			(at 90.17 151.13 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8245,6 +7882,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 217.17 38.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C28233"
 			(at 217.17 38.1 0)
 			(effects
 				(font
@@ -8458,6 +8104,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C8545"
+			(at 252.73 132.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "5a5858a9-ce79-4ae8-9a84-8828cf26e361")
 		)
@@ -8494,7 +8149,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "12k7"
+		(property "Value" "12k"
 			(at 231.648 123.19 0)
 			(effects
 				(font
@@ -8522,6 +8177,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 229.87 121.92 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C22790"
 			(at 229.87 121.92 0)
 			(effects
 				(font
@@ -8563,7 +8227,7 @@
 				)
 			)
 		)
-		(property "Value" "500mA"
+		(property "Value" "250mA 30V"
 			(at 110.49 27.94 90)
 			(effects
 				(font
@@ -8592,6 +8256,15 @@
 		)
 		(property "Description" "Resettable fuse, polymeric positive temperature coefficient"
 			(at 110.49 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C70089"
+			(at 110.49 31.75 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8687,7 +8360,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 167.64 64.77 0)
+		(at 168.91 64.77 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -8696,7 +8369,7 @@
 		(fields_autoplaced yes)
 		(uuid "7a179cde-e197-4634-96b6-d37d6ea0b187")
 		(property "Reference" "#PWR029"
-			(at 167.64 71.12 0)
+			(at 168.91 71.12 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8705,7 +8378,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 167.64 69.85 0)
+			(at 168.91 69.85 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8713,7 +8386,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 167.64 64.77 0)
+			(at 168.91 64.77 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8722,7 +8395,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 167.64 64.77 0)
+			(at 168.91 64.77 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8731,7 +8404,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 167.64 64.77 0)
+			(at 168.91 64.77 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8746,76 +8419,6 @@
 			(project "Tick"
 				(path "/caa31ebd-ff46-4f22-afb9-d3b99880ef98"
 					(reference "#PWR029")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:D_Zener")
-		(at 135.89 50.8 270)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "7ec13d06-5366-4d37-89ad-8d681be39db9")
-		(property "Reference" "D1"
-			(at 138.43 49.5299 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "D_Zener"
-			(at 138.43 52.0699 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Diode_SMD:D_MiniMELF"
-			(at 135.89 50.8 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 135.89 50.8 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Zener diode"
-			(at 135.89 50.8 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "ddf23104-bc4e-451e-8b34-40f9a75ad119")
-		)
-		(pin "1"
-			(uuid "fcc64316-2347-4d7b-ad2c-44fb377ab18a")
-		)
-		(instances
-			(project ""
-				(path "/caa31ebd-ff46-4f22-afb9-d3b99880ef98"
-					(reference "D1")
 					(unit 1)
 				)
 			)
@@ -8849,7 +8452,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_1210_3225Metric_Pad1.33x2.70mm_HandSolder"
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
 			(at 179.3748 41.91 0)
 			(effects
 				(font
@@ -8876,6 +8479,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C45783"
+			(at 180.34 38.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "39d76526-999b-443c-9b1a-4b753944af2a")
 		)
@@ -8892,32 +8504,31 @@
 		)
 	)
 	(symbol
-		(lib_id "Jumper:SolderJumper_2_Open")
+		(lib_id "Jumper:SolderJumper_2_Bridged")
 		(at 252.73 41.91 0)
 		(unit 1)
-		(exclude_from_sim no)
+		(exclude_from_sim yes)
 		(in_bom no)
 		(on_board yes)
 		(dnp no)
 		(uuid "809bb58e-6ee0-422f-b0f4-2c103cd01aba")
 		(property "Reference" "JP7"
-			(at 252.73 39.37 0)
+			(at 252.73 39.878 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "SolderJumper_2_Open"
-			(at 252.73 38.1 0)
+		(property "Value" "SolderJumper_2_Bridged"
+			(at 252.73 44.45 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(hide yes)
 			)
 		)
-		(property "Footprint" "Jumper:SolderJumper-2_P1.3mm_Open_TrianglePad1.0x1.5mm"
+		(property "Footprint" "Jumper:SolderJumper-2_P1.3mm_Bridged2Bar_RoundedPad1.0x1.5mm"
 			(at 252.73 41.91 0)
 			(effects
 				(font
@@ -8935,7 +8546,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Solder Jumper, 2-pole, open"
+		(property "Description" "Solder Jumper, 2-pole, closed/bridged"
 			(at 252.73 41.91 0)
 			(effects
 				(font
@@ -8978,7 +8589,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "22.1k"
+		(property "Value" "22k"
 			(at 187.96 52.0699 0)
 			(effects
 				(font
@@ -9006,6 +8617,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 185.42 50.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C31850"
 			(at 185.42 50.8 0)
 			(effects
 				(font
@@ -9048,7 +8668,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "1k"
+		(property "Value" "12k"
 			(at 162.56 60.9599 0)
 			(effects
 				(font
@@ -9076,6 +8696,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 160.02 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C22790"
 			(at 160.02 59.69 0)
 			(effects
 				(font
@@ -9184,7 +8813,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "12k7"
+		(property "Value" "120k"
 			(at 162.56 53.3399 0)
 			(effects
 				(font
@@ -9212,6 +8841,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 160.02 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C25808"
 			(at 160.02 52.07 0)
 			(effects
 				(font
@@ -9355,6 +8993,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C25808"
+			(at 185.42 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "57dc47ce-c44c-4a72-808f-567712d81a72")
 		)
@@ -9365,75 +9012,6 @@
 			(project "Tick"
 				(path "/caa31ebd-ff46-4f22-afb9-d3b99880ef98"
 					(reference "R2")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Jumper:SolderJumper_2_Open")
-		(at 125.73 62.23 0)
-		(mirror y)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board yes)
-		(dnp no)
-		(uuid "a922e4b6-c72f-4362-a18c-de69de7990de")
-		(property "Reference" "JP3"
-			(at 125.73 66.04 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "SolderJumper_2_Open"
-			(at 125.73 58.42 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Footprint" "Jumper:SolderJumper-2_P1.3mm_Open_TrianglePad1.0x1.5mm"
-			(at 125.73 62.23 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 125.73 62.23 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Solder Jumper, 2-pole, open"
-			(at 125.73 62.23 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "37970afc-f35d-4526-9b0b-10b29d3bf87c")
-		)
-		(pin "2"
-			(uuid "9db4d3ee-3d3a-42a4-8977-c00ae8af6260")
-		)
-		(instances
-			(project "Tick"
-				(path "/caa31ebd-ff46-4f22-afb9-d3b99880ef98"
-					(reference "JP3")
 					(unit 1)
 				)
 			)
@@ -9523,7 +9101,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "12k7"
+		(property "Value" "12k"
 			(at 257.048 123.19 0)
 			(effects
 				(font
@@ -9551,6 +9129,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 255.27 121.92 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C22790"
 			(at 255.27 121.92 0)
 			(effects
 				(font
@@ -9628,6 +9215,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C28233"
+			(at 69.85 135.89 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "2e6ddf04-e094-4759-b295-ede7d4b25e1a")
 		)
@@ -9697,6 +9293,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C37704"
+			(at 123.19 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "02966caf-c476-406c-85e1-ebeb9c0ef358")
 		)
@@ -9710,75 +9315,6 @@
 			(project ""
 				(path "/caa31ebd-ff46-4f22-afb9-d3b99880ef98"
 					(reference "D5")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Jumper:SolderJumper_2_Bridged")
-		(at 111.76 39.37 0)
-		(mirror x)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board yes)
-		(dnp no)
-		(uuid "b5750261-46ea-4893-acb3-7eba049f1565")
-		(property "Reference" "JP2"
-			(at 111.76 36.576 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "SolderJumper_2_Open"
-			(at 111.76 43.18 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Footprint" "Jumper:SolderJumper-2_P1.3mm_Open_TrianglePad1.0x1.5mm"
-			(at 111.76 39.37 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 111.76 39.37 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Solder Jumper, 2-pole, closed/bridged"
-			(at 111.76 39.37 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "bfddd309-2d07-49f5-b5d0-e49a4c74aaa0")
-		)
-		(pin "2"
-			(uuid "89cb443e-57a6-4dfb-b09c-058d51aa09ec")
-		)
-		(instances
-			(project "Tick"
-				(path "/caa31ebd-ff46-4f22-afb9-d3b99880ef98"
-					(reference "JP2")
 					(unit 1)
 				)
 			)
@@ -9991,75 +9527,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Jumper:SolderJumper_2_Open")
-		(at 105.41 35.56 90)
-		(mirror x)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board yes)
-		(dnp no)
-		(uuid "cbf4b589-1298-4e45-a1de-befc5d423b25")
-		(property "Reference" "JP1"
-			(at 101.854 36.576 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "SolderJumper_2_Open"
-			(at 101.6 35.56 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Footprint" "Jumper:SolderJumper-2_P1.3mm_Open_TrianglePad1.0x1.5mm"
-			(at 105.41 35.56 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 105.41 35.56 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Solder Jumper, 2-pole, open"
-			(at 105.41 35.56 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "e7578a00-15a4-4d2d-9fc5-84021c6e7c96")
-		)
-		(pin "2"
-			(uuid "cb54aaea-6ec8-4865-98c3-aba31fcd8006")
-		)
-		(instances
-			(project "Tick"
-				(path "/caa31ebd-ff46-4f22-afb9-d3b99880ef98"
-					(reference "JP1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:L")
 		(at 223.52 41.91 270)
 		(unit 1)
@@ -10077,7 +9544,7 @@
 				)
 			)
 		)
-		(property "Value" "2.2uH"
+		(property "Value" "10uH"
 			(at 223.52 39.37 90)
 			(effects
 				(font
@@ -10112,6 +9579,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C177242"
+			(at 223.52 41.91 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "cc6e86fb-c7cb-4408-b790-c4349c98dcdb")
 		)
@@ -10129,7 +9605,7 @@
 	)
 	(symbol
 		(lib_id "power:GNDPWR")
-		(at 116.84 66.04 0)
+		(at 124.46 67.31 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -10138,7 +9614,7 @@
 		(fields_autoplaced yes)
 		(uuid "cdbac752-a6c1-4dd8-95f4-0f65a3ed9d2b")
 		(property "Reference" "#PWR021"
-			(at 116.84 71.12 0)
+			(at 124.46 72.39 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10147,7 +9623,7 @@
 			)
 		)
 		(property "Value" "GNDPWR"
-			(at 116.713 69.85 0)
+			(at 124.333 71.12 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10155,7 +9631,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 116.84 67.31 0)
+			(at 124.46 68.58 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10164,7 +9640,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 116.84 67.31 0)
+			(at 124.46 68.58 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10173,7 +9649,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GNDPWR\" , global ground"
-			(at 116.84 66.04 0)
+			(at 124.46 67.31 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10261,7 +9737,7 @@
 	)
 	(symbol
 		(lib_id "Device:C")
-		(at 167.64 59.69 0)
+		(at 168.91 59.69 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -10269,7 +9745,7 @@
 		(dnp no)
 		(uuid "d1d3f9fe-e115-4533-8509-b58f099459d4")
 		(property "Reference" "C1"
-			(at 169.164 51.816 0)
+			(at 170.434 51.816 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10278,7 +9754,7 @@
 			)
 		)
 		(property "Value" "100n"
-			(at 168.402 54.102 0)
+			(at 169.672 54.102 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10287,7 +9763,7 @@
 			)
 		)
 		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
-			(at 168.6052 63.5 0)
+			(at 169.8752 63.5 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10296,7 +9772,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 167.64 59.69 0)
+			(at 168.91 59.69 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10305,7 +9781,16 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
-			(at 167.64 59.69 0)
+			(at 168.91 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C28233"
+			(at 168.91 59.69 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10447,6 +9932,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC" "C22859"
+			(at 72.39 154.94 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "4b302a4e-f782-456a-b2e4-7271a276efa2")
 		)
@@ -10480,7 +9974,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "12k7"
+		(property "Value" "12k"
 			(at 204.978 123.19 0)
 			(effects
 				(font
@@ -10508,6 +10002,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 203.2 121.92 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C22790"
 			(at 203.2 121.92 0)
 			(effects
 				(font
@@ -10644,6 +10147,15 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 227.33 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C25803"
 			(at 227.33 49.53 0)
 			(effects
 				(font
@@ -10801,7 +10313,7 @@
 	)
 	(symbol
 		(lib_id "Transistor_FET:2N7002")
-		(at 125.73 52.07 90)
+		(at 130.81 53.34 90)
 		(mirror x)
 		(unit 1)
 		(exclude_from_sim no)
@@ -10810,7 +10322,7 @@
 		(dnp no)
 		(uuid "e873ced3-342d-4a39-9905-ad05f05986d0")
 		(property "Reference" "Q1"
-			(at 121.92 48.26 0)
+			(at 127 49.53 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10819,7 +10331,7 @@
 			)
 		)
 		(property "Value" "2N7002"
-			(at 129.54 58.42 90)
+			(at 134.62 59.69 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10828,7 +10340,7 @@
 			)
 		)
 		(property "Footprint" "Package_TO_SOT_SMD:SOT-23"
-			(at 127.635 57.15 0)
+			(at 132.715 58.42 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10839,7 +10351,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.onsemi.com/pub/Collateral/NDS7002A-D.PDF"
-			(at 129.54 57.15 0)
+			(at 134.62 58.42 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10849,7 +10361,16 @@
 			)
 		)
 		(property "Description" "0.115A Id, 60V Vds, N-Channel MOSFET, SOT-23"
-			(at 125.73 52.07 0)
+			(at 130.81 53.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C8545"
+			(at 130.81 53.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11023,7 +10544,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "10u"
+		(property "Value" "22u"
 			(at 230.886 46.99 0)
 			(effects
 				(font
@@ -11051,6 +10572,15 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 237.49 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC" "C45783"
 			(at 237.49 45.72 0)
 			(effects
 				(font
