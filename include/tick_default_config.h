@@ -61,9 +61,9 @@ enum tick_mode {
 
 extern enum tick_mode current_tick_mode;
 
-#ifdef USE_WIEGAND
 extern int wiegand_pin_d0;
 extern int wiegand_pin_d1;
+#ifdef USE_WIEGAND
 extern int wiegand_pulse_width;
 extern int wiegand_pulse_gap;
 #endif
@@ -74,13 +74,13 @@ extern int clockanddata_pin_data;
 extern int clockanddata_pulse_width;
 #endif
 
-#ifdef USE_OSDP
 extern int osdp_pin_term;
 extern int osdp_pin_de;
 extern int osdp_pin_re;
 extern int osdp_pin_rx;
 extern int osdp_pin_tx;
 extern bool osdp_terminator;
+#ifdef USE_OSDP
 extern HardwareSerial *osdp_serial;
 
 #define OSDP_BAUDRATE 115200

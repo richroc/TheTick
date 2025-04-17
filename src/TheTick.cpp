@@ -216,18 +216,16 @@ void setup() {
     output_debug_string(F("No configuration. Using defaults."));
   }
 
-  #ifndef USE_OSDP
-  osdp_init();
-  #endif
-    // Inputs
-    pinMode(wiegand_pin_d0, INPUT);
-    digitalWrite(wiegand_pin_d0, HIGH);
-    pinMode(wiegand_pin_d1, INPUT);
-    digitalWrite(wiegand_pin_d1, HIGH);
-    pinMode(pin_aux, INPUT);
-    digitalWrite(pin_aux, LOW);
-    pinMode(pin_reset, INPUT);
-    digitalWrite(pin_reset, HIGH);
+  // Inputs
+  pinMode(wiegand_pin_d0, INPUT);
+  digitalWrite(wiegand_pin_d0, HIGH);
+  pinMode(wiegand_pin_d1, INPUT);
+  digitalWrite(wiegand_pin_d1, HIGH);
+  pinMode(pin_aux, INPUT);
+  digitalWrite(pin_aux, LOW);
+  pinMode(pin_reset, INPUT);
+  digitalWrite(pin_reset, HIGH);
+  osdp_disable_transceiver();
 
   switch(current_tick_mode){
     #ifdef USE_WIEGAND

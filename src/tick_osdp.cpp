@@ -13,12 +13,33 @@
 //
 // You should have received a copy of the GNU General Public License
 
+#include <Arduino.h>
+#include "tick_utils.h"
+
+void osdp_disable_transceiver(void) {
+  // Driver disabled, outputs in High-Z state
+  pinMode(osdp_pin_de, OUTPUT);
+  pinMode(osdp_pin_tx, INPUT);
+  digitalWrite(osdp_pin_de, LOW);
+  digitalWrite(osdp_pin_tx, LOW);
+  // Receiver disabled
+  pinMode(osdp_pin_re, OUTPUT);
+  pinMode(osdp_pin_rx, INPUT);
+  digitalWrite(osdp_pin_re, HIGH);
+  digitalWrite(osdp_pin_rx, LOW);
+
+  // Disable terminator
+  if(osdp_pin_term != -1) {
+    pinMode(osdp_pin_term, OUTPUT);
+    digitalWrite(osdp_pin_term, LOW);
+  }
+
+}
+
 #ifdef USE_OSDP
 
-#include <Arduino.h>
 #include <osdp.hpp>
 #include "tick_osdp.h"
-#include "tick_utils.h"
 
 OSDP::PeripheralDevice pd;
 OSDP::ControlPanel cp;
@@ -109,26 +130,6 @@ int osdp_cp_event_handler(void *data, int pd, struct osdp_event *event) {
 
   output_debug_string("Received an OSDP event!");
   return 0;
-}
-
-void osdp_disable_transceiver(void) {
-  // Driver disabled, outputs in High-Z state
-  pinMode(osdp_pin_de, OUTPUT);
-  pinMode(osdp_pin_tx, INPUT);
-  digitalWrite(osdp_pin_de, LOW);
-  digitalWrite(osdp_pin_tx, LOW);
-  // Receiver disabled
-  pinMode(osdp_pin_re, OUTPUT);
-  pinMode(osdp_pin_rx, INPUT);
-  digitalWrite(osdp_pin_re, HIGH);
-  digitalWrite(osdp_pin_rx, LOW);
-
-  // Disable terminator
-  if(osdp_pin_term != -1) {
-    pinMode(osdp_pin_term, OUTPUT);
-    digitalWrite(osdp_pin_term, LOW);
-  }
-
 }
 
 void osdp_init(void) {

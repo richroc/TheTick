@@ -91,12 +91,13 @@ bool loadConfig(const char* filename) {
   ini.getValue("tick", "dos_id", buffer, bufferLen, DoS_id,
                CONFIG_PASSWORD_LENGTH);
 
+  ini.getValue("wiegand", "pin_d0", buffer, bufferLen, wiegand_pin_d0);
+  ini.getValue("wiegand", "pin_d1", buffer, bufferLen, wiegand_pin_d1);
 #ifdef USE_WIEGAND
   if (strcasecmp(t_tick_mode, "WIEGAND") == 0) {
     current_tick_mode = tick_mode_wiegand;
   }
-  ini.getValue("wiegand", "pin_d0", buffer, bufferLen, wiegand_pin_d0);
-  ini.getValue("wiegand", "pin_d1", buffer, bufferLen, wiegand_pin_d1);
+
   ini.getValue("wiegand", "pulse_width", buffer, bufferLen,
                wiegand_pulse_width);
   ini.getValue("wiegand", "pulse_gap", buffer, bufferLen, wiegand_pulse_gap);
@@ -113,6 +114,12 @@ bool loadConfig(const char* filename) {
   ini.getValue("clockanddata", "pulse_width", buffer, bufferLen,
                clockanddata_pulse_width);
 #endif
+
+ini.getValue("osdp", "pin_term", buffer, bufferLen, osdp_pin_term);
+ini.getValue("osdp", "pin_de", buffer, bufferLen, osdp_pin_de);
+ini.getValue("osdp", "pin_re", buffer, bufferLen, osdp_pin_re);
+ini.getValue("osdp", "pin_rx", buffer, bufferLen, osdp_pin_rx);
+ini.getValue("osdp", "pin_tx", buffer, bufferLen, osdp_pin_tx);
 
 #ifdef USE_OSDP
   if (strcasecmp(t_tick_mode, "OSDP_PD") == 0) {
@@ -139,11 +146,7 @@ bool loadConfig(const char* filename) {
   ini.getValue("osdp", "mk", buffer, bufferLen, osdp_mk,
                CONFIG_PASSWORD_LENGTH);
 
-  ini.getValue("osdp", "pin_term", buffer, bufferLen, osdp_pin_term);
-  ini.getValue("osdp", "pin_de", buffer, bufferLen, osdp_pin_de);
-  ini.getValue("osdp", "pin_re", buffer, bufferLen, osdp_pin_re);
-  ini.getValue("osdp", "pin_rx", buffer, bufferLen, osdp_pin_rx);
-  ini.getValue("osdp", "pin_tx", buffer, bufferLen, osdp_pin_tx);
+
 
 #endif
 
