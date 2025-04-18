@@ -9,19 +9,18 @@
 
 |  | BLEKey | ESP-RFID-Tool | ESPKey | The Tick |
 | -- | -- | -- | -- | -- |
-| supported protocols | Wiegand | Wiegand | Wiegand | Wiegand **+ Clock&Data + OSDP** |
+| supported protocols | Wiegand | Wiegand | Wiegand | Wiegand **+ Magstripe Clock&Data + a bit of OSDP** |
 | wireless interfaces | BLE | WiFi | WiFi | **BLE +** WiFi |
 | configurable D0/D1 lines  | ❌ | ❌ | ❌ | ✅ |
 | max power supply voltage | battery powered | 🔥 | 18V DC | **25V** DC |
-| max data line voltage | 5V | 5V | 5V | **>12V** |
+| max data line voltage | 5V | 5V | 5V | **16V** |
 | SoC | nRF51822 | ESP8266 | ESP8266 | **ESP32C3** |
 | firmware | properly structured code | time-efficient code soup | time-efficient code soup | **slightly-organized** code soup |
 | arachnophobia-safe | ✅ | ✅ | ✅ | ❓ (partially, hidden mugga-mode) |
 
 While expanding the feature range, the device still preserves the convenient, small footprint:
 
-![the device placed on the back side of a small RFID reader](docs/img/the_tick.png)
-
+![the device placed on the back side of a small RFID reader](docs/img/tick_rev02b_on_reader.png)
 
 ## Usage
 
@@ -120,7 +119,7 @@ There is planned a Flipper Zero client, that will be publicly released shortly a
 
 ### OTA upgrade
 
-By properly configuring the build flags, the firmware can feature OTA-upgrade. BLE will have to be sacrificed to fit two copies of firmware in device flash.
+By properly configuring the build flags, the firmware can feature OTA-upgrade. BLE may need to be sacrificed to fit two copies of firmware in device flash.
 
 It is possible to use Arduino-style OTA (but I never did) or upload firmware images over HTTP endpoint, depending on the build configuration.
 
@@ -139,24 +138,56 @@ It solders nicely with carelessly and generously hand applied solder paste:
 
 ![PCB soldering on G3061](docs/img/soldering.png)
 
+When hand-soldering without a hot-plate, to limit accidential damage:
+
+* start with assembling DC-DC converter,
+* verify if it works correctly,
+* close apropriate solder bridges,
+* populate Wiegand level converter,
+* populate ESP32-C3 module,
+* program the device,
+* check if correct voltage levels are visible in HTTP interface,
+* proceed with populating RS485 transceiver,
+* verify that Wiegand still works,
+* finish with the connectors.
+
 ### ESP32-C3
 
-The device utilizes ESP32-C3FH4 on a ready-made ESP32-C3 SuperMini module.
-Personally, I recommend ordering insignificantly more expensive "Plus" version made by TENSTAR, with an external antenna connector, as some of the regular modules comes with incorrect antenna design, resulting in [impresively poor WiFi range](https://www.reddit.com/r/esp32/comments/1dsh3b5/warning_some_c3_super_mini_boards_have_a_design/).
+The device utilizes ESP32-C3FH4 on a ready-made TENSTAR ESP32-C3 SuperMini Plus module.
+Some of the non-Plus modules comes with incorrect antenna design, resulting in [impresively poor WiFi range](https://www.reddit.com/r/esp32/comments/1dsh3b5/warning_some_c3_super_mini_boards_have_a_design/).
+For a better range, implementing an [antenna mod](https://peterneufeld.wordpress.com/2025/03/04/esp32-c3-supermini-antenna-modification/) may be a good option.
 
 ![Supermini plus](docs/img/esp32c3_supermini_plus.png)
 
 ### DC-DC converter
 
-The power supply uses [LMR51430](https://www.ti.com/product/LMR51430) synchronous buck step-down converter, rated at up to 36V. It is designed to run at 1.1 MHz switching frequency, to use a relatively small inductor, while maintaining high efficiency with a relatively light load.
-Maximum voltage if further limited by voltage rating of installed C5 capacitor and F1 resetable polyfuse, but components from the BOM are sufficient to safely run it with 24V-powered long-range readers.
-
 As no linear voltage regulator in used, both power consumption and heat dissipation is minimal.
 The device is also protected against reverse polarity - it just doesn't start, but doesn't blow up.
 
+The power supply can use two pin-compatible PMICs:
+
+Schematics of revisions 0.1 and 0.2A:
+
+* Uses [LMR51430](https://www.ti.com/product/LMR51430) synchronous buck step-down converter, rated at up to 36V.
+* It runs at 1.1 MHz switching frequency, and uses relatively small 2.2uH inductor.
+* Is probably a bit low-noise and more power-efficient.
+
+Schematics for revision 0.2B:
+
+* Uses [TPS54202](https://www.ti.com/product/TPS54202) synchronous buck step-down converter, rated at up to 28V.
+* It runs at 500 kHz switching frequency, and uses common 10uH inductor.
+* Is definitely more cost-effective.
+
+Both designs were verfied to work just fine, so I'd recommend assembling using whatever is available.
+
+Maximum voltage if further limited by voltage rating of installed capacitor and polyfuse, but components from the BOM are sufficient to safely run it with 24V-powered long-range readers.
+
 ### Battery operation
 
-The device DC-DC converter is configured to turn off at approximately at 6V and start at 6.4V, to provide an overdischarge protection if the device is operated from 2S lithium-ion polymer battery pack. Battery voltage can be measured using device ADC and read in device web interface.
+The device DC-DC converter is configured to turn off at approximately at 6V and start at 6.4V, to provide an overdischarge protection if the device is operated from 2S lithium-ion polymer battery pack. The additional load (e.g. the connected reader) is not covered by this protection.
+Battery voltage can be measured using device ADC and read in device web interface.
+
+3-pin connector present on the board follows the same pinout, as balancer plugs presents on the battery packs.
 
 ### Level shifter
 
@@ -174,34 +205,34 @@ It does not provide a way of pulling the line up to VCC.
 
 ### RS-485 transceiver
 
-The device design incorporates [THVD1424](https://www.ti.com/product/THVD1424) transceiver intended for interacting with OSDP readers.
-It is configured in single-pair, half-duplex mode and provides switchable bus termination.
-Populating the transceiver on the PCB limits maximum safe communication lines voltage to 16V.
-
-The code present currently in the device firmware configures the transceiver into high impedance mode to avoid interferrence.
+The device design incorporates [THVD1410](https://www.ti.com/product/THVD1410) / [THVD2410](https://www.ti.com/product/THVD2410) transceiver intended for interacting with OSDP systems.
+Populating the transceiver on the PCB limits maximum safe communication lines voltage to 18V / 70V respectivly.
+It is configured in half-duplex, low-speed mode. Bus terminator can be populated to the PCB, but is usually not required for proper operation.
+In non-OSDP modes, the device firmware configures the transceiver into high impedance mode to avoid interferrence.
 
 ### LCD support
 
 The device supports connecting SSD1306-based 128X32 OLED to visualize reader interactions.
-Two Wire Interface Bus is available on pin 6 (SDA) and 2 (SCL) of Supermini.
-
-![connected OLED screen](docs/img/lcd.jpg)
-
-In the current hardware revision there is no dedicated connector due to PCB spatial constraints, so use your soldering iron.
+Two Wire Interface Bus is available on a dedicated LCD connector.
 
 ### Solder bridges
 
-The device features 3 solder bridges (hardware switches easily operated with a soldering iron):
+The PCB revision 0.2A features 4 solder bridges for configuring power routing.
 
-* JP1 (close to THVD1424): enables half-duplex operation of RS-485 transceiver,
-* JP2 (close to inductor): enables supplying power from the converter to ESP32,
-* JP3 (on the reverse side): directly connects USB 5V to device VDC - can be used to supply 5V to the connected reader, to create standalone "door-in-the-box" device.
-
-Due to unexplored reasons, all three are labeled "JP2" on the silkscreen.
+When operating a board with fully populated DC-DC converter, solder bridges JP2 and JP7 should be closed.
+When using a simplified version, JP3 must be closed to connect grounds and JP1 may be closed to provide 5V to the connected reader.
 
 ### Connectors
 
-The current PCB revision uses KYOCERA AVX insulation displacement connectors of 9175-000 series, designed for 26 AWG stranded or solid wires. It is planned to switch to 9176-000 series, to support wires up to 20 AWG. If connecting the device to thick wires is needed, it is currently recommended to use supplementary automotive IDC T2 tap connectors.
+The current PCB revision uses KYOCERA AVX insulation displacement connectors of 9176-000 series that support wires up to 20 AWG. This configuration is inteded for field-use.
+
+If IDC connectors are not needed or there're special requirement for adapting device for thicker wires, footprint incorporates holes for connecting a wire:
+
+* For firmly connecting devices on a desk, I personaly use a short 22 AWG silicon cable with [WAGO 221 series splicing connectors](https://www.wago.com/gb/installation-terminal-blocks-and-connectors/splicing-connector-with-levers/p/221-613).
+* For easily connecting to non-standard cables, I'd recommended to use "automotive" IDC T2 [tap connectors](https://aliexpress.com/i/1005005768342063.html).
+
+![both types of connectors](docs/img/connectors.png)
+
 
 ## Contributing
 
@@ -228,4 +259,3 @@ For more details on the MIT License, please refer to the [MIT License](LICENSE.t
 The hardware design for "The Tick" is licensed under the CERN Open Hardware Licence Version 2 - Strongly Reciprocal (CERN-OHL-S v2). This license permits the use, distribution, and modification of the hardware design, with the condition that any derived works must also be licensed under the same terms.
 
 For more details on the CERN-OHL-S v2, please refer to the [CERN Open Hardware Licence Version 2 - Strongly Reciprocal](LICENSE.hardware.txt).
-
