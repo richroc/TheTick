@@ -1,7 +1,7 @@
 
 # The Tick
 
-![the device](https://i.imgur.com/Ir9Yq5Q.png)
+![the device](docs/img/header.png)  
 
 **The Tick** is the next evolution in covert access control system implants. Designed for a seamless integration behind card readers, The Tick silently intercepts, logs, and replays access credentials with greater efficiency and stealth than ever before. Compatible with a wide range of RFID systems, provides invaluable (to red teamers) insights into facility (in)security, while enabling advanced credential injection. Whether for security auditing, red teaming, or mobile access control testing, The Tick delivers a compact, powerful, and flexible solution in an ever-connected world.
 
@@ -20,11 +20,8 @@
 
 While expanding the feature range, the device still preserves the convenient, small footprint:
 
+![the device placed on the back side of a small RFID reader](docs/img/tick_rev02a_on_reader.png)  
 ![the device placed on the back side of a small RFID reader](docs/img/tick_rev02b_on_reader.png)
-
-## Usage
-
-Detailed usage documentation is available in form of [field guide for red team operators](https://www.securing.pl/en/the-tick/).
 
 ## Software
 
@@ -161,6 +158,8 @@ For a better range, implementing an [antenna mod](https://peterneufeld.wordpress
 
 ### DC-DC converter
 
+![dc dc converter schematics](docs/img/schematics_dcdc.png)
+
 As no linear voltage regulator in used, both power consumption and heat dissipation is minimal.
 The device is also protected against reverse polarity - it just doesn't start, but doesn't blow up.
 
@@ -191,19 +190,21 @@ Battery voltage can be measured using device ADC and read in device web interfac
 
 ### Level shifter
 
+![level shifter schematics](docs/img/schematics_wiegand.png)
+
 Absolute maximum drain-source voltage rating for 2N7002 N-channel MOSFET transistor is 60V.
 The board is definitelty not designed for such volatage and I advise against connecting it to live installations of such voltage levels, but it is much more than 5-12V usually found in access control systems anyway.
 
-![level shifter](docs/img/shifter.jpg)
+Voltage shifter is derived from "Bi-directional level shifter for I²C-bus and other systems" design described in Philips Semiconductors application note [AN97055](https://cdn-shop.adafruit.com/datasheets/an97055.pdf).  
+This solution:
 
-Voltage shifter is derived from "Bi-directional level shifter for I²C-bus and other systems" design described in Philips Semiconductors application note AN97055:
-
-![AN97055 extract](docs/img/an97055.jpg)
-
-This solution works properly in installations with external pull-up (e.g. provided by the reader sharing the same line) regardless of the voltage levels, providing a convenient way of pulling it down to GND.
-It does not provide a way of pulling the line up to VCC.
+* works properly in installations with external pull-up (e.g. provided by the reader sharing the same line) regardless of the voltage levels,
+* provides a convenient way of pulling it down to GND,
+* does not provide a way of pulling the line up to VCC.
 
 ### RS-485 transceiver
+
+![trx schematics](docs/img/schematics_rs485.png)
 
 The device design incorporates [THVD1410](https://www.ti.com/product/THVD1410) / [THVD2410](https://www.ti.com/product/THVD2410) transceiver intended for interacting with OSDP systems.
 Populating the transceiver on the PCB limits maximum safe communication lines voltage to 18V / 70V respectivly.
@@ -212,17 +213,19 @@ In non-OSDP modes, the device firmware configures the transceiver into high impe
 
 ### LCD support
 
-The device supports connecting SSD1306-based 128X32 OLED to visualize reader interactions.
+The device supports connecting SSD1306-based 128X32 OLED to visualize reader interactions.  
 Two Wire Interface Bus is available on a dedicated LCD connector.
 
 ### Solder bridges
 
-The PCB revision 0.2A features 4 solder bridges for configuring power routing.
+The PCB revision 0.2A features 4 solder bridges for configuring power routing:
 
-When operating a board with fully populated DC-DC converter, solder bridges JP2 and JP7 should be closed.
-When using a simplified version, JP3 must be closed to connect grounds and JP1 may be closed to provide 5V to the connected reader.
+* when operating a board with fully populated DC-DC converter, solder bridges JP2 and JP7 should be closed,
+* when using a simplified version, JP3 must be closed to connect grounds and JP1 may be closed to provide 5V to the connected reader.
 
 ### Connectors
+
+![both types of connectors](docs/img/connectors.png)
 
 The current PCB revision uses KYOCERA AVX insulation displacement connectors of 9176-000 series that support wires up to 20 AWG. This configuration is inteded for field-use.
 
@@ -230,9 +233,6 @@ If IDC connectors are not needed or there're special requirement for adapting de
 
 * For firmly connecting devices on a desk, I personaly use a short 22 AWG silicon cable with [WAGO 221 series splicing connectors](https://www.wago.com/gb/installation-terminal-blocks-and-connectors/splicing-connector-with-levers/p/221-613).
 * For easily connecting to non-standard cables, I'd recommended to use "automotive" IDC T2 [tap connectors](https://aliexpress.com/i/1005005768342063.html).
-
-![both types of connectors](docs/img/connectors.png)
-
 
 ## Contributing
 
