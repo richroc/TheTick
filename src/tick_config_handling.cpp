@@ -27,15 +27,18 @@ char log_name[CONFIG_VAR_LENGTH];
 
 enum tick_mode current_tick_mode = tick_mode_disabled;
 
-int pin_aux, pin_vsense, pin_reset;
+int pin_aux = PIN_AUX_DEFAULT;
+int pin_vsense, pin_reset;
 
-int wiegand_pin_d0, wiegand_pin_d1;
+int wiegand_pin_d0 = PIN_D0_DEFAULT;
+int wiegand_pin_d1 = PIN_D1_DEFAULT;
 int wiegand_pulse_width, wiegand_pulse_gap;
 
 int clockanddata_pin_clock, clockanddata_pin_data;
 int clockanddata_pulse_width;
 
-int osdp_pin_term, osdp_pin_de, osdp_pin_re, osdp_pin_rx, osdp_pin_tx;
+int osdp_pin_term = PIN_TERM_DEFAULT;
+int osdp_pin_de, osdp_pin_re, osdp_pin_rx, osdp_pin_tx;
 int osdp_baudrate, osdp_address;
 bool osdp_terminator;
 HardwareSerial* osdp_serial = &Serial1;

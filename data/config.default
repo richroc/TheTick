@@ -1,7 +1,6 @@
 [tick]
 name=TheTick
 mode=NONE
-aux=5
 vsense=4
 reset=9
 dos_id=7fffffff:31
@@ -51,7 +50,6 @@ characteristic=beb5483e-36e1-4688-b7f5-ea07361baaaa
 passkey=123456
 
 [osdp]
-pin_term=-1
 pin_de=7
 pin_re=10
 pin_rx=20

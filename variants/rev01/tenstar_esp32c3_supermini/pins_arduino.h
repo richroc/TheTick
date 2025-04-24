@@ -25,4 +25,9 @@ static const uint8_t A3 = 3;
 static const uint8_t A4 = 4;
 static const uint8_t A5 = 5;
 
+static const uint8_t PIN_D0_DEFAULT = 0;
+static const uint8_t PIN_D1_DEFAULT = 1;
+static const uint8_t PIN_AUX_DEFAULT = 3;
+static const uint8_t PIN_TERM_DEFAULT = 5;
+
 #endif /* Pins_Arduino_h */
