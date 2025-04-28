@@ -10,7 +10,7 @@
 |  | BLEKey | ESP-RFID-Tool | ESPKey | The Tick |
 | -- | -- | -- | -- | -- |
 | supported protocols | Wiegand | Wiegand | Wiegand | Wiegand **+ Magstripe Clock&Data + a bit of OSDP** |
-| wireless interfaces | BLE | WiFi | WiFi | **BLE +** WiFi |
+| wireless interfaces | BLE | WiFi | WiFi | **BLE + WiFi** |
 | configurable D0/D1 lines  | ❌ | ❌ | ❌ | ✅ |
 | max power supply voltage | battery powered | 🔥 | 18V DC | **25V** DC |
 | max data line voltage | 5V | 5V | 5V | **16V** |
@@ -18,10 +18,34 @@
 | firmware | properly structured code | time-efficient code soup | time-efficient code soup | **slightly-organized** code soup |
 | arachnophobia-safe | ✅ | ✅ | ✅ | ❓ (partially, hidden mugga-mode) |
 
-While expanding the feature range, the device still preserves the convenient, small footprint:
+## Hardware revisions
 
-![the device placed on the back side of a small RFID reader](docs/img/tick_rev02a_on_reader.png)  
-![the device placed on the back side of a small RFID reader](docs/img/tick_rev02b_on_reader.png)
+The device is in ongoing development - its design, made using [KiCad EDA](https://www.kicad.org/), is getting gradualy optimized and adjusted to incoming feedback and challenges experienced by both the maintainers and users.  
+
+Due to a differences in pin mapping, a correct versions must be declared in `platformio.ini`.
+There're currently 2 major hardware revisions "in the wild":
+
+### Revision 0.2
+![the device revision 0.2 placed on the back side of a small RFID reader](docs/img/tick_rev02a_on_reader.png) 
+This is the current revision of the device. The rectangular purpler boards with RS485 transceiver in SOIC-8, that are easy to assemble by hand without a solder paste stencil or hot air, using common parts. The connectors footprint has been adapted for larger KYOCERA AVX 9176-000, adequate for common wire gauges. It features additional circuit for automaticly switching power sources, making the device operation more foolproof.
+
+![PCBWay logo](docs/img/pcbway_logo.png)  
+This batch of PCBs was generously provided by [PCBWay](https://www.pcbway.com/). Thank you Liam for reaching out with sponsorship, kind words about the project and providing nicer tone of the soldermask! From uploading a design to delivering ready-made panelized PCBs into my hands 8000 km away was about 5 days, with a weekend included. 
+You can [contact me](https://www.linkedin.com/in/jkramarz/) to receive one free of charge, or order them directly through [PCBWay Community](https://www.pcbway.com/project/shareproject/The_Tick_rev_0_2_52c0aa59.html) sharing platform.
+
+[release files](https://github.com/jkramarz/TheTick/releases/tag/hardware-v0.2A)
+
+### Revision 0.1
+![the device revision 0.1 placed on the back side of a small RFID reader](docs/img/tick_rev01.png)  
+Initial and currently most common hardware release. The square purple boards with (hard for hand soldering) RS485 transceiver in QFN16. It does not yet feature a dedicated I2C connector and may have KYOCERA AVX 9175-000 series connectors installed, that are too small for regular PACS wiring. I'd advise a small feature backport - populating a JP2 solder jumper on the bottom side of the PCB with a Schottky diode will allow powering the reader from USB.  
+
+This is the revision [@jzdunczyk](https://www.linkedin.com/in/jzdunczyk/) used in her [Behind Closed Doors - Bypassing RFID Readers34](https://www.blackhat.com/asia-25/briefings/schedule/index.html#behind-closed-doors---bypassing-rfid-readers-44006) talk on Black Hat Asia 2025.
+
+[release files](https://github.com/jkramarz/TheTick/releases/tag/hardware-v0.1)
+
+### Revision 0.0
+![the device revision 0.0 placed on the back side of a small RFID reader](docs/img/tick_rev00.png)  
+An ESP32C3, random level converter, RS485 transceiver and a bunch of wires is a good start and fully sufficient platform for testing the software features.
 
 ## Software
 
@@ -36,50 +60,56 @@ Currently, the firmware can be built with following features:
 | build flag         | description                                                                   |
 |--------------------|-------------------------------------------------------------------------------|
 | USE_BLE            | BLEKey-style Bluetooth Low Energy support                                     |
-| USE_WIFI           | ESPKey-style WiFi (station or client) support                                 |
+| USE_WIFI           | ESPKey-style WiFi (hotspot or client) support                                 |
 | USE_HTTP           | HTTP user interface                                                           |
 
 #### Firmware upgrade
 
 | build flag         | description                                                                   |
 |--------------------|-------------------------------------------------------------------------------|
-| USE_OTA            | Arduino-style over-the-air upgrade                                            |
+| ~~USE_OTA~~        | ~~Arduino-style over-the-air upgrade~~                                        |
 | USE_OTA_HTTP       | HTTP endpoint for upgrading firmware                                          |
 
 There's an USB connector on-board, that even features embedded JTAG interface, but why not...
 
 #### External reporting
 
-| build flag         | description                                                                   |
-|--------------------|-------------------------------------------------------------------------------|
+| build flag         | description                                                                     |
+|--------------------|---------------------------------------------------------------------------------|
 | USE_MDNS_RESPONDER | broadcasts MDNS, so hostname instead of IP address can be used for a connection |
-| USE_SYSLOG         | reports interactions to syslog server                                         |
-| USE_LCD            | reports interactions to a handy I2C OLED display                              |
+| USE_SYSLOG         | reports interactions to syslog server                                           |
+| USE_LCD            | reports interactions to a handy I2C OLED display                                |
 
 #### Wire protocols
 
-| build flag         | description                                                                   |
-|--------------------|-------------------------------------------------------------------------------|
-| USE_WIEGAND        | provides support for Wiegand interface sniffing and transmitting              |
-| USE_CLOCKANDDATA   | provides support for clock&data interface sniffing and transmitting           |
-| USE_OSDP           | enables building with libosdp                                                 |
-| USE_OSDP_PD        | provides support for OSDP Peripheral Device mode                              |
-| USE_OSDP_CP        | provides support for OSDP Control Panel mode                                  |
+| build flag                    | description                                                         |
+|-------------------------------|---------------------------------------------------------------------|
+| USE_WIEGAND                   | provides support for Wiegand interface sniffing and transmitting    |
+| USE_CLOCKANDDATA              | provides support for clock&data interface sniffing and transmitting |
+| USE_OSDP + USE_OSDP_PD        | provides support for OSDP Peripheral Device mode                    |
+| ~~USE_OSDP + USE_OSDP_CP~~    | ~~provides support for OSDP Control Panel mode~~                    |
 
-**In Wiegand mode**, the device can receive (sniff) and transmit messages of any length.  
+###### In Wiegand mode,
+
+the device can receive (sniff) and transmit messages of any length.  
 Assignment of D0 and D1 lines can be corrected in the configuration file after the device installation, if needed.  
 The device was sucessfuly tested with 5V and 12V PACS systems, that uses different card number lengths.
 
-**In Clock&Data mode**, the device can receive and transmit messages of any reasonable length.  
+###### In Clock&Data mode, 
+
+he device can receive and transmit messages of any reasonable length.  
 Assignment of DATA and CLOCK lines can be corrected in configuration file after the device installation, if needed.  
 The device was sucessfuly tested with 12V Clock&Data system, running in Magstripe and UNITEK-emulation modes.  
 Support for Paxton decoding is based on samples provided by [en4rab](https://github.com/en4rab/sigrok-paxton-pd).
 
+###### In OSDP Peripheral Device mode,
+
+the device enumerates and serves as a simple OSDP PD.
+Card numbers can be transmitted using HTTP and BLE interfaces for testing purposes.
+
 ### Build instructions
 
-Open the project in PlatformIO and press "Upload", then "Upload Filesystem Image". The code is Arduino-flavoured, but takes too long for me to compile using Arduino IDE.
-
-![the required project tasks](docs/img/platformio_build.png)
+Open the project in [PlatformIO](https://platformio.org/) and press "Upload", then "Upload Filesystem Image". The code is Arduino-flavoured, but took too long to compile using Arduino IDE.
 
 ### HTTP interface
 
@@ -130,12 +160,9 @@ It is possible to use Arduino-style OTA (but I never did) or upload firmware ima
 
 ## Hardware
 
-The device not only fits behind readers, but also fits the cheapest G3061 hot-plate you can get.
-It solders nicely with carelessly and generously hand applied solder paste:
+### Hand soldering procedure
 
-![PCB soldering on G3061](docs/img/soldering.png)
-
-When hand-soldering without a hot-plate, to limit accidential damage:
+When hand-soldering without the paste stencil and a hot-plate, to limit accidential damage:
 
 * start with assembling DC-DC converter,
 * verify if it works correctly,
@@ -147,6 +174,8 @@ When hand-soldering without a hot-plate, to limit accidential damage:
 * proceed with populating RS485 transceiver,
 * verify that Wiegand still works,
 * finish with the connectors.
+
+It also fits the cheapest G3061 hot-plate you can get and solders nicely with hand-applied solder paste.
 
 ### ESP32-C3
 
