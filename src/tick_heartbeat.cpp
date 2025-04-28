@@ -54,7 +54,7 @@ void heartbeat_loop(void) {
     int g = c1.g + (c2.g - c1.g) * t;
     int b = c1.b + (c2.b - c1.b) * t;
 
-    neopixelWrite(RGB_BUILTIN, r, g, b);
+    neopixelWrite(RGB_BUILTIN, r/5, g/5, b/5);
 
     elapsed = now;
   }
