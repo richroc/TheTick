@@ -1,0 +1,83 @@
+{% with page_name="Wiegand", menu_item="wiegand" %}
+{% include "includes/header.html.j2" %}
+{% endwith %}
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-2 text-gray-800">Wiegand interface</h1>
+
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Send arbitrary data</h6>
+                        </div>
+                        <div class="card-body">
+                            <form onsubmit="return send_wiegand_raw(event)">
+                                <input id="wiegand_raw" placeholder="Raw hex:len">
+                                <input type="submit" value="Transmit">
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Send formatted data</h6>
+                        </div>
+                        <div class="card-body">
+                            <form onsubmit="return send_wiegand_formatted(event)">
+                                <select id="wiegand_format">
+                                    <option value="H10301">H10301</option>
+                                    <option value="H10304">H10304</option>
+                                    <option value="H800002">H800002</option>
+                                </select>
+                                <input id="wiegand_fc" placeholder="Facility code">
+                                <input id="wiegand_cn" placeholder="Card number">
+                                <input type="submit" value="Transmit">
+                            </form>
+                        </div>
+                    </div>
+
+                                        
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Sniffed interactions log</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Timestamp</th>
+                                            <th>Wiegand data</th>
+                                            <th>Format</th>
+                                            <th>Facility</th>
+                                            <th>Card</th>
+                                            <th>w/ Preamble</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Timestamp</th>
+                                            <th>Wiegand data</th>
+                                            <th>Format</th>
+                                            <th>Facility</th>
+                                            <th>Card</th>
+                                            <th>w/ Preamble</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                       
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+{% with page_scripts=["page-wiegand.js"] %}
+{% include "includes/footer.html.j2" %}
+{%- endwith -%}

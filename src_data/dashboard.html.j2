@@ -1,0 +1,113 @@
+{% with page_name="Dashboard", menu_item="dashboard" %}
+{% include "includes/header.html.j2" %}
+{% endwith %}
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Hardware status</h1>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-12">
+                            <div class="card shadow mb-4">
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <div id="controls"
+                                        style="display: block; border: 1px solid rgb(68, 68, 68); padding: 5px; margin: 5px; width: 362px; background-color: rgb(238, 238, 238);">
+                                        <label>Period (ms):</label>
+                                        <input type="number" id="refresh-rate" />
+                                        <input type="button" id="start-button" value="Start" />
+                                        <input type="button" id="stop-button" value="Stop" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Content Row -->
+                    <div class="row">
+                        <div class="col-xl-4 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                GPIO</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                <div id="digital" class="oldschoolGraph"></div>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="col-auto">
+                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                        </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-4 col-md-6 mb-4">
+                            <div class="card border-left-info shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                VDC</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                <div id="vdc" class="oldschoolGraph"></div>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="col-auto">
+                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                        </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pending Requests Card Example -->
+                        <div class="col-xl-4 col-md-6 mb-4">
+                            <div class="card border-left-warning shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                Heap</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                <div id="heap" class="oldschoolGraph"></div>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="col-auto">
+                                            <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                                        </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Firmware status</h1>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-12">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary" id="filename">Features</h6>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <div id="body_features"><ul><li>WiFi</li><li>HTTP</li><li>...?</li></ul></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+{% with page_scripts=["codemirror.min.js", "graphs.js", "page-dashboard.js"] %}
+{% include "includes/footer.html.j2" %}
+{%- endwith -%}

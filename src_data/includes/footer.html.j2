@@ -1,0 +1,51 @@
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; 2024, 2025 Jakub "lenwe" Kramarz</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="/static/jq.js"></script>
+    <script src="/static/jq-cookie.js"></script>
+    <script src="/static/bs-bundle.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="/static/jq-ea.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="/static/sb.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="/static/dt-jq.js"></script>
+    <script src="/static/dt-bs.js"></script>
+
+    <!-- Page level custom scripts -->
+
+    <script src="/static/common.js"></script>
+    {% if page_scripts is defined %}
+    {% for page_script in page_scripts %}
+    <script src="/static/{{ page_script }}"></script>
+    {% endfor %}
+    {% endif %}
+
+</body>
+
+</html>

@@ -78,16 +78,16 @@ bool handleFileRead(String path) {
     switch (current_tick_mode) {
 #ifdef USE_WIEGAND
       case tick_mode_wiegand:
-        path = F("/static/wiegand.html");
+        path = F("/wiegand.html");
         break;
 #endif
 #ifdef USE_CLOCKANDDATA
       case tick_mode_clockanddata:
-        path = F("/static/clockanddata.html");
+        path = F("/clockanddata.html");
         break;
 #endif
       default:
-        path = F("/static/dashboard.html");
+        path = F("/dashboard.html");
     }
   }
   if (path.endsWith(F("/"))) path += F("index.html");
@@ -137,6 +137,9 @@ void handleFileList() {
   String output = "[";
   while (File file = dir.openNextFile()) {
     if (strstr(file.path(), ".gz") != NULL) {
+      continue;
+    }
+    if (strstr(file.path(), ".html") != NULL) {
       continue;
     }
     if (strstr(file.path(), "/static") != NULL) {
@@ -212,7 +215,7 @@ void http_init(void){
   // load editor
   server.on("/edit", HTTP_GET, [](){
     if (basicAuthFailed()) return false;
-    if (!handleFileRead("/static/edit.htm")) {
+    if (!handleFileRead("/editor.html")) {
       server.send(404, "text/plain", "FileNotFound");
     }
     return true;
@@ -331,6 +334,7 @@ void http_init(void){
   });
 
   server.serveStatic("/static", SPIFFS, "/static", "max-age=86400");
+  server.serveStatic("/", SPIFFS, "/", "max-age=60");
 #ifdef USE_OTA_HTTP
   httpUpdater.setup(&server); // This doesn't do authentication
 #endif

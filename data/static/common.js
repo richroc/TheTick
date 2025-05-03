@@ -12,7 +12,7 @@ function not_tick(){
 function get_editor_files_list(){
     $.get("/list?dir=/", function(data){
         data.forEach(f => {
-            $(`<a class="collapse-item" href="/static/editor.html?file=${f.name}">${f.name}</a>`).insertAfter( "#config-menu" );
+            $(`<a class="collapse-item" href="/editor.html?file=${f.name}">${f.name}</a>`).insertAfter( "#config-menu" );
         });
     });
 }
