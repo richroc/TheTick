@@ -94,6 +94,10 @@ bool loadConfig(const char* filename) {
   ini.getValue("tick", "dos_id", buffer, bufferLen, DoS_id,
                CONFIG_PASSWORD_LENGTH);
 
+  ini.getValue("tick", "vsense", buffer, bufferLen, pin_vsense);
+  ini.getValue("tick", "reset", buffer, bufferLen, pin_reset);
+  ini.getValue("tick", "aux", buffer, bufferLen, pin_aux);
+
   ini.getValue("wiegand", "pin_d0", buffer, bufferLen, wiegand_pin_d0);
   ini.getValue("wiegand", "pin_d1", buffer, bufferLen, wiegand_pin_d1);
 #ifdef USE_WIEGAND
