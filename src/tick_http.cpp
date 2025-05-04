@@ -344,6 +344,8 @@ void http_init(void){
   });
 
   server.serveStatic("/static", SPIFFS, "/static", "max-age=86400");
+  server.serveStatic("/config.txt", SPIFFS, "/config.txt", "max-age=0");
+  server.serveStatic("/log.txt", SPIFFS, "/log.txt", "max-age=0");
   server.serveStatic("/", SPIFFS, "/", "max-age=60");
 #ifdef USE_OTA_HTTP
   httpUpdater.setup(&server); // This doesn't do authentication
