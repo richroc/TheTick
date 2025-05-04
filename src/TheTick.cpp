@@ -97,7 +97,7 @@ void IRAM_ATTR auxChange(void) {
 
 void output_debug_string(String s){
   DBG_OUTPUT_PORT.println(s);
-  display_string(s);
+  display_temporary_message(s, 5000);
 }
 
 
@@ -157,14 +157,7 @@ void append_log(String facility, String text) {
 
 void showAddress()
 {
-  output_debug_string(
-      String(dhcp_hostname) + "\n" +
-      "mode: " + modeToString(current_tick_mode) + "\n" +
-#ifdef USE_MDNS_RESPONDER
-      "http://" + String(mDNShost) + ".local/\n" +
-#endif
-      "http://" + WiFi.localIP().toString() + "/"
-  );
+  display_line(2, false, String("IP: ") + WiFi.localIP().toString());
 }
 
 void IRAM_ATTR resetConfig(void) {
@@ -182,7 +175,6 @@ void IRAM_ATTR resetConfig(void) {
   }
   last_event = millis();
 }
-
 void setup() {
   heartbeat_init();
 
@@ -200,6 +192,7 @@ void setup() {
   dhcp_hostname = String(HOSTNAME);
   dhcp_hostname += String(getChipID(), HEX);
   output_debug_string("Hostname: " + dhcp_hostname);
+  display_line(0, false, dhcp_hostname);
 
   delay(1000);
 
@@ -265,6 +258,8 @@ void setup() {
     #endif
   }
 
+  display_line(1, false, String("mode: ") + modeToString(current_tick_mode, true));
+
   wifi_init();
   syslog_init();
   ota_init();
@@ -320,6 +315,7 @@ void transmit_id(String sendValue, unsigned long bitcount){
 
 void loop()
 {
+  display_loop();
   heartbeat_loop();
   reset_loop();
 

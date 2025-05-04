@@ -21,6 +21,15 @@
 #include <Wire.h>
 #include <tick_default_config.h>
 
+#define logo_w 24
+#define logo_h 16
+
+const unsigned char logo_b [] PROGMEM= {
+  0x00, 0x81, 0x01, 0x80, 0x81, 0x01, 0x80, 0x19, 0x03, 0xb0, 0xbd, 0x09,
+  0x60, 0xbd, 0x0c, 0xe0, 0x7d, 0x07, 0xc0, 0xff, 0x03, 0xe0, 0xff, 0x07,
+  0xe0, 0xff, 0x0f, 0xb0, 0xff, 0x09, 0xd0, 0x7e, 0x1b, 0x60, 0x7c, 0x02,
+  0x60, 0x3c, 0x06, 0x60, 0x00, 0x06, 0x40, 0x00, 0x06, 0x00, 0x00, 0x00 };
+
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
 
 void display_string(String data) {
@@ -32,36 +41,63 @@ void display_string(String data) {
   display.display();
 }
 
-void display_receivedData(const uint8_t* data, const uint8_t bits,
-                          const char* message) {
-  display.clearDisplay();
+
+void display_status_message(String data){
+  
   display.setTextSize(1);
   display.setTextColor(SSD1306_WHITE);
-  display.setCursor(0, 0);
-  display.print(message);
-  display.print(bits);
-  display.println("bits");
+  display.setCursor(0, 3*(SCREEN_HEIGHT/4));
 
-  display.setTextSize(2);
-  display.setTextColor(SSD1306_WHITE);
-  display.print(F("0x"));
+  display.print(data);
 
-  uint8_t bytes = (bits + 7) / 8;
-  for (int i = 0; i < bytes; i++) {
-    display.print(data[i] >> 4, 16);
-    display.print(data[i] & 0xF, 16);
-  }
   display.display();
+}
+
+void display_tick_logo(){
+  display.clearDisplay();
+  display.drawXBitmap(SCREEN_WIDTH-logo_w, 0, logo_b, logo_w, logo_h, SSD1306_WHITE);
+  display.display();
+}
+
+void display_line(int line, bool invert, String data){
+  display.setTextSize(1);
+  display.setTextColor(invert ? SSD1306_BLACK : SSD1306_WHITE);
+  if(line < 2){
+    display.fillRect(0, line*(SCREEN_HEIGHT/4), SCREEN_WIDTH-logo_w, SCREEN_HEIGHT/4, invert ? SSD1306_WHITE :SSD1306_BLACK);
+    display.setCursor(16, line * 8);
+  }else {
+    display.fillRect(0, line*(SCREEN_HEIGHT/4), SCREEN_WIDTH, SCREEN_HEIGHT/4, invert ? SSD1306_WHITE :SSD1306_BLACK);
+    display.setCursor(0, line * 8);
+  }
+  display.print(data);
+  display.display();
+}
+
+int temporary_message_millis = 0;
+void display_temporary_message(String data, int duration){
+  display_line(3, true, data);
+  display.dim(false);
+  temporary_message_millis = millis() + duration;
+}
+
+void display_loop(){
+  if(temporary_message_millis != 0 && (temporary_message_millis <= millis() || millis() < 10)){
+    display_line(3, false, "");
+    temporary_message_millis = 0;
+    display.dim(true);
+    display.display();
+  }
 }
 
 void display_init() {
   display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS);
-  display_string(F("MY BODY IS READY"));
+  display_tick_logo();
 }
 #else
 
 void display_string(String data) {}
-void display_receivedData(uint8_t* data, uint8_t bits, const char* message) {}
+void display_temporary_message(String data, int duration) {}
 void display_init() {}
+void display_loop() {}
 
 #endif

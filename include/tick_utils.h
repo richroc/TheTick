@@ -36,6 +36,6 @@ void clear_config(void);
 extern String dhcp_hostname;
 
 int getBootCount();
-String modeToString(enum tick_mode mode);
+String modeToString(enum tick_mode mode, bool short_name = false);
 
 #endif

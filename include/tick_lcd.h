@@ -19,7 +19,10 @@
 #include <Arduino.h>
 
 void display_string(String data);
-void display_receivedData(uint8_t* data, uint8_t bits, const char* message);
+void display_status_message(String data);
+void display_line(int line, bool invert, String data);
+void display_temporary_message(String data, int duration);
 void display_init();
+void display_loop();
 
 #endif

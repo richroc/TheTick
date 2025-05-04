@@ -62,13 +62,16 @@ int getBootCount() {
   return boot_count;
 }
 
-String modeToString(enum tick_mode mode) {
+String modeToString(enum tick_mode mode, bool short_name) {
   switch (mode) {
     case tick_mode_disabled:
       return "disabled";
     case tick_mode_wiegand:
       return "wiegand";
     case tick_mode_clockanddata:
+      if(short_name)
+        return "C&D";
+      else
       return "clockanddata";
     case tick_mode_osdp_pd:
       return "osdp_pd";
