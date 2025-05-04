@@ -1,5 +1,5 @@
 
-function not_tick(){
+function not_tick() {
     $.get("/mugga.txt", function (data) {
         if (data.trim() === "1") {
             $('.fa-spider').addClass('fa-horse-head').removeClass('fa-spider');
@@ -9,21 +9,21 @@ function not_tick(){
     });
 }
 
-function get_editor_files_list(){
-    $.get("/list?dir=/", function(data){
+function get_editor_files_list() {
+    $.get("/list?dir=/", function (data) {
         data.forEach(f => {
-            $(`<a class="collapse-item" href="/editor.html?file=${f.name}">${f.name}</a>`).insertAfter( "#config-menu" );
+            $(`<a class="collapse-item" href="/editor.html?file=${f.name}">${f.name}</a>`).insertAfter("#config-menu");
         });
     });
 }
 
 
-function remove_menu_option(name){
+function remove_menu_option(name) {
     $('#menu_' + name).remove();
 }
 
-function get_version_info(){
-    return $.getJSON("/version", function (data) {
+function get_version_info() {
+    return $.getJSON("/version?epoch=" + Date.now(), function (data) {
         let configuration = data;
 
         if (configuration['features'].indexOf('wiegand') == -1)
@@ -41,7 +41,7 @@ function get_version_info(){
             $('#menu_current_mode')[0].innerHTML = "Clock&amp;Data";
         if (configuration['mode'] == 'osdp')
             $('#menu_current_mode')[0].innerHTML = "OSDP";
-        
+
         $('#menu_version')[0].innerHTML = configuration['version'];
 
         $('#menu_board_name')[0].innerHTML = configuration['log_name'] + '-' + configuration['ChipID'];
@@ -49,6 +49,26 @@ function get_version_info(){
 
         console.log(data);
     });
+}
+
+function get_epochs(lines) {
+    let epochs = {};
+    lines.forEach(line => {
+        let parts = line.split("; ");
+        if (parts[2] == "epoch") {
+            epochs[parts[0]] = parseInt(parts[3]) - parseInt(parts[1]);
+        }
+    });
+    return epochs;
+}
+
+function get_epoch_time(epochs, epoch, timestamp) {
+    if (epoch in epochs) {
+        let date = new Date(epochs[epoch] + parseInt(timestamp))
+        return date.toLocaleString()
+    } else {
+        return "BC: " + epoch + " TS: " + timestamp;
+    }
 }
 
 $(document).ready(function () {

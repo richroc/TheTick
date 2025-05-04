@@ -90,7 +90,7 @@ void IRAM_ATTR auxChange(void) {
     if (millis() - last_aux_change > 10) {
       last_aux_change = millis();
       last_aux = new_value;
-      append_log("Aux changed to "+String(new_value));
+      append_log("aux", "changed to "+String(new_value));
     }
   }
 }
@@ -143,10 +143,12 @@ void jamming_disable(void){
   }
 }
 
-void append_log(String text) {
+void append_log(String facility, String text) {
   File file = SPIFFS.open(LOG_FILE, "a");
   if (file) {
-    file.println(String(millis()) + " " + text);
+
+    String log_line = String(getBootCount()) + "; " + String(millis()) + "; " + facility + "; " + text;
+    file.println(log_line);
     DBG_OUTPUT_PORT.println("Appending to log: " + String(millis()) + " " + text);
     file.close();
   } else {
@@ -205,7 +207,7 @@ void setup() {
     dhcp_hostname.toCharArray(ap_ssid, sizeof(ap_ssid));
     #endif
   }
-  append_log(F("Starting up!"));
+  append_log("boot", "Starting up!");
 
   if(!loadConfig("/config.default")){
     output_debug_string(F("No default configuration."));
@@ -276,9 +278,9 @@ void card_read_handler(String s){
 
   if(strcasecmp(card_id.c_str(), DoS_id) == 0) {
     jamming_enable();
-    append_log("DoS mode enabled by control card " + card_id);
+    append_log("dos", "enabled by control card " + card_id);
   } else {
-    append_log(card_id);
+    append_log(modeToString(current_tick_mode), card_id);
   }
 }
 
@@ -300,6 +302,7 @@ void transmit_id(String sendValue, unsigned long bitcount){
       break;
     #endif
   }
+  append_log("tx", sendValue);
 }
 
 void loop()

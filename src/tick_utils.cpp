@@ -13,8 +13,10 @@
 //
 // You should have received a copy of the GNU General Public License
 
-
+#include <Preferences.h>
 #include "tick_utils.h"
+
+int boot_count = 0;
 
 byte hex_to_byte(char in) {
   if (in >= '0' && in <= '9')
@@ -44,6 +46,37 @@ uint32_t readVDCVoltage(void) {
   int raw_mv = analogReadMilliVolts(pin_vsense);
   float vdc = ((float) raw_mv) * ((R1 + R2) / R2) * CALIBRATION_FACTOR;
   return (uint32_t) vdc;
+}
+
+void incrementBootCount() {
+  Preferences preferences;
+  preferences.begin("boot", false);
+  boot_count = preferences.getInt("boot_count", 10) + 1;
+  preferences.putInt("boot_count", boot_count);
+  preferences.end();
+}
+
+int getBootCount() {
+  if(boot_count == 0)
+    incrementBootCount();
+  return boot_count;
+}
+
+String modeToString(enum tick_mode mode) {
+  switch (mode) {
+    case tick_mode_disabled:
+      return "disabled";
+    case tick_mode_wiegand:
+      return "wiegand";
+    case tick_mode_clockanddata:
+      return "clockanddata";
+    case tick_mode_osdp_pd:
+      return "osdp_pd";
+    case tick_mode_osdp_cp:
+      return "osdp_cp";
+    default:
+      return "unknown";
+  }
 }
 
 String dhcp_hostname;

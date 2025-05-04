@@ -29,10 +29,13 @@ uint32_t readVDCVoltage(void);
 void transmit_id(String sendValue, unsigned long bitcount);
 void jamming_enable(void);
 void jamming_disable(void);
-void append_log(String text);
+void append_log(String facility, String text);
 void output_debug_string(String s);
 void card_read_handler(String s);
 void clear_config(void);
 extern String dhcp_hostname;
+
+int getBootCount();
+String modeToString(enum tick_mode mode);
 
 #endif

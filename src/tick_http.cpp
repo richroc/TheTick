@@ -172,7 +172,7 @@ void handleDoS() {
   jamming_enable();
   server.send(200, F("text/plain"), "");
   output_debug_string(F("DoS MODE"));
-  append_log(F("DoS mode set by API request."));
+  append_log("dos", "enabled by API request");
 }
 
 void handleDisableDoS() {
@@ -181,14 +181,14 @@ void handleDisableDoS() {
   jamming_disable();
   server.send(200, F("text/plain"), "");
   output_debug_string(F("DoS MODE deactivated"));
-  append_log(F("DoS mode deactivated by API request."));
+  append_log("dos", "disabled by API request");
 }
 
 void handleRestart() {
   if (basicAuthFailed())
     return;
   output_debug_string(F("RESET"));
-  append_log(F("Restart requested by user."));
+  append_log("boot", "reset by API request");
   server.send(200, "text/plain", "OK");
   ESP.restart();
 }
@@ -242,6 +242,16 @@ void http_init(void){
   server.on("/version", HTTP_GET, []() {
     if (basicAuthFailed())
       return false;
+
+      if (server.hasArg("epoch")) {
+        static bool epoch_registered = false;
+        if(!epoch_registered) {
+          append_log("epoch", server.arg("epoch"));
+          epoch_registered = true;
+        }
+      }
+    
+      String path = server.arg("dir");
 
     String current_mode = "invalid";
     switch(current_tick_mode){
