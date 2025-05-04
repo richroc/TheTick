@@ -21,7 +21,11 @@
 
 #include <cstddef>
 
-#define VERSION "2317"
+#ifdef GIT_VERSION
+#define VERSION GIT_VERSION
+#else 
+#define VERSION "unknown"
+#endif
 
 #define HOSTNAME "TheTick-" // Hostname prefix for DHCP/OTA
 #define CONFIG_FILE "/config.txt"
