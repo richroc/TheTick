@@ -156,6 +156,18 @@ void append_log(String facility, String text) {
   }
 }
 
+void showAddress()
+{
+  output_debug_string(
+      String(dhcp_hostname) + "\n" +
+      "mode: " + modeToString(current_tick_mode) + "\n" +
+#ifdef USE_MDNS_RESPONDER
+      "http://" + String(mDNShost) + ".local/\n" +
+#endif
+      "http://" + WiFi.localIP().toString() + "/"
+  );
+}
+
 void IRAM_ATTR resetConfig(void) {
   static unsigned long last_event = 0;
   unsigned long now = millis();
@@ -265,6 +277,8 @@ void setup() {
   attachInterrupts();
   attachInterrupt(digitalPinToInterrupt(pin_reset), resetConfig, CHANGE);
   //attachInterrupt(digitalPinToInterrupt(pin_aux), auxChange, CHANGE);
+
+  showAddress();
 }
 
 void card_read_handler(String s){

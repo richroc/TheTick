@@ -32,8 +32,7 @@ void mdns_responder_init(void) {
   }
 
   MDNS.addService("http", "tcp", 80);
-  output_debug_string("HTTP server started\nhttp://" + String(mDNShost) +
-                      ".local/");
+  output_debug_string("Configured MDNS service");
 }
 
 #else
