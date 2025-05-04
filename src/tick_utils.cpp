@@ -40,11 +40,11 @@ uint32_t getChipID() {
 }
 
 uint32_t readVDCVoltage(void) {
-  const float R1 = 12700.0;
-  const float R2 = 1000.0; 
-  const float CALIBRATION_FACTOR = 1.00;
+  // vsense_factor = ((R1 + R2) / R2)
+  // for R1=120k and R2=12k, vsense_factor = 11.0
+  // for R1=12k7 and R2=1k, vsense_factor = 13.7
   int raw_mv = analogReadMilliVolts(pin_vsense);
-  float vdc = ((float) raw_mv) * ((R1 + R2) / R2) * CALIBRATION_FACTOR;
+  float vdc = ((float) raw_mv) * vsense_factor;
   return (uint32_t) vdc;
 }
 

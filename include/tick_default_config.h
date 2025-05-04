@@ -52,6 +52,7 @@
 
 
 extern int pin_aux, pin_vsense, pin_reset;
+extern float vsense_factor;
 
 extern char log_name[CONFIG_VAR_LENGTH];
 

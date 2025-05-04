@@ -29,6 +29,7 @@ enum tick_mode current_tick_mode = tick_mode_disabled;
 
 int pin_aux = PIN_AUX_DEFAULT;
 int pin_vsense, pin_reset;
+float vsense_factor;
 
 int wiegand_pin_d0 = PIN_D0_DEFAULT;
 int wiegand_pin_d1 = PIN_D1_DEFAULT;
@@ -94,9 +95,10 @@ bool loadConfig(const char* filename) {
   ini.getValue("tick", "dos_id", buffer, bufferLen, DoS_id,
                CONFIG_PASSWORD_LENGTH);
 
-  ini.getValue("tick", "vsense", buffer, bufferLen, pin_vsense);
-  ini.getValue("tick", "reset", buffer, bufferLen, pin_reset);
-  ini.getValue("tick", "aux", buffer, bufferLen, pin_aux);
+  ini.getValue("tick", "pin_vsense", buffer, bufferLen, pin_vsense);
+  ini.getValue("tick", "vsense_factor", buffer, bufferLen, vsense_factor);
+  ini.getValue("tick", "pin_reset", buffer, bufferLen, pin_reset);
+  ini.getValue("tick", "pin_aux", buffer, bufferLen, pin_aux);
 
   ini.getValue("wiegand", "pin_d0", buffer, bufferLen, wiegand_pin_d0);
   ini.getValue("wiegand", "pin_d1", buffer, bufferLen, wiegand_pin_d1);

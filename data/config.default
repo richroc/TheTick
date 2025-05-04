@@ -1,8 +1,9 @@
 [tick]
 name=TheTick
 mode=NONE
-vsense=4
-reset=9
+pin_vsense=4
+vsense_factor=11.0
+pin_reset=9
 dos_id=7fffffff:31
 
 [wifi_hotspot]
