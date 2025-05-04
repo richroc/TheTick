@@ -146,7 +146,6 @@ void jamming_disable(void){
 void append_log(String facility, String text) {
   File file = SPIFFS.open(LOG_FILE, "a");
   if (file) {
-
     String log_line = String(getBootCount()) + "; " + String(millis()) + "; " + facility + "; " + text;
     file.println(log_line);
     DBG_OUTPUT_PORT.println("Appending to log: " + String(millis()) + " " + text);
@@ -292,7 +291,7 @@ void card_read_handler(String s){
 
   if(strcasecmp(card_id.c_str(), DoS_id) == 0) {
     jamming_enable();
-    append_log("dos", "enabled by control card " + card_id);
+    append_log("dos", String("enabled by control card ") + card_id);
   } else {
     append_log(modeToString(current_tick_mode), card_id);
   }
