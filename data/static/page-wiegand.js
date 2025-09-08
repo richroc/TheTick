@@ -32,7 +32,8 @@ function decodeCorporate1000(binaryData, bitLength) {
 }
 
 function decodeWiegand(rawData, bitLength) {
-  let binaryData = parseInt(rawData, 16).toString(2).padStart(bitLength, '0');
+  let binaryData = 
+    parseInt(rawData, 16).toString(2).padStart(bitLength, '0');
   let format, facilityCode, cardNumber, preamble, paddedData;
 
   switch (bitLength) {
@@ -43,7 +44,7 @@ function decodeWiegand(rawData, bitLength) {
       preamble = '000000100000000001';
       paddedData = parseInt((preamble + binaryData), 2).toString(16);
       break;
-    case 35: { // HID Corporate 1000 (common default layout. Configurable in C1000_LAYOUTS)
+    case 35: { // HID Corporate 1000 (35-bit. Configurable in C1000_LAYOUTS)
       const c = decodeCorporate1000(binaryData, 35);
       if (c) ({ format, facilityCode, cardNumber, paddedData } = c);
       else { format = "C1000-35"; facilityCode = "N/A"; cardNumber = "N/A"; paddedData = "N/A"; }
@@ -78,7 +79,17 @@ function decodeWiegand(rawData, bitLength) {
   return { format, facilityCode, cardNumber, paddedData };
 }
 
-// Helpers to calculate even/odd parity
+// Helpers to count bits and calculate even/odd parity
+function _bitCount(x) {
+  let v = (typeof x === "bigint") ? x : BigInt(x);
+  let count = 0n;
+  while (v) {
+    v &= v - 1n;
+    count += 1n;
+  }
+  return Number(count);
+}
+
 const _evenParityBit = s => {
     let count = 0;
     for (let i = 0; i < s.length; i++) {
@@ -100,49 +111,52 @@ function calculateWiegandParity(rawData, bitLength) {
   const dataLen = bitLength - (isTriple ? 3 : 2);
   const binaryData = parseInt(rawData, 16).toString(2).padStart(dataLen, '0');
 
-  let evenParity, oddParity, middleParity;
+  let p1, p2, p3;
 
   switch (bitLength) {
     case 26: {
       const first = binaryData.substring(0, 12);
       const last  = binaryData.substring(12);
-      evenParity  = _evenParityBit(first);
-      oddParity   = _oddParityBit(last);
+      p1  = _evenParityBit(first);
+      p2  = _oddParityBit(last);
       break;
     }
     case 37: {
       const first = binaryData.substring(0, 18);
       const last  = binaryData.substring(18);
-      evenParity  = _evenParityBit(first);
-      oddParity   = _oddParityBit(last);
+      p1  = _evenParityBit(first);
+      p2  = _oddParityBit(last);
       break;
     }
     case 46: {
-      evenParity  = _evenParityBit(binaryData);
-      oddParity   = _oddParityBit(binaryData);
+      p1  = _evenParityBit(binaryData);
+      p2  = _oddParityBit(binaryData);
       break;
     }
-    case 35: { // Corporate 1000 (35-bit, 3 parity bits)
-      const firstHalf = binaryData.substring(0, 16);
-      const lastHalf  = binaryData.substring(16);
-      evenParity   = _evenParityBit(firstHalf);
-      middleParity = _oddParityBit(binaryData);
-      oddParity    = _oddParityBit(lastHalf);
+    case 35: {
+      const cardData = BigInt('0x' + rawData);
+      p1 = (_bitCount(cardData & 0x1B6DB6DB6n) & 1) ^ 1;
+      const forP2 = (BigInt(p1) << 33n) | cardData;
+      p2 = (_bitCount(forP2 & 0x36DB6DB6Cn) & 1);
+      const pre = (BigInt(p1) << 34n) | (BigInt(p2) << 33n) | (cardData << 1n);
+      p3 = (_bitCount(pre) & 1) ^ 1;
       break;
     }
-    case 48: { // Corporate 1000 (48-bit, 3 parity bits)
-      const firstPart = binaryData.substring(0, 22);
-      const lastPart  = binaryData.substring(22);
-      evenParity   = _evenParityBit(firstPart);
-      middleParity = _oddParityBit(binaryData);
-      oddParity    = _oddParityBit(lastPart);
+    case 48: {
+      const cardData = BigInt('0x' + rawData);
+      const base = cardData << 1n;
+      p2 = _bitCount(base & 0x1B6DB6DB6DB6n) & 1;
+      let withP2 = base | (BigInt(p2) << 46n);
+      p3 = (_bitCount(withP2 & 0x36DB6DB6DB6Cn) & 1) ^ 1;
+      let withP2P3 = withP2 | BigInt(p3);
+      p1 = (_bitCount(withP2P3 & 0x7FFFFFFFFFFFn) & 1) ^ 1;
       break;
     }
     default:
       return { error: "Unsupported bit length" };
   }
 
-  return { evenParity, oddParity, middleParity };
+  return { p1, p2, p3 };
 }
 
 function encodeWiegand(format, facilityCode, cardNumber) {
@@ -179,16 +193,16 @@ function encodeWiegand(format, facilityCode, cardNumber) {
       return { error: "Unsupported format" };
   }
 
-  const { evenParity, oddParity, middleParity } =
+  const { p1, p2, p3 } =
     calculateWiegandParity(parseInt(binaryData, 2).toString(16), bitLength);
 
   let encodedData;
   if (bitLength === 35 || bitLength === 48) {
-    // 3 parity bits: [P1][P2] DATA [P3]
-    encodedData = `${evenParity}${middleParity}${binaryData}${oddParity}`;
+    // 3 parity bits: [p1][p2] DATA [p3]
+    encodedData = `${p1}${p2}${binaryData}${p3}`;
   } else {
-    // 2 parity bits: [P1] DATA [P2]
-    encodedData = `${evenParity}${binaryData}${oddParity}`;
+    // 2 parity bits: [p1] DATA [p2]
+    encodedData = `${p1}${binaryData}${p2}`;
   }
   return parseInt(encodedData, 2).toString(16).toUpperCase() + ":" + String(bitLength);
 }
